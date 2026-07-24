@@ -1,6 +1,6 @@
-import {AfterContentInit, Directive, ElementRef, inject, Input, input, Renderer2} from '@angular/core';
+import {type AfterContentInit, Directive, ElementRef, inject, Input, input, Renderer2} from '@angular/core';
 import {rand} from './utils';
-import {Direction, IOption, Particles} from './particles';
+import {type Direction, type IOption, Particles} from './particles';
 import type {EaseStringParamNames} from 'animejs';
 
 @Directive({

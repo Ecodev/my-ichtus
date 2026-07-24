@@ -1,9 +1,9 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, DOCUMENT, inject, Input} from '@angular/core';
 import {
-    BankingInfosForExportQuery,
-    BankingInfosQuery,
-    BankingInfosQueryVariables,
+    type BankingInfosForExportQuery,
+    type BankingInfosQuery,
+    type BankingInfosQueryVariables,
 } from '../../../shared/generated-types';
 import {copyToClipboard, ignoreErrors, NaturalIconDirective} from '@ecodev/natural';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';

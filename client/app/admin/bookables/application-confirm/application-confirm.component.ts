@@ -3,10 +3,10 @@ import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
-import {ApplicationConfirmData} from '../bookables/parent.component';
-import {UsersQueryVariables} from '../../../shared/generated-types';
+import {type ApplicationConfirmData} from '../bookables/parent.component';
+import {type UsersQueryVariables} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
-import {ExtractTallOne, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {type ExtractTallOne, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({

@@ -1,8 +1,8 @@
 import {inject} from '@angular/core';
-import {last, Observable} from 'rxjs';
+import {last, type Observable} from 'rxjs';
 import {UserService} from './user.service';
 import {ErrorService} from '@ecodev/natural';
-import {CurrentUserForProfileQuery} from '../../../shared/generated-types';
+import {type CurrentUserForProfileQuery} from '../../../shared/generated-types';
 
 export function resolveViewer(): Observable<CurrentUserForProfileQuery['viewer']> {
     const userService = inject(UserService);

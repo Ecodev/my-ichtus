@@ -1,29 +1,29 @@
 import {Injectable} from '@angular/core';
 import {
-    BookableQuery,
-    BookablesQuery,
-    BookingInput,
-    BookingPartialInput,
-    BookingQuery,
-    BookingQueryVariables,
+    type BookableQuery,
+    type BookablesQuery,
+    type BookingInput,
+    type BookingPartialInput,
+    type BookingQuery,
+    type BookingQueryVariables,
     BookingSortingField,
-    BookingsQuery,
-    BookingsQueryVariables,
+    type BookingsQuery,
+    type BookingsQueryVariables,
     BookingStatus,
     BookingType,
-    CreateBooking,
-    CreateBookingVariables,
-    DeleteBookings,
-    DeleteBookingsVariables,
+    type CreateBooking,
+    type CreateBookingVariables,
+    type DeleteBookings,
+    type DeleteBookingsVariables,
     JoinType,
     LogicalOperator,
     SortingOrder,
-    UpdateBooking,
-    UpdateBookingVariables,
-    UsageBookablesQuery,
+    type UpdateBooking,
+    type UpdateBookingVariables,
+    type UsageBookablesQuery,
 } from '../../../shared/generated-types';
-import {Observable} from 'rxjs';
-import {formatIsoDateTime, FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
+import {type Observable} from 'rxjs';
+import {formatIsoDateTime, type FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {bookingQuery, bookingsQuery, createBooking, deleteBookings, updateBooking} from './booking.queries';
 import {

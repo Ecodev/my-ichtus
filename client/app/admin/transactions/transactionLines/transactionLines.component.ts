@@ -1,7 +1,7 @@
-import {Component, inject, Input, input, OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit} from '@angular/core';
 import {
-    AvailableColumn,
-    Button,
+    type AvailableColumn,
+    type Button,
     NaturalAbstractList,
     NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
@@ -15,13 +15,13 @@ import {AsyncPipe, DatePipe} from '@angular/common';
 import {transactionLines} from '../../../shared/natural-search/natural-search-facets';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {
-    ExportTransactionLinesVariables,
-    MinimalAccount,
+    type ExportTransactionLinesVariables,
+    type MinimalAccount,
     type TransactionLineMeta,
 } from '../../../shared/generated-types';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {union} from 'es-toolkit';
-import {MatCheckbox, MatCheckboxChange} from '@angular/material/checkbox';
+import {MatCheckbox, type MatCheckboxChange} from '@angular/material/checkbox';
 import {RouterLink} from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';

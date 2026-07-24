@@ -6,15 +6,15 @@ import {
     updateBookableMetadataMutation,
 } from './bookable-metadata.queries';
 import {Validators} from '@angular/forms';
-import {FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
+import {type FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
-    BookableMetadataInput,
-    BookableMetadatasQuery,
-    BookableMetadatasQueryVariables,
-    DeleteBookableMetadatas,
-    DeleteBookableMetadatasVariables,
-    UpdateBookableMetadata,
-    UpdateBookableMetadataVariables,
+    type BookableMetadataInput,
+    type BookableMetadatasQuery,
+    type BookableMetadatasQueryVariables,
+    type DeleteBookableMetadatas,
+    type DeleteBookableMetadatasVariables,
+    type UpdateBookableMetadata,
+    type UpdateBookableMetadataVariables,
 } from '../../shared/generated-types';
 
 @Injectable({

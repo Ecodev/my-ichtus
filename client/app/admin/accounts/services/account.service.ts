@@ -11,31 +11,31 @@ import {
     updateAccount,
 } from './account.queries';
 import {
-    AccountInput,
-    AccountQuery,
-    AccountQueryVariables,
-    AccountsQuery,
-    AccountsQueryVariables,
+    type AccountInput,
+    type AccountQuery,
+    type AccountQueryVariables,
+    type AccountsQuery,
+    type AccountsQueryVariables,
     AccountType,
-    CloseAccounting,
-    CloseAccountingVariables,
-    CreateAccount,
-    CreateAccountVariables,
-    DeleteAccounts,
-    DeleteAccountsVariables,
-    ExportAccountingReport,
-    ExportAccountingReportVariables,
-    NextAccountCodeQuery,
-    NextAccountCodeQueryVariables,
-    TransferAccountBudgets,
-    UpdateAccount,
-    UpdateAccountVariables,
+    type CloseAccounting,
+    type CloseAccountingVariables,
+    type CreateAccount,
+    type CreateAccountVariables,
+    type DeleteAccounts,
+    type DeleteAccountsVariables,
+    type ExportAccountingReport,
+    type ExportAccountingReportVariables,
+    type NextAccountCodeQuery,
+    type NextAccountCodeQueryVariables,
+    type TransferAccountBudgets,
+    type UpdateAccount,
+    type UpdateAccountVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 import {
-    FormAsyncValidators,
+    type FormAsyncValidators,
     formatIsoDateTime,
-    FormValidators,
+    type FormValidators,
     ignoreErrors,
     integer,
     NaturalAbstractModelService,
@@ -44,7 +44,7 @@ import {
     unique,
     unsignedMoney,
 } from '@ecodev/natural';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {iban} from '../../../shared/validators';
 

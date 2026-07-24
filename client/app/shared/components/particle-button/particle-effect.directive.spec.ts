@@ -1,10 +1,10 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, DebugElement, InputSignal} from '@angular/core';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
+import {Component, type DebugElement, type InputSignal} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {ParticleEffectDirective} from './particle-effect.directive';
-import {ConditionalPick} from 'type-fest';
+import {type ConditionalPick} from 'type-fest';
 import type {EaseStringParamNames} from 'animejs';
-import {Direction} from './particles';
+import {type Direction} from './particles';
 
 @Component({
     imports: [ParticleEffectDirective],

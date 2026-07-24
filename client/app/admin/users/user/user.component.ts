@@ -1,5 +1,5 @@
 import {
-    IEnum,
+    type IEnum,
     ifValid,
     NaturalAbstractDetail,
     NaturalAvatarComponent,
@@ -12,23 +12,23 @@ import {
     NaturalRelationsComponent,
     NaturalSelectComponent,
     NaturalSelectEnumComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
     NaturalTableButtonComponent,
     NaturalTimeAgoPipe,
 } from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {
-    CurrentUserForProfileQuery,
+    type CurrentUserForProfileQuery,
     SortingOrder,
     TransactionLineSortingField,
-    TransactionLinesQueryVariables,
-    UserFilter,
-    UserFilterGroupCondition,
-    UserRole,
-    UsersQueryVariables,
+    type TransactionLinesQueryVariables,
+    type UserFilter,
+    type UserFilterGroupCondition,
+    type UserRole,
+    type UsersQueryVariables,
     UserStatus,
 } from '../../../shared/generated-types';
 import {LicenseService} from '../../licenses/services/license.service';

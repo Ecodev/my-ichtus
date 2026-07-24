@@ -1,9 +1,9 @@
 import {Apollo} from 'apollo-angular';
 import {inject, Injectable} from '@angular/core';
-import {ignoreErrors, Literal} from '@ecodev/natural';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {ignoreErrors, type Literal} from '@ecodev/natural';
+import {BehaviorSubject, type Observable} from 'rxjs';
 import {concatMap, debounceTime, distinctUntilChanged, map, shareReplay} from 'rxjs/operators';
-import {CurrentUserForProfileQuery, PermissionsQuery, UserRole, UserStatus} from '../generated-types';
+import {type CurrentUserForProfileQuery, type PermissionsQuery, UserRole, UserStatus} from '../generated-types';
 import {isEqual} from 'es-toolkit';
 import {permissionsQuery} from './permissions.queries';
 

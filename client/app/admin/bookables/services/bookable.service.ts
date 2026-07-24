@@ -1,35 +1,35 @@
 import {inject, Injectable} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
-    BookableFilterGroupCondition,
-    BookableInput,
-    BookableQuery,
-    BookableQueryVariables,
-    BookablesQuery,
-    BookablesQueryVariables,
+    type BookableFilterGroupCondition,
+    type BookableInput,
+    type BookableQuery,
+    type BookableQueryVariables,
+    type BookablesQuery,
+    type BookablesQueryVariables,
     BookableState,
     BookableStatus,
-    BookingsQuery,
-    BookingsQueryVariables,
+    type BookingsQuery,
+    type BookingsQueryVariables,
     BookingType,
-    CreateBookable,
-    CreateBookableVariables,
-    CurrentUserForProfileQuery,
-    DeleteBookables,
-    DeleteBookablesVariables,
+    type CreateBookable,
+    type CreateBookableVariables,
+    type CurrentUserForProfileQuery,
+    type DeleteBookables,
+    type DeleteBookablesVariables,
     LogicalOperator,
-    UpdateBookable,
-    UpdateBookableVariables,
-    UserQuery,
+    type UpdateBookable,
+    type UpdateBookableVariables,
+    type UserQuery,
 } from '../../../shared/generated-types';
-import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {Observable, of} from 'rxjs';
+import {type AbstractControl, FormGroup, type ValidationErrors, type ValidatorFn, Validators} from '@angular/forms';
+import {type Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BookingService} from '../../bookings/services/booking.service';
 import {intersectionBy} from 'es-toolkit';
 import {
-    FormAsyncValidators,
-    FormValidators,
+    type FormAsyncValidators,
+    type FormValidators,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     signedMoney,

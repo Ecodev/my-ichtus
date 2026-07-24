@@ -1,14 +1,14 @@
 import {DOCUMENT, inject, Injectable} from '@angular/core';
-import {Button, copyToClipboard, ignoreErrors, NaturalQueryVariablesManager} from '@ecodev/natural';
+import {type Button, copyToClipboard, ignoreErrors, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
-    BookingsWithOwnerContactQuery,
-    BookingsWithOwnerContactQueryVariables,
-    EmailAndPhoneUsersQuery,
-    EmailAndPhoneUsersQueryVariables,
-    UserContactData,
+    type BookingsWithOwnerContactQuery,
+    type BookingsWithOwnerContactQueryVariables,
+    type EmailAndPhoneUsersQuery,
+    type EmailAndPhoneUsersQueryVariables,
+    type UserContactData,
 } from '../../generated-types';
 import {Apollo} from 'apollo-angular';
-import {DocumentNode} from 'graphql';
+import {type DocumentNode} from 'graphql';
 import {emailAndPhoneUsersQuery} from '../../../admin/users/services/user.queries';
 import {bookingsWithOwnerContactQuery} from '../../../admin/bookings/services/booking.queries';
 

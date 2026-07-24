@@ -42,11 +42,11 @@ importers:
         specifier: ^21.0.2
         version: 21.0.2(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/material@21.2.14(5d3abea766a539fd0b311e1932b77b1d))(rxjs@7.8.2)
       '@ecodev/natural':
-        specifier: ^71.0.0
-        version: 71.0.0(d8fa97316196c06b59471547a9a6ef26)
+        specifier: ^71.0.1
+        version: 71.0.1(d8fa97316196c06b59471547a9a6ef26)
       '@ecodev/natural-editor':
-        specifier: ^71.0.0
-        version: 71.0.0(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@angular/material@21.2.14(5d3abea766a539fd0b311e1932b77b1d))(@ecodev/natural@71.0.0(d8fa97316196c06b59471547a9a6ef26))
+        specifier: ^71.0.1
+        version: 71.0.1(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@angular/material@21.2.14(5d3abea766a539fd0b311e1932b77b1d))(@ecodev/natural@71.0.1(d8fa97316196c06b59471547a9a6ef26))
       '@ecodev/natural-layout':
         specifier: ^2.0.2
         version: 2.0.5
@@ -561,8 +561,8 @@ packages:
       '@angular/material': ^21.1
       rxjs: ^7.8.2
 
-  '@ecodev/natural-editor@71.0.0':
-    resolution: {integrity: sha512-lvdEWp3SbOYgdyhJjBgTcZlsQo2QksF6Q9QmIW1l77qdHpQgtKrZNbltWuWZHVGCJiZ/RHbpHBAMoCZcxjeUnQ==}
+  '@ecodev/natural-editor@71.0.1':
+    resolution: {integrity: sha512-fMEFUyaW5gmBGGxGCJKX/KHxrW1/70vgLR6DsHignfaHo6108Fj6lSV8YGVAwBgUq8q+V+jgG4qShr1qvTVGAQ==}
     peerDependencies:
       '@angular/common': ^21.1.0
       '@angular/core': ^21.1.0
@@ -573,8 +573,8 @@ packages:
   '@ecodev/natural-layout@2.0.5':
     resolution: {integrity: sha512-PcMT248B/XVOTdYUcpPhCdL2BbxwoxZghATnPSew4TMVMlLgk65bfMi2uY05Ywb+hPdbjwIJWZ7zepFlr/vDKw==}
 
-  '@ecodev/natural@71.0.0':
-    resolution: {integrity: sha512-QW0u442b6KpV5YHOaprjdv4+JWB2oEROqphI1ewdNYYVe3gaw7jhflqhRvOofQTlWhDzuC+N+TCKJiatcDhm8w==}
+  '@ecodev/natural@71.0.1':
+    resolution: {integrity: sha512-g/QDjwNaUtdlf163EK6o7AgTFi2Q6n81n1Zofdc06l0NPOcXPv5iZ3ODyo7HKaO6rbRE7cI+c4WhrxFGKvFy8g==}
     hasBin: true
     peerDependencies:
       '@angular/cdk': ^21.1.0
@@ -4980,13 +4980,13 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  '@ecodev/natural-editor@71.0.0(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@angular/material@21.2.14(5d3abea766a539fd0b311e1932b77b1d))(@ecodev/natural@71.0.0(d8fa97316196c06b59471547a9a6ef26))':
+  '@ecodev/natural-editor@71.0.1(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/forms@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2))(@angular/material@21.2.14(5d3abea766a539fd0b311e1932b77b1d))(@ecodev/natural@71.0.1(d8fa97316196c06b59471547a9a6ef26))':
     dependencies:
       '@angular/common': 21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)
       '@angular/forms': 21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@angular/material': 21.2.14(5d3abea766a539fd0b311e1932b77b1d)
-      '@ecodev/natural': 71.0.0(d8fa97316196c06b59471547a9a6ef26)
+      '@ecodev/natural': 71.0.1(d8fa97316196c06b59471547a9a6ef26)
       prosemirror-commands: 1.7.1
       prosemirror-dropcursor: 1.8.3
       prosemirror-gapcursor: 1.4.1
@@ -5004,7 +5004,7 @@ snapshots:
 
   '@ecodev/natural-layout@2.0.5': {}
 
-  '@ecodev/natural@71.0.0(d8fa97316196c06b59471547a9a6ef26)':
+  '@ecodev/natural@71.0.1(d8fa97316196c06b59471547a9a6ef26)':
     dependencies:
       '@angular/cdk': 21.2.14(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@21.2.17(@angular/common@21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@angular/common': 21.2.17(@angular/core@21.2.17(@angular/compiler@21.2.17)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)

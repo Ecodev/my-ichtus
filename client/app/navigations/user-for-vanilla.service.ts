@@ -1,18 +1,18 @@
 import {inject, Injectable} from '@angular/core';
 import {ignoreErrors, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
-import {from, Observable, switchMap} from 'rxjs';
+import {from, type Observable, switchMap} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {
-    CurrentUserForProfileQuery,
+    type CurrentUserForProfileQuery,
     LogicalOperator,
-    Login,
-    LoginVariables,
+    type Login,
+    type LoginVariables,
     SortingOrder,
-    UserQuery,
-    UserQueryVariables,
+    type UserQuery,
+    type UserQueryVariables,
     UserSortingField,
-    UsersQuery,
-    UsersQueryVariables,
+    type UsersQuery,
+    type UsersQueryVariables,
     UserStatus,
 } from '../shared/generated-types';
 import {currentUserForProfileQuery, loginMutation, userQuery, usersQuery} from '../admin/users/services/user.queries';

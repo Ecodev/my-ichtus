@@ -1,13 +1,13 @@
 import {Apollo, onlyCompleteData} from 'apollo-angular';
 import {NetworkStatus} from '@apollo/client';
 import {inject, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {distinctUntilChanged, map, takeWhile} from 'rxjs/operators';
 import {
-    ConfigurationQuery,
-    ConfigurationQueryVariables,
-    UpdateConfiguration,
-    UpdateConfigurationVariables,
+    type ConfigurationQuery,
+    type ConfigurationQueryVariables,
+    type UpdateConfiguration,
+    type UpdateConfigurationVariables,
 } from '../../../shared/generated-types';
 import {configurationQuery, updateConfiguration} from './configuration.queries';
 

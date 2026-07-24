@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, inject, input, output} from '@angular/core';
-import {AccountType, MinimalAccount, type TransactionLineMeta} from '../../generated-types';
+import {AccountType, type MinimalAccount, type TransactionLineMeta} from '../../generated-types';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {RouterLink} from '@angular/router';
 import {MatTooltip} from '@angular/material/tooltip';

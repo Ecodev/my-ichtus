@@ -1,6 +1,6 @@
 import {
     NaturalErrorMessagePipe,
-    NaturalSearchSelections,
+    type NaturalSearchSelections,
     toGraphQLDoctrineFilter,
     toNavigationParameters,
 } from '@ecodev/natural';
@@ -8,11 +8,11 @@ import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {Apollo, onlyCompleteData} from 'apollo-angular';
-import {gql, ObservableQuery} from '@apollo/client';
+import {gql, type ObservableQuery} from '@apollo/client';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
-    DeleteUserConfirmationQuery,
-    DeleteUserConfirmationQueryVariables,
+    type DeleteUserConfirmationQuery,
+    type DeleteUserConfirmationQueryVariables,
     ExpenseClaimStatus,
 } from '../../../shared/generated-types';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -20,7 +20,7 @@ import {escapeRegExp} from 'es-toolkit';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {accounts, expenseClaims, users} from '../../../shared/natural-search/natural-search-facets';
-import {Params, RouterLink} from '@angular/router';
+import {type Params, RouterLink} from '@angular/router';
 import {WarningComponent} from '../../../shared/warning.component';
 import {CurrencyPipe} from '@angular/common';
 

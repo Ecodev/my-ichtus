@@ -1,5 +1,5 @@
 import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot} from '@angular/router';
+import {type ActivatedRouteSnapshot} from '@angular/router';
 import {last} from 'rxjs';
 import {ErrorService} from '@ecodev/natural';
 import {UserTagService} from './userTag.service';
