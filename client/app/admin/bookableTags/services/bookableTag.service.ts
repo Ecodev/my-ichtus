@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {type FormAsyncValidators, type FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {
     bookableTagQuery,
     bookableTagsQuery,
@@ -8,17 +8,17 @@ import {
     updateBookableTag,
 } from './bookableTag.queries';
 import {
-    BookableTagInput,
-    BookableTagQuery,
-    BookableTagQueryVariables,
-    BookableTagsQuery,
-    BookableTagsQueryVariables,
-    CreateBookableTag,
-    CreateBookableTagVariables,
-    DeleteBookableTags,
-    DeleteBookableTagsVariables,
-    UpdateBookableTag,
-    UpdateBookableTagVariables,
+    type BookableTagInput,
+    type BookableTagQuery,
+    type BookableTagQueryVariables,
+    type BookableTagsQuery,
+    type BookableTagsQueryVariables,
+    type CreateBookableTag,
+    type CreateBookableTagVariables,
+    type DeleteBookableTags,
+    type DeleteBookableTagsVariables,
+    type UpdateBookableTag,
+    type UpdateBookableTagVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 

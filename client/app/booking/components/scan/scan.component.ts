@@ -1,4 +1,4 @@
-import {Component, DestroyRef, ElementRef, inject, OnDestroy, OnInit, viewChild} from '@angular/core';
+import {Component, DestroyRef, type ElementRef, inject, type OnDestroy, type OnInit, viewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NaturalAlertService} from '@ecodev/natural';
 import {QrService} from '../../../shared/services/qr.service';

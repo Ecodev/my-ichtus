@@ -1,6 +1,6 @@
-import {Component, inject, OnInit, output} from '@angular/core';
+import {Component, inject, type OnInit, output} from '@angular/core';
 import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
-import {BookablesQuery, BookableStatus} from '../../../shared/generated-types';
+import {type BookablesQuery, BookableStatus} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ParentComponent} from './parent.component';

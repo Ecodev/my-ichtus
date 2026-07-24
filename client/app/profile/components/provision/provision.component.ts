@@ -3,7 +3,7 @@ import {Component, inject, viewChild} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {BankingInfosQueryVariables, CurrentUserForProfileQuery} from '../../../shared/generated-types';
+import {type BankingInfosQueryVariables, type CurrentUserForProfileQuery} from '../../../shared/generated-types';
 import {BvrComponent} from '../bvr/bvr.component';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';

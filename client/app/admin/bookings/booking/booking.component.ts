@@ -1,32 +1,32 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
-    BookablesQueryVariables,
+    type BookablesQueryVariables,
     BookableStatus,
-    BookableTagsQuery,
-    BookingPartialInput,
+    type BookableTagsQuery,
+    type BookingPartialInput,
     BookingStatus,
     BookingType,
-    CreateBooking,
+    type CreateBooking,
     SortingOrder,
-    UsageBookablesQuery,
+    type UsageBookablesQuery,
 } from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {
-    AvailableColumn,
-    ExtractVall,
+    type AvailableColumn,
+    type ExtractVall,
     formatIsoDateTime,
     NaturalAbstractDetail,
     NaturalDetailHeaderComponent,
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
-    NaturalSearchSelections,
+    type NaturalSearchSelections,
     NaturalSelectComponent,
     NaturalSelectEnumComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
 import {DatePipe} from '@angular/common';

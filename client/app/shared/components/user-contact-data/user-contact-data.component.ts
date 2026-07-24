@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {UserContactData} from '../../generated-types';
+import {type UserContactData} from '../../generated-types';
 import {NonBreakingSpacePipe} from '../../pipes/non-breaking-space.pipe';
 import {MatButton} from '@angular/material/button';
 

@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {UserService} from '../../admin/users/services/user.service';
 import {PermissionsService} from '../services/permissions.service';
 

@@ -6,8 +6,12 @@ import {
     NaturalIconDirective,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {Component, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {CurrentUserForProfileQuery, ExpenseClaimsQuery, ExpenseClaimType} from '../../../shared/generated-types';
+import {Component, inject, Input, type OnChanges, type OnInit, type SimpleChanges} from '@angular/core';
+import {
+    type CurrentUserForProfileQuery,
+    type ExpenseClaimsQuery,
+    ExpenseClaimType,
+} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {MatDialog} from '@angular/material/dialog';

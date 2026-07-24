@@ -1,14 +1,14 @@
-import {Component, inject, Input, input, OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit} from '@angular/core';
 import {
-    AccountingDocumentInput,
-    ExpenseClaimInput,
-    ExpenseClaimQuery,
-    TransactionInput,
-    TransactionQuery,
+    type AccountingDocumentInput,
+    type ExpenseClaimInput,
+    type ExpenseClaimQuery,
+    type TransactionInput,
+    type TransactionQuery,
 } from '../../shared/generated-types';
-import {forkJoin, Observable} from 'rxjs';
+import {forkJoin, type Observable} from 'rxjs';
 import {AccountingDocumentService} from './services/accounting-document.service';
-import {FileModel, NaturalFileComponent, NaturalIconDirective, WithId} from '@ecodev/natural';
+import {type FileModel, NaturalFileComponent, NaturalIconDirective, type WithId} from '@ecodev/natural';
 import {tap} from 'rxjs/operators';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';

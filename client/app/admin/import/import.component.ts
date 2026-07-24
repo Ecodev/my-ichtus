@@ -1,14 +1,14 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ImportCamt, ImportCamtVariables} from '../../shared/generated-types';
+import {type ImportCamt, type ImportCamtVariables} from '../../shared/generated-types';
 import {
     NaturalAlertService,
     NaturalFileSelectDirective,
     NaturalIconDirective,
-    NaturalSearchSelections,
-    NaturalSeoResolveData,
+    type NaturalSearchSelections,
+    type NaturalSeoResolveData,
     toUrl,
 } from '@ecodev/natural';
 import {MatIcon} from '@angular/material/icon';

@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {type AbstractControl, FormGroup, type ValidationErrors, type ValidatorFn, Validators} from '@angular/forms';
 import {
     formatIsoDateTime,
-    FormValidators,
+    type FormValidators,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
-    NaturalSearchSelections,
+    type NaturalSearchSelections,
     toNavigationParameters,
 } from '@ecodev/natural';
 import {
@@ -15,20 +15,20 @@ import {
     transactionLinesQuery,
 } from './transactionLine.queries';
 import {
-    ExpenseClaimQuery,
-    ExportTransactionLines,
-    ExportTransactionLinesVariables,
-    MinimalAccount,
-    ReconcileTransactionLine,
-    ReconcileTransactionLineVariables,
-    TransactionLineInput,
+    type ExpenseClaimQuery,
+    type ExportTransactionLines,
+    type ExportTransactionLinesVariables,
+    type MinimalAccount,
+    type ReconcileTransactionLine,
+    type ReconcileTransactionLineVariables,
+    type TransactionLineInput,
     type TransactionLineMeta,
-    TransactionLineQuery,
-    TransactionLineQueryVariables,
-    TransactionLinesQuery,
-    TransactionLinesQueryVariables,
+    type TransactionLineQuery,
+    type TransactionLineQueryVariables,
+    type TransactionLinesQuery,
+    type TransactionLinesQueryVariables,
 } from '../../../shared/generated-types';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {

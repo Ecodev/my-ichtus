@@ -5,7 +5,7 @@ import {
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
     NaturalRelationsComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';

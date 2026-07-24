@@ -1,6 +1,6 @@
 import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot} from '@angular/router';
-import {last, Observable, of} from 'rxjs';
+import {type ActivatedRouteSnapshot} from '@angular/router';
+import {last, type Observable, of} from 'rxjs';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {ErrorService} from '@ecodev/natural';
 

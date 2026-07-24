@@ -7,12 +7,12 @@ import {
     NaturalIconDirective,
     NaturalSelectComponent,
     NaturalSelectEnumComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
-import {CurrentUserForProfileQuery, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {type CurrentUserForProfileQuery, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
 import {TransactionLineService} from '../../transactions/services/transactionLine.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';

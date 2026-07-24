@@ -1,7 +1,7 @@
 import type {BookablesQuery, BookingsQuery, UsersQuery} from '../shared/generated-types';
-import {UserForVanillaService} from './user-for-vanilla.service';
-import {BookableForVanillaService} from './bookable-for-vanilla.service';
-import {BookingForVanillaService} from './booking-for-vanilla.service';
+import {type UserForVanillaService} from './user-for-vanilla.service';
+import {type BookableForVanillaService} from './bookable-for-vanilla.service';
+import {type BookingForVanillaService} from './booking-for-vanilla.service';
 
 // Type alias for convenience
 export type User = UsersQuery['users']['items'][0];

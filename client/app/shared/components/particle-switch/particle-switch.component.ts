@@ -1,5 +1,14 @@
-import {AfterViewInit, Component, contentChild, ElementRef, inject, Input, TemplateRef, viewChild} from '@angular/core';
-import {Direction} from '../particle-button/particles';
+import {
+    type AfterViewInit,
+    Component,
+    contentChild,
+    ElementRef,
+    inject,
+    Input,
+    TemplateRef,
+    viewChild,
+} from '@angular/core';
+import {type Direction} from '../particle-button/particles';
 import {NgTemplateOutlet} from '@angular/common';
 import {ParticleEffectDirective} from '../particle-button/particle-effect.directive';
 

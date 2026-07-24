@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {AvailabilityStatus} from '../../../admin/bookables/bookable';
+import {type AvailabilityStatus} from '../../../admin/bookables/bookable';
 
 @Component({
     selector: 'app-flag',

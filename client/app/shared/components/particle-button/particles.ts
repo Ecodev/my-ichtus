@@ -1,5 +1,5 @@
 import type {animate, Callback, EaseStringParamNames, JSAnimation} from 'animejs';
-import {Renderer2} from '@angular/core';
+import {type Renderer2} from '@angular/core';
 import {rand} from './utils';
 
 export type Direction = 'left' | 'top' | 'right';

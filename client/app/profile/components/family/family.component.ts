@@ -1,5 +1,10 @@
-import {ChangeDetectorRef, Component, inject, OnInit, viewChildren} from '@angular/core';
-import {CurrentUserForProfileQuery, UpdateUser, UsersQuery, UsersQueryVariables} from '../../../shared/generated-types';
+import {ChangeDetectorRef, Component, inject, type OnInit, viewChildren} from '@angular/core';
+import {
+    type CurrentUserForProfileQuery,
+    type UpdateUser,
+    type UsersQuery,
+    type UsersQueryVariables,
+} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';

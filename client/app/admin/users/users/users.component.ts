@@ -1,28 +1,28 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {
-    AvailableColumn,
-    Button,
+    type AvailableColumn,
+    type Button,
     NaturalAbstractList,
     NaturalAvatarComponent,
     NaturalColumnsPickerComponent,
     NaturalEnumPipe,
     NaturalFixedButtonComponent,
     NaturalSearchComponent,
-    NaturalSearchSelections,
+    type NaturalSearchSelections,
     NaturalTableButtonComponent,
     TypedMatCellDef,
 } from '@ecodev/natural';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {
-    BankingInfosQueryVariables,
-    EmailAndPhoneUsersQueryVariables,
-    UsersQuery,
+    type BankingInfosQueryVariables,
+    type EmailAndPhoneUsersQueryVariables,
+    type UsersQuery,
     UserStatus,
 } from '../../../shared/generated-types';
 import {users} from '../../../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UserService} from '../services/user.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, type MatDialogConfig} from '@angular/material/dialog';
 import {ProvisionComponent} from '../../../profile/components/provision/provision.component';
 import {RouterLink} from '@angular/router';
 import {finalize} from 'rxjs/operators';

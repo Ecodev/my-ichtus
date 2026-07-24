@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {LogsQuery, LogsQueryVariables} from '../../../shared/generated-types';
+import {type LogsQuery, type LogsQueryVariables} from '../../../shared/generated-types';
 import {logsQuery} from './log.queries';
-import {Observable, of} from 'rxjs';
+import {type Observable, of} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
