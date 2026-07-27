@@ -117,7 +117,7 @@ class Accounting
 
         $this->generateClosingEntries($allAccountsToClose, $closingTransaction, $closingAccount, $endDate);
 
-        $profitOrLoss = $closingAccount->getBalance();
+        $profitOrLoss = $closingAccount->getLeafBalance();
         if ($profitOrLoss->isZero()) {
             if (count($closingTransaction->getTransactionLines())) {
                 if (is_array($output)) {
@@ -374,7 +374,7 @@ Résultat       : ' . $this->formatMoney($equities) . '
                 continue;
             }
 
-            $balance = $childAccount->getBalance();
+            $balance = $childAccount->getLeafBalance();
 
             if (!$balance->isZero()) {
                 $now = Chronos::now();

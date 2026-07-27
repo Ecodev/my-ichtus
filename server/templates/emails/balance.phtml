@@ -4,14 +4,15 @@ use Ecodev\Felix\Format;
 
 $urlTransaction = $this->serverUrl . '/profile/history';
 $urlServices = $this->serverUrl . '/profile/services';
+$balance = $this->user->getAccount()->getLeafBalance();
 ?>
 <p>
     Ton solde actuel est de
-    <span style="text-align: right; font-weight: bold; color: <?php echo $this->user->getAccount()->getBalance()->isNegative() ? '#f44336' : '#008600' ?>">
-        <?php echo $this->escapeHtml(Format::money($this->user->getAccount()->getBalance())) ?> CHF</span>.
+    <span style="text-align: right; font-weight: bold; color: <?php echo $balance->isNegative() ? '#f44336' : '#008600' ?>">
+        <?php echo $this->escapeHtml(Format::money($balance)) ?> CHF</span>.
 </p>
 
-<?php if ($this->user->getAccount()->getBalance()->isNegative()) { ?>
+<?php if ($balance->isNegative()) { ?>
     <p>Afin de sortir du rouge et être à nouveau au sommet de la vague pour surfer l'esprit libre, il te suffit
        de <a href="<?php echo $urlTransaction; ?>">faire un versement</a> et/ou ajuster <a
                 href="<?php echo $urlServices; ?>">les services utilisés</a>.</p>

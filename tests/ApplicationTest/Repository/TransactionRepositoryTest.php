@@ -67,8 +67,8 @@ class TransactionRepositoryTest extends AbstractRepository
 
         $this->repository->hydrateLinesAndFlush($transaction, $lines);
 
-        self::assertTrue(Money::CHF(500)->equals($credit->getBalance()), 'credit account balance must have been refreshed from DB');
-        self::assertTrue(Money::CHF(819250)->equals($debit->getBalance()), 'debit account balance must have been refreshed from DB');
+        self::assertTrue(Money::CHF(500)->equals($credit->getLeafBalance()), 'credit account balance must have been refreshed from DB');
+        self::assertTrue(Money::CHF(819250)->equals($debit->getLeafBalance()), 'debit account balance must have been refreshed from DB');
         self::assertFalse($transaction->getTransactionLines()->contains($line), 'original line must have been deleted');
         self::assertCount(1, $transaction->getTransactionLines(), 'one line');
 

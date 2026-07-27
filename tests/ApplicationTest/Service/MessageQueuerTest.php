@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApplicationTest\Service;
 
 use Application\DBAL\Types\MessageTypeType;
+use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Message;
@@ -109,6 +110,7 @@ class MessageQueuerTest extends TestCase
         $user->setEmail('john.doe@example.com');
 
         $account = new Account();
+        $account->setType(AccountType::Liability);
         $account->setBalance(Money::CHF($variant === 'positive' ? 2500 : -4500));
         $account->setOwner($user);
 

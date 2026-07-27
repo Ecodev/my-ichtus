@@ -102,7 +102,7 @@
                             </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="totalBalance">
+                        <ng-container matColumnDef="balance">
                             <th
                                 *matHeaderCellDef
                                 mat-header-cell
@@ -113,11 +113,11 @@
                                 Solde
                             </th>
                             <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
-                                <app-money [amount]="element.item.totalBalance" [showCurrency]="false" />
+                                <app-money [amount]="element.item.balance" [showCurrency]="false" />
                             </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="totalBalanceFormer">
+                        <ng-container matColumnDef="balanceFormer">
                             <th
                                 *matHeaderCellDef
                                 mat-header-cell
@@ -128,7 +128,7 @@
                                 Solde précédant
                             </th>
                             <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
-                                <app-money [amount]="element.item.totalBalanceFormer" [showCurrency]="false" />
+                                <app-money [amount]="element.item.balanceFormer" [showCurrency]="false" />
                             </td>
                         </ng-container>
 

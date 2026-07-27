@@ -17,12 +17,12 @@ export const accountMetaFragment = gql`
         name
         fullName
         iban
-        totalBalance
+        balance
         budgetAllowed
         budgetLasYear
         budgetNextYear
         budgetBalance
-        totalBalanceFormer
+        balanceFormer
         type
         owner {
             id

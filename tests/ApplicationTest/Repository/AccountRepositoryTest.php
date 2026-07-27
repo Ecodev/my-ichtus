@@ -10,6 +10,8 @@ use Application\Model\User;
 use Application\Repository\AccountRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosDate;
+use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Money\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -111,17 +113,13 @@ class AccountRepositoryTest extends AbstractRepository
 
         $groupAccount = $this->repository->getOneById(10001); // 2. Passifs
         self::assertSame(AccountType::Group, $groupAccount->getType(), 'is a group');
-        self::assertTrue(Money::CHF(0)->equals($groupAccount->getBalance()), 'balance for group account is always 0');
-        $groupTotalBalance = $groupAccount->getTotalBalance();
-        self::assertNotNull($groupTotalBalance);
-        self::assertTrue(Money::CHF(3506000)->equals($groupTotalBalance), 'total balance for group account should have been computed via DB triggers');
+        $groupBalance = $groupAccount->getBalance();
+        self::assertNotNull($groupBalance);
+        self::assertTrue(Money::CHF(3506000)->equals($groupBalance), 'balance for group account should have been computed via DB triggers');
 
         $otherAccount = $this->repository->getOneById(10025); // 10201. PostFinance
         self::assertNotSame(AccountType::Group, $otherAccount->getType(), 'not a group');
-        self::assertTrue(Money::CHF(818750)->equals($otherAccount->getBalance()), 'balance for non-group should have been computed via DB triggers');
-        $otherTotalBalance = $otherAccount->getTotalBalance();
-        self::assertNotNull($otherTotalBalance);
-        self::assertTrue($otherAccount->getBalance()->equals($otherTotalBalance), 'total balance for non-group should be equal to balance');
+        self::assertTrue(Money::CHF(818750)->equals($otherAccount->getLeafBalance()), 'balance for non-group should have been computed via DB triggers');
     }
 
     // ex-future = transaction that past from future to past.
@@ -134,7 +132,7 @@ class AccountRepositoryTest extends AbstractRepository
 
         // 8500: Charges extraordinaires, exceptionnelles ou hors période (would be 5000 if the future transaction were wrongly included)
         $this->assertAccountBalance(10102, 0, 'balance must exclude the transaction dated in the future');
-        $this->assertAccountTotalBalance(10007, 0, 'group total must exclude the transaction dated in the future'); // 8: Résultats extraordinaires et hors exploitation
+        $this->assertAccountBalance(10007, 0, 'group total must exclude the transaction dated in the future'); // 8: Résultats extraordinaires et hors exploitation
 
         // Easiest way to grant update_account_balance excludes the future is to recompute them all (acceptable on fixtures).
         $this->repository->updateAccountsBalance();
@@ -146,7 +144,7 @@ class AccountRepositoryTest extends AbstractRepository
 
         $this->repository->updateAccountsBalance();
         $this->assertAccountBalance(10102, 5000, 'once dated in the past, the transaction must be added to the balance on next recompute');
-        $this->assertAccountTotalBalance(10007, 5000, 'group total must include it too');
+        $this->assertAccountBalance(10007, 5000, 'group total must include it too');
     }
 
     public function testTriggerUpdatesExFutureTransactionBalance(): void
@@ -178,33 +176,33 @@ class AccountRepositoryTest extends AbstractRepository
 
         // Trigger recompute new total on the ex future task
         $this->assertAccountBalance(10102, 5000 + 2000, 'balance must include both the newly inserted line and the stale one that just turned past');
-        $this->assertAccountTotalBalance(10007, 0 + 5000 + 2000, 'group total must reflect both lines too'); // 8: Résultats extraordinaires et hors exploitation
+        $this->assertAccountBalance(10007, 0 + 5000 + 2000, 'group total must reflect both lines too'); // 8: Résultats extraordinaires et hors exploitation
     }
 
     public function testGroupTotalBalanceIsNullWhenMixingIncompatibleAccountTypes(): void
     {
         $this->setCurrentUser('administrator');
 
-        $this->assertAccountTotalBalance(10011, 5000, 'group of liabilities only should have a total');
-        $this->assertAccountTotalBalance(10001, 3506000, 'group of groups of liabilities only should have a total');
-        $this->assertAccountTotalBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
+        $this->assertAccountBalance(10011, 5000, 'group of liabilities only should have a total');
+        $this->assertAccountBalance(10001, 3506000, 'group of groups of liabilities only should have a total');
+        $this->assertAccountBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
 
         // Move an asset account inside a group of liabilities, totals are recomputed on flush via Account::updateBalance()
         $assetAccount = $this->repository->getOneById(10026); // 1020. Banque > Raiffeisen (courant)
         $assetAccount->setParent($this->repository->getOneById(10011)); // 2030. Acomptes de clients
         $this->getEntityManager()->flush();
 
-        $this->assertAccountTotalBalance(10011, null, 'group mixing asset and liability cannot have a total');
-        $this->assertAccountTotalBalance(10001, null, 'ancestor group is affected by a mix deeper in its hierarchy');
-        $this->assertAccountTotalBalance(10009, 818750, 'group that lost its asset child should still have a total');
-        $this->assertAccountTotalBalance(10000, 1818750, 'ancestor of group that lost its asset child should still have a total');
-        $this->assertAccountTotalBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
+        $this->assertAccountBalance(10011, null, 'group mixing asset and liability cannot have a total');
+        $this->assertAccountBalance(10001, null, 'ancestor group is affected by a mix deeper in its hierarchy');
+        $this->assertAccountBalance(10009, 818750, 'group that lost its asset child should still have a total');
+        $this->assertAccountBalance(10000, 1818750, 'ancestor of group that lost its asset child should still have a total');
+        $this->assertAccountBalance(10007, 0, 'group mixing only revenue and expense should still have a total');
 
         // The missing total must survive Doctrine hydration up to the PHP model. Clear the
         // entity manager first, because totals were recomputed in DB behind Doctrine's back.
         $this->getEntityManager()->clear();
-        self::assertNull($this->repository->getOneById(10011)->getTotalBalance(), 'model should expose null for group mixing asset and liability');
-        self::assertNull($this->repository->getOneById(10001)->getTotalBalance(), 'model should expose null for ancestor group');
+        self::assertNull($this->repository->getOneById(10011)->getBalance(), 'model should expose null for group mixing asset and liability');
+        self::assertNull($this->repository->getOneById(10001)->getBalance(), 'model should expose null for ancestor group');
 
         // Move the asset account back to its original place. The current user must be set
         // again because it was detached from the entity manager when we cleared it.
@@ -213,12 +211,12 @@ class AccountRepositoryTest extends AbstractRepository
         $assetAccount->setParent($this->repository->getOneById(10024)); // 1020. Banque
         $this->getEntityManager()->flush();
 
-        $this->assertAccountTotalBalance(10011, 5000, 'total should be restored when the mix is gone');
-        $this->assertAccountTotalBalance(10001, 3506000, 'total should be restored when the mix is gone');
-        $this->assertAccountTotalBalance(10000, 3518750, 'total should be restored when the mix is gone');
+        $this->assertAccountBalance(10011, 5000, 'total should be restored when the mix is gone');
+        $this->assertAccountBalance(10001, 3506000, 'total should be restored when the mix is gone');
+        $this->assertAccountBalance(10000, 3518750, 'total should be restored when the mix is gone');
 
         $this->getEntityManager()->clear();
-        $restoredTotalBalance = $this->repository->getOneById(10011)->getTotalBalance();
+        $restoredTotalBalance = $this->repository->getOneById(10011)->getBalance();
         self::assertNotNull($restoredTotalBalance, 'model should expose the total again when the mix is gone');
         self::assertTrue(Money::CHF(5000)->equals($restoredTotalBalance), 'model should expose the restored total');
     }
@@ -227,23 +225,23 @@ class AccountRepositoryTest extends AbstractRepository
     {
         $this->setCurrentUser('administrator');
 
-        $this->assertAccountTotalBalance(10002, 24000, 'group of revenues only should have a total');
-        $this->assertAccountTotalBalance(10005, 11250, 'group of expenses only should have a total');
+        $this->assertAccountBalance(10002, 24000, 'group of revenues only should have a total');
+        $this->assertAccountBalance(10005, 11250, 'group of expenses only should have a total');
 
         // Move an expense account inside a group of revenues, totals are recomputed on flush via Account::updateBalance()
         $expenseAccount = $this->repository->getOneById(10022); // 6600. Publicité
         $expenseAccount->setParent($this->repository->getOneById(10002)); // 3. Produits
         $this->getEntityManager()->flush();
 
-        $this->assertAccountTotalBalance(10002, 34000, 'group mixing only revenue and expense should still have a total');
-        $this->assertAccountTotalBalance(10005, 1250, 'group that lost its expense child should still have a total');
+        $this->assertAccountBalance(10002, 34000, 'group mixing only revenue and expense should still have a total');
+        $this->assertAccountBalance(10005, 1250, 'group that lost its expense child should still have a total');
 
         // Move the expense account back to its original place
         $expenseAccount->setParent($this->repository->getOneById(10005)); // 6. Autres charges exploitation, amortissement, ajustement de valeur
         $this->getEntityManager()->flush();
 
-        $this->assertAccountTotalBalance(10002, 24000, 'total should be restored when the mix is gone');
-        $this->assertAccountTotalBalance(10005, 11250, 'total should be restored when the mix is gone');
+        $this->assertAccountBalance(10002, 24000, 'total should be restored when the mix is gone');
+        $this->assertAccountBalance(10005, 11250, 'total should be restored when the mix is gone');
     }
 
     public function testChangingAccountTypeAutomaticallyRecomputesBalance(): void
@@ -258,6 +256,84 @@ class AccountRepositoryTest extends AbstractRepository
         $this->getEntityManager()->flush();
 
         $this->assertAccountBalance(10026, -1700000, 'balance must be recomputed for the new type as soon as the account is flushed, with no explicit recompute call');
+    }
+
+    /**
+     * Three ways to know a balance must agree: `account.balance` cached by
+     * `update_account_balance` in triggers.sql, `AccountRepository::getAccountsForReport()` and
+     * `Account::getBalanceAtDate()`, the last two summing transaction lines with their own query
+     * when asked for a past date. This is our only check that cached balances, leaves and groups
+     * alike, match the accounting entries they are derived from.
+     */
+    public function testBalanceMatchesAccountingEntries(): void
+    {
+        $connection = $this->getEntityManager()->getConnection();
+
+        // Recompute everything, so that the cache covers every entry that is not in the future
+        $this->repository->updateAccountsBalance();
+
+        // A date in the past, so that the report recomputes instead of reading the cache. Fixtures
+        // have no entry more recent than yesterday, so both cover exactly the same entries.
+        $date = ChronosDate::yesterday();
+
+        // The report hides deep and zero balance accounts for readability, which is none of our
+        // business here, so configure it to be exhaustive
+        $accountingConfig = [
+            'customerDepositsAccountCode' => 2030,
+            'report' => [
+                'showAccountsWithZeroBalance' => true,
+                'maxAccountDepth' => 100,
+            ],
+        ];
+
+        // Members accounts are deliberately not detailed by the report, only their parent is
+        $reportable = $connection->fetchAllKeyValue(
+            'SELECT account.id, account.balance FROM account
+                LEFT JOIN account parent ON parent.id = account.parent_id
+                WHERE parent.code != :customerDepositsAccountCode OR account.parent_id IS NULL',
+            ['customerDepositsAccountCode' => $accountingConfig['customerDepositsAccountCode']],
+        );
+
+        // The report splits a group into one row per account type, so rows must be summed back together
+        $reported = [];
+        foreach ($this->repository->getAccountsForReport($accountingConfig, $date) as $account) {
+            $id = (int) $account['id'];
+            $reported[$id] = ($reported[$id] ?? 0) + (int) $account['balance'];
+        }
+
+        foreach ($reportable as $id => $balance) {
+            // An account with no entry at all is not reported, but its balance is indeed zero
+            self::assertSame((int) $balance, $reported[(int) $id] ?? 0, 'cached balance of account #' . $id . ' must match its accounting entries');
+        }
+
+        // `Account::getBalanceAtDate()` sums the same entries with yet another query, and has no
+        // reason to skip members accounts
+        $balances = $connection->fetchAllKeyValue('SELECT id, balance FROM account');
+
+        foreach ($balances as $id => $balance) {
+            $account = $this->repository->getOneById((int) $id);
+            self::assertTrue(Money::CHF((int) $balance)->equals($account->getBalanceAtDate($date)), 'balance at date of account #' . $id . ' must match its cached balance');
+        }
+    }
+
+    public function testGroupAccountCanHaveNullBalance(): void
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('account', ['balance' => null], ['id' => 10011]); // Acomptes de clients
+
+        $this->assertAccountBalance(10011, null, 'a group account may have a null balance, because it may mix incompatible account types');
+    }
+
+    /**
+     * `Account::getLeafBalance()` relies on that invariant, so it must stay enforced by
+     * the `leaf_balance_not_null` constraint in DB, whatever future migrations do.
+     */
+    public function testNonGroupAccountCannotHaveNullBalance(): void
+    {
+        $this->expectException(DriverException::class);
+        $this->expectExceptionMessageMatches('/leaf_balance_not_null/');
+
+        $this->getEntityManager()->getConnection()->update('account', ['balance' => null], ['id' => 10025]); // Poste
     }
 
     public function testGetOneById(): void

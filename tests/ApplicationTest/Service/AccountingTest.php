@@ -71,10 +71,10 @@ class AccountingTest extends TestCase
         $childAccount = $accountRepository->getOneById(10108); // Conj Oint, owned by user 1007, partner of family owner 1002
         $ownerAccount = $accountRepository->getOneById(10096); // Active Member, owned by family owner 1002
 
-        self::assertTrue(Money::CHF(-5000)->equals($childAccount->getBalance()), 'fixture should give the family member account a debt of 50 CHF');
+        self::assertTrue(Money::CHF(-5000)->equals($childAccount->getLeafBalance()), 'fixture should give the family member account a debt of 50 CHF');
         self::assertNotNull($childAccount->getOwner());
 
-        $ownerBalanceBefore = $ownerAccount->getBalance();
+        $ownerBalanceBefore = $ownerAccount->getLeafBalance();
 
         ob_start();
         $hasError = $this->accounting->check();
@@ -86,9 +86,9 @@ class AccountingTest extends TestCase
         _em()->refresh($childAccount);
         _em()->refresh($ownerAccount);
 
-        self::assertTrue(Money::CHF(0)->equals($childAccount->getBalance()), 'the family member account balance should have been fully transferred');
+        self::assertTrue(Money::CHF(0)->equals($childAccount->getLeafBalance()), 'the family member account balance should have been fully transferred');
         self::assertNull($childAccount->getOwner(), 'the family member account should be detached once regularized');
-        self::assertTrue($ownerBalanceBefore->subtract(Money::CHF(5000))->equals($ownerAccount->getBalance()), 'the owner balance should be reduced by the negative balance that was absorbed');
+        self::assertTrue($ownerBalanceBefore->subtract(Money::CHF(5000))->equals($ownerAccount->getLeafBalance()), 'the owner balance should be reduced by the negative balance that was absorbed');
 
         /** @var User $childUser */
         $childUser = _em()->getRepository(User::class)->getOneById(1007);

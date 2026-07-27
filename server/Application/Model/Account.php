@@ -29,8 +29,8 @@ class Account extends AbstractModel implements HasParentInterface
     use HasIban;
     use HasName;
 
-    #[ORM\Column(type: 'Money', options: ['default' => 0])]
-    private Money $balance;
+    #[ORM\Column(type: 'Money', nullable: true, options: ['default' => 0])]
+    private ?Money $balance;
 
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -61,9 +61,6 @@ class Account extends AbstractModel implements HasParentInterface
     #[ORM\OneToMany(targetEntity: TransactionLine::class, mappedBy: 'credit')]
     private Collection $creditTransactionLines;
 
-    #[ORM\Column(type: 'Money', nullable: true, options: ['default' => 0])]
-    private ?Money $totalBalance;
-
     #[ORM\Column(type: 'Money', nullable: true)]
     private ?Money $budgetAllowed = null;
 
@@ -73,17 +70,16 @@ class Account extends AbstractModel implements HasParentInterface
     #[ORM\Column(type: 'Money', nullable: true)]
     private ?Money $budgetNextYear = null;
 
-    #[ORM\Column(type: 'Money', nullable: true, columnDefinition: 'INT AS (IF(type = \'asset\', budget_allowed - (total_balance - total_balance_former), budget_allowed - total_balance)) PERSISTENT')]
+    #[ORM\Column(type: 'Money', nullable: true, columnDefinition: 'INT AS (IF(type = \'asset\', budget_allowed - (balance - balance_former), budget_allowed - balance)) PERSISTENT')]
     private ?Money $budgetBalance = null;
 
     #[ORM\Column(type: 'Money', options: ['default' => 0])]
-    private Money $totalBalanceFormer;
+    private Money $balanceFormer;
 
     public function __construct()
     {
         $this->balance = Money::CHF(0);
-        $this->totalBalance = Money::CHF(0);
-        $this->totalBalanceFormer = Money::CHF(0);
+        $this->balanceFormer = Money::CHF(0);
         $this->children = new ArrayCollection();
         $this->debitTransactionLines = new ArrayCollection();
         $this->creditTransactionLines = new ArrayCollection();
@@ -161,14 +157,14 @@ class Account extends AbstractModel implements HasParentInterface
         return $this->budgetBalance;
     }
 
-    public function getTotalBalanceFormer(): Money
+    public function getBalanceFormer(): Money
     {
-        return $this->totalBalanceFormer;
+        return $this->balanceFormer;
     }
 
-    public function setTotalBalanceFormer(Money $totalBalanceFormer): void
+    public function setBalanceFormer(Money $balanceFormer): void
     {
-        $this->totalBalanceFormer = $totalBalanceFormer;
+        $this->balanceFormer = $balanceFormer;
     }
 
     /**
@@ -189,20 +185,28 @@ class Account extends AbstractModel implements HasParentInterface
         $this->balance = $balance;
     }
 
-    public function getBalance(): Money
+    /**
+     * Balance of the account itself, or its recursive total if this account is a group.
+     *
+     * It is null when the account is a group that mixes incompatible types of accounts
+     * anywhere in its descendants. Only revenue and expense can be mixed together.
+     */
+    public function getBalance(): ?Money
     {
         return $this->balance;
     }
 
     /**
-     * Total balance, recursively including all child account if this account is a group.
-     *
-     * It is null when the group mixes incompatible types of accounts anywhere in its
-     * descendants. Only revenue and expense can be mixed together.
+     * Same as `getBalance()`, but guaranteed non-null.
+     * Don't use on groups !
      */
-    public function getTotalBalance(): ?Money
+    #[API\Exclude]
+    public function getLeafBalance(): Money
     {
-        return $this->totalBalance;
+        assert($this->getType() !== AccountType::Group);
+        assert($this->balance !== null);
+
+        return $this->balance;
     }
 
     /**
@@ -219,10 +223,10 @@ class Account extends AbstractModel implements HasParentInterface
         $isGroup = $this->getType() === AccountType::Group;
         if ($date->equals($today)) {
             if (!$isGroup) {
-                return $this->getBalance();
+                return $this->getLeafBalance();
             }
 
-            $totalBalance = $this->getTotalBalance();
+            $totalBalance = $this->getBalance();
             // If the group mixes incompatible account types, fall back on summing its children
             if ($totalBalance !== null) {
                 return $totalBalance;

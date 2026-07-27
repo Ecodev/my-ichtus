@@ -57,10 +57,7 @@ this_procedure:BEGIN
     END LOOP;
     CLOSE cur;
 
-    -- Non group accounts always have a total balance equals to balance
-    UPDATE account SET total_balance = balance WHERE type != 'group';
-
-    -- Update total_balance for all group accounts by summing their children recursively.
+    -- Update balance for all group accounts by summing their children recursively.
     -- If a group mixes incompatible account types anywhere in its descendants, its total
     -- is meaningless, so it is set to NULL. Only revenue and expense can be mixed together.
     UPDATE account INNER JOIN (
@@ -80,12 +77,12 @@ this_procedure:BEGIN
                    COUNT(DISTINCT IF(type = 'group', NULL, type)) > 1
                        AND MAX(type NOT IN ('group', 'revenue', 'expense')),
                    NULL,
-                   SUM(balance)
-               ) AS total_balance
+                   SUM(IF(type = 'group', 0, balance))
+               ) AS total
         FROM parent
         GROUP BY group_account_id
     ) AS computed ON account.id = computed.group_account_id
-    SET account.total_balance = computed.total_balance
+    SET account.balance = computed.total
     WHERE type = 'group';
 
 END ~~

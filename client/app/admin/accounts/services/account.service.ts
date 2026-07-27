@@ -77,7 +77,7 @@ export class AccountService extends NaturalAbstractModelService<
             budgetAllowed: null,
             budgetLasYear: null,
             budgetNextYear: null,
-            totalBalanceFormer: '0',
+            balanceFormer: '0',
         };
     }
 
@@ -86,7 +86,7 @@ export class AccountService extends NaturalAbstractModelService<
             name: [Validators.required, Validators.maxLength(100)],
             code: [Validators.required, Validators.min(0), integer],
             iban: [iban],
-            totalBalanceFormer: [Validators.required, signedMoney],
+            balanceFormer: [Validators.required, signedMoney],
             budgetAllowed: [unsignedMoney],
             budgetLasYear: [unsignedMoney],
             budgetNextYear: [unsignedMoney],
