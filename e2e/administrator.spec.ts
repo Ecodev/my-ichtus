@@ -23,7 +23,7 @@ test.describe('accounting', () => {
             await page.click(`//a[contains(., 'Paiement voilier par Raiffeisen')]`);
             await page.click(`//eco-fab-speed-dial-trigger`);
             await page.click(`[mattooltip='Dupliquer ...']`);
-            await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
+            await expect(page.locator('natural-detail-header')).toHaveText(/Nouvelle transaction/);
             await expect(page.locator(formControlNameXpath('name', 1))).toHaveValue("Achat d'un nouveau voilier");
             await expect(page.locator(formControlNameXpath('name', 2))).toHaveValue('Paiement voilier par Raiffeisen');
             await expect(page.locator(formControlNameXpath('name', 3))).toHaveValue('Acquisition voilier NE123456');
@@ -41,7 +41,7 @@ test.describe('accounting', () => {
             expect(await app.getSnackBar()).toMatch(/Créé/);
 
             // Wait to be exceptionally redirected to empty creation page
-            await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
+            await expect(page.locator('natural-detail-header')).toHaveText(/Nouvelle transaction/);
 
             // Go back to list and check duplicated content actually exist
             await page.click(`//natural-detail-header//a[contains(., 'Transaction')]`);
@@ -72,7 +72,7 @@ test.describe('accounting', () => {
             await page.click(menu('Annonces FIN'));
             await page.click(`//a[contains(., 'achats Jumbo')]`);
             await page.click(`//a[contains(., 'Créditer le solde')]`);
-            await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
+            await expect(page.locator('natural-detail-header')).toHaveText(/Nouvelle transaction/);
             await expect(page.locator(formControlNameXpath('name', 1))).toHaveValue(
                 'Traitement de la dépense "achats Jumbo"',
             );
@@ -88,13 +88,13 @@ test.describe('accounting', () => {
             expect(await app.getSnackBar()).toMatch(/Créé/);
 
             // Wait to be exceptionally redirected to empty creation page
-            await page.waitForSelector(`//natural-detail-header[contains(., 'Nouvelle transaction')]`);
+            await expect(page.locator('natural-detail-header')).toHaveText(/Nouvelle transaction/);
 
             // Go back to list and check reimbursement actually exist
             await page.click(`//natural-detail-header//a[contains(., 'Transaction')]`);
             await page.click(`//a[contains(., '${unique}')]`);
-            await page.waitForSelector(`//natural-detail-header[contains(., '${unique}')]`);
-            await page.waitForSelector(`//app-transaction-lines[contains(., '${unique}')]`);
+            await expect(page.locator('natural-detail-header')).toHaveText(new RegExp(unique));
+            await expect(page.locator('app-transaction-lines')).toHaveText(new RegExp(unique));
             expect(await page.innerText('//natural-detail-header//app-money')).toMatch(/CHF 200.00/);
         });
     });

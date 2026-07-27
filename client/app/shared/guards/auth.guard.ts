@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
+import {type ActivatedRouteSnapshot, Router, type RouterStateSnapshot} from '@angular/router';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {UserService} from '../../admin/users/services/user.service';
 
 /**

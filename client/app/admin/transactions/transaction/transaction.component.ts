@@ -6,26 +6,26 @@ import {
     NaturalFixedButtonComponent,
     NaturalIconDirective,
     NaturalLinkableTabDirective,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject, OnInit, viewChild} from '@angular/core';
+import {Component, inject, type OnInit, viewChild} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {TransactionService} from '../services/transaction.service';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, type Observable} from 'rxjs';
 import {filter, first} from 'rxjs/operators';
 import {
-    CreateTransaction,
-    CurrentUserForProfileQuery,
-    ExpenseClaimQuery,
+    type CreateTransaction,
+    type CurrentUserForProfileQuery,
+    type ExpenseClaimQuery,
     ExpenseClaimType,
-    TransactionLineInput,
-    UpdateTransaction,
+    type TransactionLineInput,
+    type UpdateTransaction,
 } from '../../../shared/generated-types';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {
     EditableTransactionLinesComponent,
-    EditableTransactionLinesInput,
+    type EditableTransactionLinesInput,
 } from '../editable-transaction-lines/editable-transaction-lines.component';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {AccountingDocumentsComponent} from '../../accounting-documents/accounting-documents.component';
@@ -48,7 +48,7 @@ import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
 import {CurrencyPipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DuplicatedTransactionResolve} from '../transaction';
+import {type DuplicatedTransactionResolve} from '../transaction';
 
 @Component({
     selector: 'app-transaction',

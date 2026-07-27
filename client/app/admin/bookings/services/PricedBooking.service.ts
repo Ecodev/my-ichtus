@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {pricedBookingsQuery} from './booking.queries';
-import {PricedBookingsQuery, PricedBookingsQueryVariables} from '../../../shared/generated-types';
+import {type PricedBookingsQuery, type PricedBookingsQueryVariables} from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
 @Injectable({

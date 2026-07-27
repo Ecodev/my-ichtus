@@ -7,19 +7,19 @@ import {
     updateBooking,
 } from './booking.queries';
 import {
-    BookingQuery,
-    BookingQueryVariables,
-    BookingsQueryVariables,
-    BookingsWithOwnerBalanceQuery,
-    BookingsWithOwnerBalanceQueryVariables,
-    DeleteBookings,
-    DeleteBookingsVariables,
+    type BookingQuery,
+    type BookingQueryVariables,
+    type BookingsQueryVariables,
+    type BookingsWithOwnerBalanceQuery,
+    type BookingsWithOwnerBalanceQueryVariables,
+    type DeleteBookings,
+    type DeleteBookingsVariables,
     JoinType,
-    UpdateBooking,
-    UpdateBookingVariables,
+    type UpdateBooking,
+    type UpdateBookingVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
-import {Observable, of} from 'rxjs';
+import {type Observable, of} from 'rxjs';
 import {BookingService} from './booking.service';
 
 @Injectable({

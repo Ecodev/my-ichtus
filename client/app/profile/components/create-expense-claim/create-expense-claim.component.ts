@@ -2,14 +2,14 @@ import {
     NaturalAbstractDetail,
     NaturalErrorMessagePipe,
     NaturalFixedButtonComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
 } from '@ecodev/natural';
-import {Component, inject, OnInit, viewChild} from '@angular/core';
+import {Component, inject, type OnInit, viewChild} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
-import {CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
+import {type CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {AccountingDocumentsComponent} from '../../../admin/accounting-documents/accounting-documents.component';
-import {EMPTY, Observable} from 'rxjs';
+import {EMPTY, type Observable} from 'rxjs';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';

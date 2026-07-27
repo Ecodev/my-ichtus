@@ -1,9 +1,9 @@
 import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot} from '@angular/router';
-import {Observable, of} from 'rxjs';
-import {ErrorService} from '../../../shared/components/error/error.service';
+import {type ActivatedRouteSnapshot} from '@angular/router';
+import {type Observable, of} from 'rxjs';
+import {ErrorService} from '@ecodev/natural';
 import {ExpenseClaimService} from './expenseClaim.service';
-import {ExpenseClaimQuery} from '../../../shared/generated-types';
+import {type ExpenseClaimQuery} from '../../../shared/generated-types';
 
 /**
  * Resolve expenseClaim data for router

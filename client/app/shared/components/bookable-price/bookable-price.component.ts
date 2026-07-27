@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {BookableQuery} from '../../generated-types';
+import {type BookableQuery} from '../../generated-types';
 import {CurrencyPipe} from '@angular/common';
 
 @Component({

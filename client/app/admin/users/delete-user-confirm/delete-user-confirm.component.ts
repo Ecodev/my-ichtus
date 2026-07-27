@@ -1,18 +1,18 @@
 import {
     NaturalErrorMessagePipe,
-    NaturalSearchSelections,
+    type NaturalSearchSelections,
     toGraphQLDoctrineFilter,
     toNavigationParameters,
 } from '@ecodev/natural';
 import {Component, inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
-import {Apollo} from 'apollo-angular';
-import {ApolloQueryResult, gql} from '@apollo/client/core';
+import {Apollo, onlyCompleteData} from 'apollo-angular';
+import {gql, type ObservableQuery} from '@apollo/client';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
-    DeleteUserConfirmationQuery,
-    DeleteUserConfirmationQueryVariables,
+    type DeleteUserConfirmationQuery,
+    type DeleteUserConfirmationQueryVariables,
     ExpenseClaimStatus,
 } from '../../../shared/generated-types';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -20,7 +20,7 @@ import {escapeRegExp} from 'es-toolkit';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {accounts, expenseClaims, users} from '../../../shared/natural-search/natural-search-facets';
-import {Params, RouterLink} from '@angular/router';
+import {type Params, RouterLink} from '@angular/router';
 import {WarningComponent} from '../../../shared/warning.component';
 import {CurrencyPipe} from '@angular/common';
 
@@ -48,7 +48,7 @@ export type DeleteUserConfirmData = {
 export class DeleteUserConfirmComponent {
     private readonly dialog = inject<MatDialogRef<boolean>>(MatDialogRef);
 
-    protected result: ApolloQueryResult<DeleteUserConfirmationQuery> | null = null;
+    protected result: ObservableQuery.Result<DeleteUserConfirmationQuery, 'complete'> | null = null;
     protected readonly form = new FormControl('', {nonNullable: true});
     protected readonly accountBalanceNotZeroParams: Params;
     protected readonly nonTreatedExpenseClaimParams: Params;
@@ -132,8 +132,9 @@ export class DeleteUserConfirmComponent {
                         }
                     }
                 `,
+                notifyOnNetworkStatusChange: false,
             })
-            .valueChanges.pipe(takeUntilDestroyed())
+            .valueChanges.pipe(takeUntilDestroyed(), onlyCompleteData())
             .subscribe(result => {
                 this.result = result;
                 this.form.setValidators([

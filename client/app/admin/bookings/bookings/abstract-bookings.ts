@@ -1,8 +1,8 @@
 import {Directive, input} from '@angular/core';
-import {AvailableColumn, Button, NaturalAbstractList} from '@ecodev/natural';
+import {type AvailableColumn, type Button, NaturalAbstractList} from '@ecodev/natural';
 import {BookingService} from '../services/booking.service';
-import {BookingWithOwnerService} from '../services/booking-with-owner.service';
-import {SafetyBookingService} from '../../../safety/safety-booking.service';
+import {type BookingWithOwnerService} from '../services/booking-with-owner.service';
+import {type SafetyBookingService} from '../../../safety/safety-booking.service';
 import {usageStatus as usageStatusFunc, usageText} from '../../bookables/bookable';
 
 const edit: AvailableColumn = {id: 'edit', label: 'Editer'} as const;

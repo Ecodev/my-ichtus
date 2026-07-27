@@ -1,16 +1,16 @@
-import {Directive, inject, OnInit} from '@angular/core';
-import {UsageBookableService} from '../services/usage-bookable.service';
-import {AvailableColumn, ExtractTallOne, NaturalAbstractList} from '@ecodev/natural';
+import {Directive, inject, type OnInit} from '@angular/core';
+import {type UsageBookableService} from '../services/usage-bookable.service';
+import {type AvailableColumn, type ExtractTallOne, NaturalAbstractList} from '@ecodev/natural';
 import {
-    BookingPartialInput,
+    type BookingPartialInput,
     BookingStatus,
-    CurrentUserForProfileQuery,
-    PricedBookingsQuery,
-    UsageBookablesQuery,
-    UserQuery,
+    type CurrentUserForProfileQuery,
+    type PricedBookingsQuery,
+    type UsageBookablesQuery,
+    type UserQuery,
 } from '../../../shared/generated-types';
 import {BookingService} from '../../bookings/services/booking.service';
-import {BookableService} from '../services/bookable.service';
+import {type BookableService} from '../services/bookable.service';
 import {ApplicationConfirmComponent} from '../application-confirm/application-confirm.component';
 import {Observable, of, switchMap} from 'rxjs';
 import {finalize} from 'rxjs/operators';
@@ -20,7 +20,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {UserService} from '../../users/services/user.service';
+import {type UserService} from '../../users/services/user.service';
 
 export const image: AvailableColumn = {id: 'image', label: 'Image'};
 export const name: AvailableColumn = {id: 'name', label: 'Nom'};
@@ -153,7 +153,7 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
             .createWithBookable(bookable, this.futureOwner, booking)
             .pipe(finalize(() => this.creating.delete(bookable.id)))
             .subscribe({
-                error: () => this.apollo.client.reFetchObservableQueries(),
+                error: () => this.apollo.client.refetchObservableQueries(),
                 complete: () => {
                     this.snackbar.open('Demande enregistrée', '', {duration: 3000});
                 },

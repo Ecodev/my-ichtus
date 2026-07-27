@@ -4,7 +4,7 @@ import {MatListItem, MatNavList} from '@angular/material/list';
 import {ServicesComponent} from '../../services/services.component';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {NaturalDataSource, NaturalIconDirective} from '@ecodev/natural';
-import {BookingType, PricedBookingsQuery} from '../../../../shared/generated-types';
+import {BookingType, type PricedBookingsQuery} from '../../../../shared/generated-types';
 import {NgTemplateOutlet} from '@angular/common';
 import {UserContactDataComponent} from '../../../../shared/components/user-contact-data/user-contact-data.component';
 import {BookablePriceComponent} from '../../../../shared/components/bookable-price/bookable-price.component';

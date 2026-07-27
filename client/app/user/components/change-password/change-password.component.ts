@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ifValid, NaturalAlertService} from '@ecodev/natural';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {finalize} from 'rxjs/operators';
-import {UpdatePassword, UpdatePasswordVariables} from '../../../shared/generated-types';
+import {type UpdatePassword, type UpdatePasswordVariables} from '../../../shared/generated-types';
 import {MatButton} from '@angular/material/button';
 import {PasswordComponent} from '../password/password.component';
 

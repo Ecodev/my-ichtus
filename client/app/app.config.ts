@@ -1,5 +1,5 @@
 import {
-    ApplicationConfig,
+    type ApplicationConfig,
     importProvidersFrom,
     inject,
     LOCALE_ID,
@@ -9,13 +9,13 @@ import {
 import {TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule} from 'ngx-timeago';
 import {routes} from './app.routes';
 import {Apollo} from 'apollo-angular';
-import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
+import {MAT_TOOLTIP_DEFAULT_OPTIONS, type MatTooltipDefaultOptions} from '@angular/material/tooltip';
 import {apolloOptionsProvider} from './shared/config/apollo-options.provider';
 import {LocalizedPaginatorIntlService} from './shared/services/localized-paginator-intl.service';
 import {
     activityInterceptor,
     graphqlQuerySigner,
-    NaturalIconsConfig,
+    type NaturalIconsConfig,
     naturalProviders,
     NaturalSwissParsingDateAdapter,
     provideErrorHandler,
@@ -23,7 +23,11 @@ import {
     provideSeo,
 } from '@ecodev/natural';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginatorIntl} from '@angular/material/paginator';
+import {
+    MAT_PAGINATOR_DEFAULT_OPTIONS,
+    type MatPaginatorDefaultOptions,
+    MatPaginatorIntl,
+} from '@angular/material/paginator';
 import {
     DateAdapter,
     ErrorStateMatcher,
@@ -32,11 +36,11 @@ import {
 } from '@angular/material/core';
 import {LoggerExtraService} from './shared/services/logger-extra.service';
 import {localConfig, signedQueriesKey} from './shared/generated-config';
-import {DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig, registerLocaleData} from '@angular/common';
+import {DATE_PIPE_DEFAULT_OPTIONS, type DatePipeConfig, registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
 import {provideRouter, withRouterConfig} from '@angular/router';
-import {MAT_TABS_CONFIG, MatTabsConfig} from '@angular/material/tabs';
+import {MAT_TABS_CONFIG, type MatTabsConfig} from '@angular/material/tabs';
 
 registerLocaleData(localeFRCH);
 registerLocaleData(localeDECH);

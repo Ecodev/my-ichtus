@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client/core';
+import {gql} from '@apollo/client';
 import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
 
 // Minimal fields required for account selection/display, this should NOT include fields to manage a account

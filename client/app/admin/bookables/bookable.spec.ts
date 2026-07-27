@@ -1,5 +1,5 @@
-import {BookableUsage} from '../../shared/generated-types';
-import {availabilityStatus, AvailabilityStatus, availabilityText, usageStatus, usageText} from './bookable';
+import {type BookableUsage} from '../../shared/generated-types';
+import {availabilityStatus, type AvailabilityStatus, availabilityText, usageStatus, usageText} from './bookable';
 
 describe('availabilityText', () => {
     const cases: [number, number, number, number, AvailabilityStatus, string][] = [

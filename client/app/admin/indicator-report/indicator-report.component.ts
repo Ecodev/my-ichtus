@@ -23,6 +23,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {
     formatIsoDate,
+    ignoreErrors,
     NaturalErrorMessagePipe,
     NaturalFixedButtonComponent,
     NaturalIconDirective,
@@ -30,14 +31,14 @@ import {
     toNavigationParameters,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {gql} from '@apollo/client/core';
+import {gql} from '@apollo/client';
 import {Apollo} from 'apollo-angular';
 import {finalize} from 'rxjs';
 import {
-    ExportIndicatorReport,
-    ExportIndicatorReportVariables,
-    IndicatorReportQuery,
-    IndicatorReportQueryVariables,
+    type ExportIndicatorReport,
+    type ExportIndicatorReportVariables,
+    type IndicatorReportQuery,
+    type IndicatorReportQueryVariables,
 } from '../../shared/generated-types';
 import {MoneyComponent} from '../../shared/components/money/money.component';
 import {PermissionsService} from '../../shared/services/permissions.service';
@@ -189,6 +190,7 @@ export class IndicatorReportComponent {
                 query: indicatorQuery,
                 variables: this.getVariables()!,
             })
+            .pipe(ignoreErrors())
             .subscribe(result => {
                 this.dataSource = new MatTableDataSource<IndicatorReportRow>(result.data.indicatorReport);
             });

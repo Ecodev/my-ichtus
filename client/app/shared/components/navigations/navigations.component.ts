@@ -1,30 +1,30 @@
-import {Component, inject, input, OnInit} from '@angular/core';
+import {Component, inject, input, type OnInit} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
-    BookingPartialInput,
+    type BookingPartialInput,
     BookingSortingField,
-    BookingsQuery,
-    BookingsQueryVariables,
+    type BookingsQuery,
+    type BookingsQueryVariables,
     BookingType,
-    CurrentUserForProfileQuery,
+    type CurrentUserForProfileQuery,
     JoinType,
     LogicalOperator,
     SortingOrder,
-    UsersQuery,
-    UsersQueryVariables,
+    type UsersQuery,
+    type UsersQueryVariables,
 } from '../../generated-types';
 import {
     NaturalAlertService,
     NaturalAvatarComponent,
     NaturalIconDirective,
     NaturalQueryVariablesManager,
-    WithId,
+    type WithId,
 } from '@ecodev/natural';
 import {DatePipe} from '@angular/common';
-import {Observable} from 'rxjs';
+import {type Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import {MatSnackBar, type MatSnackBarConfig} from '@angular/material/snack-bar';
 import {CommentComponent} from './comment.component';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';

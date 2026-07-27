@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {createAccountingDocumentMutation, deleteAccountingDocumentMutation} from './accounting-documents.queries';
 import {
-    AccountingDocumentInput,
-    CreateAccountingDocument,
-    CreateAccountingDocumentVariables,
-    DeleteAccountingDocument,
-    DeleteAccountingDocumentVariables,
+    type AccountingDocumentInput,
+    type CreateAccountingDocument,
+    type CreateAccountingDocumentVariables,
+    type DeleteAccountingDocument,
+    type DeleteAccountingDocumentVariables,
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 

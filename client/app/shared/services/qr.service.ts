@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import type jsQR from 'jsqr';
-import {Observable, ReplaySubject, Subject} from 'rxjs';
+import {type Observable, ReplaySubject, Subject} from 'rxjs';
 import {distinctUntilChanged, filter} from 'rxjs/operators';
 
 @Injectable({
