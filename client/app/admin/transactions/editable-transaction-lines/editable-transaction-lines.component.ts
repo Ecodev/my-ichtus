@@ -9,7 +9,7 @@ import {
 import {Component, inject, Input} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
-import {TransactionLineInput, TransactionLinesQuery} from '../../../shared/generated-types';
+import {type TransactionLineInput, type TransactionLinesQuery} from '../../../shared/generated-types';
 import {TransactionTagService} from '../../transactionTags/services/transactionTag.service';
 import {accountHierarchicConfiguration} from '../../../shared/hierarchic-selector/AccountHierarchicConfiguration';
 import {map, of, Subject, switchMap} from 'rxjs';
@@ -30,7 +30,7 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {AbstractControl, FormArray, FormsModule, ReactiveFormsModule, ValidationErrors} from '@angular/forms';
+import {type AbstractControl, FormArray, FormsModule, ReactiveFormsModule, type ValidationErrors} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {WarningComponent} from '../../../shared/warning.component';
 import {CurrencyPipe} from '@angular/common';
@@ -88,6 +88,17 @@ function transactionLinesBalanceValidator(control: AbstractControl): ValidationE
     };
 
     return {unbalanced};
+}
+
+/**
+ * Mirrors the server-side check that a transaction always has at least one line
+ */
+function atLeastOneLineValidator(control: AbstractControl): ValidationErrors | null {
+    if (!(control instanceof FormArray)) {
+        return null;
+    }
+
+    return control.length ? null : {noLine: true};
 }
 
 export type EditableTransactionLinesInput =
@@ -165,10 +176,17 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
         return (this.formArray.errors?.unbalanced as TransactionLinesBalance | undefined) ?? null;
     }
 
+    /**
+     * True when the transaction has no line at all, see atLeastOneLineValidator()
+     */
+    protected get hasNoLine(): boolean {
+        return !!this.formArray.errors?.noLine;
+    }
+
     public constructor() {
         super(inject(TransactionLineService));
 
-        this.formArray.addValidators(transactionLinesBalanceValidator);
+        this.formArray.addValidators([transactionLinesBalanceValidator, atLeastOneLineValidator]);
         this.formArray.updateValueAndValidity();
 
         this.input$

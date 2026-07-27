@@ -1,11 +1,11 @@
 import {Apollo, gql} from 'apollo-angular';
 import {Component, DOCUMENT, inject, Input} from '@angular/core';
 import {
-    BankingInfosForExportQuery,
-    BankingInfosQuery,
-    BankingInfosQueryVariables,
+    type BankingInfosForExportQuery,
+    type BankingInfosQuery,
+    type BankingInfosQueryVariables,
 } from '../../../shared/generated-types';
-import {copyToClipboard, NaturalIconDirective} from '@ecodev/natural';
+import {copyToClipboard, ignoreErrors, NaturalIconDirective} from '@ecodev/natural';
 import {IbanPipe} from '../../../shared/pipes/iban.pipe';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -50,6 +50,7 @@ export class BvrComponent {
                 fetchPolicy: 'cache-first',
                 variables: this.variables,
             })
+            .pipe(ignoreErrors())
             .subscribe(result => (this.bankingInfos = result.data.bankingInfos));
     }
 
@@ -67,6 +68,7 @@ export class BvrComponent {
                 fetchPolicy: 'cache-first',
                 variables: this.variables,
             })
+            .pipe(ignoreErrors())
             .subscribe(result => {
                 if (result.data.bankingInfos.qrBill) {
                     window.location.href = result.data.bankingInfos.qrBill;

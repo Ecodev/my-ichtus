@@ -1,5 +1,5 @@
-import {Routes} from '@angular/router';
-import {SupportComponent, SupportComponentData} from './admin/configurations/support/support.component';
+import {type Routes} from '@angular/router';
+import {SupportComponent, type SupportComponentData} from './admin/configurations/support/support.component';
 import {resolveViewer} from './admin/users/services/viewer.resolver';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
@@ -10,7 +10,7 @@ import {SafetyComponent} from './safety/safety.component';
 import {BookingService} from './admin/bookings/services/booking.service';
 import {canActivateAuth} from './shared/guards/auth.guard';
 import {canActivateDoor} from './shared/guards/door.guard';
-import {NaturalDialogTriggerComponent, NaturalDialogTriggerRoutingData, NaturalSeo} from '@ecodev/natural';
+import {NaturalDialogTriggerComponent, type NaturalDialogTriggerRoutingData, type NaturalSeo} from '@ecodev/natural';
 import {availableColumnsForSafety} from './admin/bookings/bookings/abstract-bookings';
 
 export const routes: Routes = [

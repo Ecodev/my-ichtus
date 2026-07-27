@@ -1,5 +1,5 @@
-import {Component, DestroyRef, inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BookingType, CurrentUserForProfileQuery, PricedBookingsQuery} from '../../../shared/generated-types';
+import {Component, DestroyRef, inject, Input, type OnChanges, type OnInit, type SimpleChanges} from '@angular/core';
+import {BookingType, type CurrentUserForProfileQuery, type PricedBookingsQuery} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BookingService} from '../../../admin/bookings/services/booking.service';

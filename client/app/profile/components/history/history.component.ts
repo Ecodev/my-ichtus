@@ -1,8 +1,8 @@
-import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, Input, type OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {NaturalDataSource, TypedMatCellDef} from '@ecodev/natural';
-import {CurrentUserForProfileQuery, TransactionLinesQuery} from '../../../shared/generated-types';
+import {type CurrentUserForProfileQuery, type TransactionLinesQuery} from '../../../shared/generated-types';
 import {TransactionAmountComponent} from '../../../shared/components/transaction-amount/transaction-amount.component';
 import {
     MatCell,

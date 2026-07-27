@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
-import {FormAsyncValidators, FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
+import {type FormAsyncValidators, type FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuery} from './userTag.queries';
 import {
-    CreateUserTag,
-    CreateUserTagVariables,
-    DeleteUserTags,
-    DeleteUserTagsVariables,
-    UpdateUserTag,
-    UpdateUserTagVariables,
-    UserTagInput,
-    UserTagQuery,
-    UserTagQueryVariables,
-    UserTagsQuery,
-    UserTagsQueryVariables,
+    type CreateUserTag,
+    type CreateUserTagVariables,
+    type DeleteUserTags,
+    type DeleteUserTagsVariables,
+    type UpdateUserTag,
+    type UpdateUserTagVariables,
+    type UserTagInput,
+    type UserTagQuery,
+    type UserTagQueryVariables,
+    type UserTagsQuery,
+    type UserTagsQueryVariables,
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 

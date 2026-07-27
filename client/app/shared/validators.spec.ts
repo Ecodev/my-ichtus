@@ -1,4 +1,4 @@
-import {FormControl, ValidatorFn} from '@angular/forms';
+import {FormControl, type ValidatorFn} from '@angular/forms';
 import {iban} from './validators';
 
 function validate(validatorFn: ValidatorFn, expected: boolean, value: any): void {

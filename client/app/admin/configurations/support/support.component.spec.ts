@@ -1,7 +1,7 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {SupportComponent, SupportComponentData} from './support.component';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
+import {SupportComponent, type SupportComponentData} from './support.component';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {NaturalDialogTriggerProvidedData, naturalProviders} from '@ecodev/natural';
+import {type NaturalDialogTriggerProvidedData, naturalProviders} from '@ecodev/natural';
 import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 import {provideRouter} from '@angular/router';
 

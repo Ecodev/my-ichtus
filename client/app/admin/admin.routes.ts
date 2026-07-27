@@ -1,4 +1,4 @@
-import {Route, Routes} from '@angular/router';
+import {type Route, type Routes} from '@angular/router';
 import {AdminComponent} from './admin/admin.component';
 import {BookablesComponent} from './bookables/bookables/bookables.component';
 import {BookableComponent} from './bookables/bookable/bookable.component';
@@ -24,7 +24,7 @@ import {resolveBookableTag} from './bookableTags/services/bookableTag.resolver';
 import {
     BookableSortingField,
     ExpenseClaimSortingField,
-    ExpenseClaimsQueryVariables,
+    type ExpenseClaimsQueryVariables,
     SortingOrder,
     TransactionLineSortingField,
     UserRole,
@@ -54,7 +54,7 @@ import {BookableTagService} from './bookableTags/services/bookableTag.service';
 import {merge} from 'es-toolkit';
 import {UsageBookablesComponent} from './bookables/bookables/usage-bookables.component';
 import {BookingsWithOwnerComponent} from './bookings/bookings/bookings-with-owner.component';
-import {NaturalSeo} from '@ecodev/natural';
+import {type NaturalSeo} from '@ecodev/natural';
 import {
     availableColumnsForBookingsBooking,
     availableColumnsForBookingsLive,

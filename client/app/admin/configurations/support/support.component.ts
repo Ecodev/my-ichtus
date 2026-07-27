@@ -1,10 +1,10 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, type OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {ConfigurationService} from '../services/configuration.service';
 import {forkJoin} from 'rxjs';
-import {NaturalAlertService, NaturalDialogTriggerProvidedData, NaturalFixedButtonComponent} from '@ecodev/natural';
+import {NaturalAlertService, type NaturalDialogTriggerProvidedData, NaturalFixedButtonComponent} from '@ecodev/natural';
 import {finalize} from 'rxjs/operators';
 import {MatButton} from '@angular/material/button';
 import {NaturalEditorComponent} from '@ecodev/natural-editor';

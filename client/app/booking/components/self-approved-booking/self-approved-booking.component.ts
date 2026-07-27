@@ -1,16 +1,16 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
-import {BookableQuery, BookingStatus} from '../../../shared/generated-types';
-import {Literal, NaturalAlertService, NaturalAvatarComponent, NaturalFixedButtonComponent} from '@ecodev/natural';
+import {type BookableQuery, BookingStatus} from '../../../shared/generated-types';
+import {type Literal, NaturalAlertService, NaturalAvatarComponent, NaturalFixedButtonComponent} from '@ecodev/natural';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatDivider} from '@angular/material/divider';
 import {CardComponent} from '../../../shared/components/card/card.component';
-import {Observable, of, switchMap} from 'rxjs';
+import {type Observable, of, switchMap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {first} from 'rxjs/operators';
 

@@ -107,6 +107,12 @@
         </table>
     </div>
 
+    @if (hasNoLine) {
+        <app-warning type="warning">
+            <span>La transaction doit avoir au moins une ligne</span>
+        </app-warning>
+    }
+
     @if (unbalanced) {
         <app-warning type="warning" class="unbalanced-warning">
             <span

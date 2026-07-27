@@ -1,8 +1,8 @@
 import {inject} from '@angular/core';
-import {ActivatedRouteSnapshot} from '@angular/router';
-import {forkJoin, last, map, Observable, of} from 'rxjs';
-import {DuplicatedTransactionResolve} from '../transaction';
-import {ErrorService} from '../../../shared/components/error/error.service';
+import {type ActivatedRouteSnapshot} from '@angular/router';
+import {forkJoin, last, map, type Observable, of} from 'rxjs';
+import {type DuplicatedTransactionResolve} from '../transaction';
+import {ErrorService} from '@ecodev/natural';
 import {TransactionService} from './transaction.service';
 import {NaturalQueryVariablesManager} from '@ecodev/natural';
 import {TransactionLineService} from './transactionLine.service';

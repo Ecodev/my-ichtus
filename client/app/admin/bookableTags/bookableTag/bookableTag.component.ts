@@ -4,7 +4,7 @@ import {
     NaturalErrorMessagePipe,
     NaturalFixedButtonDetailComponent,
     NaturalLinkableTabDirective,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
 import {Component, inject} from '@angular/core';

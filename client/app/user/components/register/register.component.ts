@@ -9,10 +9,10 @@ import {
     validateAllFormControls,
 } from '@ecodev/natural';
 import {Apollo, gql} from 'apollo-angular';
-import {Component, inject, OnInit} from '@angular/core';
-import {BookablesQuery, Register, RegisterVariables} from '../../../shared/generated-types';
+import {Component, inject, type OnInit} from '@angular/core';
+import {type BookablesQuery, type Register, type RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {type FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {MatButton} from '@angular/material/button';
 import {MatCheckbox} from '@angular/material/checkbox';

@@ -6,7 +6,7 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatCheckbox, MatCheckboxChange} from '@angular/material/checkbox';
+import {MatCheckbox, type MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-accounting-report',

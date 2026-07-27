@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, output} from '@angular/core';
+import {Component, inject, Input, type OnInit, output} from '@angular/core';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {
@@ -7,12 +7,12 @@ import {
     NaturalFileComponent,
     NaturalFixedButtonComponent,
     NaturalSearchComponent,
-    NaturalSearchSelections,
+    type NaturalSearchSelections,
     NaturalTableButtonComponent,
     TypedMatCellDef,
 } from '@ecodev/natural';
 import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
-import {BookableStatus, UsageBookablesQuery} from '../../../shared/generated-types';
+import {BookableStatus, type UsageBookablesQuery} from '../../../shared/generated-types';
 import {switchMap} from 'rxjs/operators';
 import {UserService} from '../../users/services/user.service';
 import {ParentComponent} from './parent.component';

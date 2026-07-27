@@ -8,10 +8,10 @@ import {
     NaturalSelectComponent,
     NaturalSelectEnumComponent,
     NaturalSelectHierarchicComponent,
-    NaturalSeoResolveData,
+    type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
 import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';

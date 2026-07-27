@@ -1,4 +1,4 @@
-import {Route, Routes} from '@angular/router';
+import {type Route, type Routes} from '@angular/router';
 import {resolveViewer} from '../admin/users/services/viewer.resolver';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FamilyComponent} from './components/family/family.component';
@@ -8,7 +8,7 @@ import {ServicesComponent} from './components/services/services.component';
 import {CreateExpenseClaimComponent} from './components/create-expense-claim/create-expense-claim.component';
 import {HistoryComponent} from './components/history/history.component';
 import {canActivateServices} from '../shared/guards/services.guard';
-import {NaturalSeo} from '@ecodev/natural';
+import {type NaturalSeo} from '@ecodev/natural';
 import {BookingType, ExpenseClaimType} from '../shared/generated-types';
 import {BookableTagService} from '../admin/bookableTags/services/bookableTag.service';
 import {UsageBookablesComponent} from '../admin/bookables/bookables/usage-bookables.component';

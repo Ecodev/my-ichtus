@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {
     NaturalAbstractList,
     NaturalColumnsPickerComponent,
@@ -7,7 +7,7 @@ import {
     SortingOrder,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {CurrentUserForProfileQuery, LogSortingField, UserRole} from '../../../shared/generated-types';
+import {type CurrentUserForProfileQuery, LogSortingField, UserRole} from '../../../shared/generated-types';
 import {LogService} from '../services/log.service';
 import {logs} from '../../../shared/natural-search/natural-search-facets';
 import {MatPaginator} from '@angular/material/paginator';

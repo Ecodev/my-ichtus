@@ -1,8 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {DoorConfig, DoorService} from './services/door.service';
+import {Component, inject, type OnInit} from '@angular/core';
+import {type DoorConfig, DoorService} from './services/door.service';
 import {NaturalAlertService} from '@ecodev/natural';
 import {ActivatedRoute} from '@angular/router';
-import {CurrentUserForProfileQuery} from '../shared/generated-types';
+import {type CurrentUserForProfileQuery} from '../shared/generated-types';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
 import {CardComponent} from '../shared/components/card/card.component';
