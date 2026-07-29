@@ -42,6 +42,7 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {AsyncPipe, DatePipe} from '@angular/common';
+import {expenseClaimsQuery} from '../../../admin/expenseClaim/services/expenseClaim.queries';
 
 @Component({
     selector: 'app-finances',
@@ -142,7 +143,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
                 if (confirmed) {
                     this.deleting.add(expenseClaim.id);
 
-                    this.service.delete([expenseClaim]).subscribe({
+                    this.service.delete([expenseClaim], {refetchQueries: [expenseClaimsQuery]}).subscribe({
                         next: () => {
                             this.alertService.info(`Supprimé`);
                         },

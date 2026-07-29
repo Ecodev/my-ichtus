@@ -31,6 +31,7 @@ import {
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {CurrencyPipe, DatePipe} from '@angular/common';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {pricedBookingsQuery} from '../../../admin/bookings/services/booking.queries';
 
 @Component({
     selector: 'app-services',
@@ -148,7 +149,7 @@ export class ServicesComponent implements OnInit, OnChanges {
     protected cancelApplication(booking: PricedBookingsQuery['bookings']['items'][0]): void {
         this.deleting.set(booking.id, true);
         this.bookingService
-            .delete([booking])
+            .delete([booking], {refetchQueries: [pricedBookingsQuery]})
             .pipe(finalize(() => this.deleting.delete(booking.id)))
             .subscribe();
     }
