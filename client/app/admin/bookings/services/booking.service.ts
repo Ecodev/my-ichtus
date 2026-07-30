@@ -25,7 +25,14 @@ import {
 import {type Observable} from 'rxjs';
 import {formatIsoDateTime, type FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {BookableTagService} from '../../bookableTags/services/bookableTag.service';
-import {bookingQuery, bookingsQuery, createBooking, deleteBookings, updateBooking} from './booking.queries';
+import {
+    bookingQuery,
+    bookingsQuery,
+    createBooking,
+    deleteBookings,
+    pricedBookingsQuery,
+    updateBooking,
+} from './booking.queries';
 import {
     getDefaultForServer,
     getFormValidators,
@@ -196,6 +203,6 @@ export class BookingService extends NaturalAbstractModelService<
             bookable: bookable ? bookable.id : null,
         };
 
-        return this.create(finalBooking);
+        return this.create(finalBooking, {refetchQueries: [pricedBookingsQuery]});
     }
 }

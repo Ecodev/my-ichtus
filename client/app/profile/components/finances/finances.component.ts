@@ -160,7 +160,7 @@ export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> 
             .subscribe(expense => {
                 if (expense) {
                     expense.type = ExpenseClaimType.Refund;
-                    this.service.create(expense).subscribe(() => {
+                    this.service.create(expense, {refetchQueries: [expenseClaimsQuery]}).subscribe(() => {
                         this.alertService.info('Ta demande de remboursement a été enregistrée');
                     });
                 }

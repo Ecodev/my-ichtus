@@ -333,7 +333,6 @@ export class UserForVanillaService extends NaturalAbstractModelService<
 
     public getOwnerLicenses(_owner: {id: string}): void {
         this.getOne(_owner.id).subscribe(result => {
-            //            console.log("getOwnerLicenses(): ", result);
             const owner = {...result};
             Cahier.setOwnerLicenses(owner);
         });

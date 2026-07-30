@@ -940,7 +940,6 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
 
         // ToCreate
         for (const item of inputsToCreate) {
-            //            console.log("Create:", inputsToCreate[i]);
             this.create(item).subscribe(() => {
                 c++;
                 if (c == total) finished();

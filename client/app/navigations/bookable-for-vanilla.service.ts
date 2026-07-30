@@ -473,7 +473,6 @@ export class BookableForVanillaService extends NaturalAbstractModelService<
         variables.set('variables', filter);
 
         this.getAll(variables).subscribe(result => {
-            //            console.log("getBookablesLicenses(): ", result.items);
             Cahier.updateBookablesLicenses(result.items);
         });
     }
