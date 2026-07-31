@@ -2,18 +2,11 @@
 
 declare(strict_types=1);
 
-$base = __DIR__ . '/../';
-$nodeModules = $base . 'node_modules/';
-$esbuild = is_dir($nodeModules) ? array_map(
-    fn (string $path) => [
-        'path' => str_replace($base, '', $path),
+return [
+    [
+        'path' => 'node_modules/**/bin/esbuild',
         'permissions' => '0750',
     ],
-    explode(PHP_EOL, mb_trim(`find $nodeModules -type f -size +5M -path '*/bin/esbuild'`)),
-) : [];
-
-return [
-    ...$esbuild,
     [
         'path' => 'data/accounting',
         'permissions' => '0770',
