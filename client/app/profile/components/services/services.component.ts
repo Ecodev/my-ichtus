@@ -137,7 +137,7 @@ export class ServicesComponent implements OnInit, OnChanges {
             )
             .subscribe(confirmed => {
                 if (confirmed) {
-                    this.bookingService.terminateBooking(booking.id);
+                    this.bookingService.terminateBooking(booking.id).subscribe();
                 }
             });
     }

@@ -145,6 +145,6 @@ export abstract class AbstractBookings<
             throw new Error('Cannot terminate a booking with this service');
         }
 
-        this.service.terminateBooking(id);
+        this.service.terminateBooking(id).subscribe();
     }
 }

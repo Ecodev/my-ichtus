@@ -60,8 +60,8 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
         });
     }
 
-    public terminateBooking(id: string, comment = ''): Observable<unknown> {
+    public terminateBooking(id: string, comment = ''): void {
         // forward to standard service to avoid duplicating code or a risky refactoring of service hierarchy
-        return this.bookingService.terminateBooking(id, comment);
+        this.bookingService.terminateBooking(id, comment).subscribe();
     }
 }
