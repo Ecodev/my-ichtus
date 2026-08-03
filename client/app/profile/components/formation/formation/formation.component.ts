@@ -53,7 +53,7 @@ export class FormationComponent extends ServicesComponent {
             )
             .subscribe(confirmed => {
                 if (confirmed) {
-                    this.bookingService.terminateBooking(booking.id);
+                    this.bookingService.terminateBooking(booking.id).subscribe();
                 }
             });
     }

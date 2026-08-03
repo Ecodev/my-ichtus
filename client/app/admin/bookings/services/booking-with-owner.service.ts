@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
     bookingQuery,
     bookingsWithOwnerBalanceQuery,
@@ -20,7 +20,6 @@ import {
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 import {type Observable, of} from 'rxjs';
-import {BookingService} from './booking.service';
 
 @Injectable({
     providedIn: 'root',
@@ -37,8 +36,6 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
     DeleteBookings,
     DeleteBookingsVariables
 > {
-    private readonly bookingService = inject(BookingService);
-
     public constructor() {
         super('booking', bookingQuery, bookingsWithOwnerBalanceQuery, createBooking, updateBooking, deleteBookings);
     }
@@ -58,10 +55,5 @@ export class BookingWithOwnerService extends NaturalAbstractModelService<
                 ],
             },
         });
-    }
-
-    public terminateBooking(id: string, comment = ''): Observable<unknown> {
-        // forward to standard service to avoid duplicating code or a risky refactoring of service hierarchy
-        return this.bookingService.terminateBooking(id, comment);
     }
 }

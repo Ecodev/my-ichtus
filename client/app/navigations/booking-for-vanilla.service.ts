@@ -55,6 +55,7 @@ import {actualizePopBooking} from './cahier/pop-booking';
 import {newTab} from './general/screen';
 import {ableToSkipAnimation} from './page/top';
 import type {ActualizePopBooking, Booking as BookingNav, PopBookingWhich} from './types';
+import {tap} from 'rxjs/operators';
 
 export function getDefaultForServer(): BookingInput {
     return {
@@ -98,19 +99,15 @@ export function getPartialVariablesForAll(): Observable<Partial<BookingsQueryVar
 }
 
 export function terminateBooking(apollo: Apollo, id: string, comment: string): Observable<unknown> {
-    const observable = apollo.mutate<TerminateBooking, TerminateBookingVariables>({
-        mutation: terminateBookingMutation,
-        variables: {
-            id: id,
-            comment: comment,
-        },
-    });
-
-    observable.subscribe(() => {
-        apollo.client.refetchObservableQueries();
-    });
-
-    return observable;
+    return apollo
+        .mutate<TerminateBooking, TerminateBookingVariables>({
+            mutation: terminateBookingMutation,
+            variables: {
+                id: id,
+                comment: comment,
+            },
+        })
+        .pipe(tap(() => apollo.client.refetchObservableQueries()));
 }
 
 @Injectable({
@@ -940,7 +937,6 @@ export class BookingForVanillaService extends NaturalAbstractModelService<
 
         // ToCreate
         for (const item of inputsToCreate) {
-            //            console.log("Create:", inputsToCreate[i]);
             this.create(item).subscribe(() => {
                 c++;
                 if (c == total) finished();
