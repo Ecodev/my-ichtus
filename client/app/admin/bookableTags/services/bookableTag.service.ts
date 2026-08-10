@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type FormAsyncValidators, type FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {
     bookableTagQuery,
@@ -22,9 +22,7 @@ import {
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookableTagService extends NaturalAbstractModelService<
     BookableTagQuery['bookableTag'],
     BookableTagQueryVariables,

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {
     accountQuery,
     accountsQuery,
@@ -48,9 +48,7 @@ import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {iban} from '../../../shared/validators';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class AccountService extends NaturalAbstractModelService<
     AccountQuery['account'],
     AccountQueryVariables,

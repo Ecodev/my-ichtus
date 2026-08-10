@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {UserRole} from '../../shared/generated-types';
@@ -36,6 +36,7 @@ import {AsyncPipe} from '@angular/common';
     ],
     templateUrl: './admin.component.html',
     styleUrl: './admin.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AdminComponent {
     protected readonly permissionsService = inject(PermissionsService);

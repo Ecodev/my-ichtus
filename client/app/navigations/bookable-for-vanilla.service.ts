@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     BookableSortingField,
@@ -21,9 +21,7 @@ import {actualizePopBookable, popBookable} from './equipment/pop-bookable';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
 import {popAlert} from './general/pop-alert';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookableForVanillaService extends NaturalAbstractModelService<
     never,
     never,

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
@@ -11,6 +11,7 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
     imports: [MatDialogModule, MatFormField, MatLabel, MatInput, FormsModule, CdkTextareaAutosize, MatButton],
     templateUrl: './comment.component.html',
     styleUrl: './comment.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CommentComponent {
     protected comment = '';

@@ -1,4 +1,13 @@
-import {Component, DestroyRef, type ElementRef, inject, type OnDestroy, type OnInit, viewChild} from '@angular/core';
+import {
+    Component,
+    DestroyRef,
+    type ElementRef,
+    inject,
+    type OnDestroy,
+    type OnInit,
+    viewChild,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NaturalAlertService} from '@ecodev/natural';
 import {QrService} from '../../../shared/services/qr.service';
@@ -8,6 +17,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     selector: 'app-scan',
     templateUrl: './scan.component.html',
     styleUrl: './scan.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ScanComponent implements OnInit, OnDestroy {
     protected readonly router = inject(Router);

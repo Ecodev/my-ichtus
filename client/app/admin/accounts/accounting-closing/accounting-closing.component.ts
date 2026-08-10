@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
@@ -27,6 +27,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     ],
     templateUrl: './accounting-closing.component.html',
     styleUrl: './accounting-closing.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AccountingClosingComponent {
     protected readonly form = new FormControl<Date | null>(null, [Validators.required]);

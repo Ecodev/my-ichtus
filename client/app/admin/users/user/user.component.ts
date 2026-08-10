@@ -17,7 +17,7 @@ import {
     NaturalTableButtonComponent,
     NaturalTimeAgoPipe,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AsyncPipe, DatePipe} from '@angular/common';
 import {UserService} from '../services/user.service';
 import {
@@ -109,6 +109,7 @@ import {
     ],
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class UserComponent extends NaturalAbstractDetail<UserService, NaturalSeoResolveData> implements OnInit {
     protected readonly userTagService = inject(UserTagService);

@@ -9,7 +9,7 @@ import {
     validateAllFormControls,
 } from '@ecodev/natural';
 import {Apollo, gql} from 'apollo-angular';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {type BookablesQuery, type Register, type RegisterVariables} from '../../../shared/generated-types';
 import {ActivatedRoute, Router} from '@angular/router';
 import {type FormGroup, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -79,6 +79,7 @@ import {privacyPolicyUrl} from '../../../login/login.component';
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class RegisterComponent implements OnInit {
     protected readonly apollo = inject(Apollo);

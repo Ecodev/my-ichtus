@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, type OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AccountingDocumentInput,
     type ExpenseClaimInput,
@@ -18,6 +18,7 @@ import {MatIconButton} from '@angular/material/button';
     imports: [NaturalFileComponent, MatIconButton, MatIcon, NaturalIconDirective],
     templateUrl: './accounting-documents.component.html',
     styleUrl: './accounting-documents.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AccountingDocumentsComponent implements OnInit {
     protected readonly accountingDocumentService = inject(AccountingDocumentService);

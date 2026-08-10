@@ -1,11 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import type jsQR from 'jsqr';
 import {type Observable, ReplaySubject, Subject} from 'rxjs';
 import {distinctUntilChanged, filter} from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class QrService {
     private stream: MediaStream | null = null;
     private video: HTMLVideoElement | null = null;

@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AvailableColumn,
     NaturalAbstractList,
@@ -69,6 +69,7 @@ import {
     ],
     templateUrl: './expenseClaims.component.html',
     styleUrl: './expenseClaims.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ExpenseClaimsComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);

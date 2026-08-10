@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, type OnInit, viewChildren} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, type OnInit, viewChildren, ChangeDetectionStrategy} from '@angular/core';
 import {
     type CurrentUserForProfileQuery,
     type UpdateUser,
@@ -37,6 +37,7 @@ import {toObservable} from '@angular/core/rxjs-interop';
     ],
     templateUrl: './family.component.html',
     styleUrl: './family.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FamilyComponent implements OnInit {
     protected readonly userService = inject(UserService);

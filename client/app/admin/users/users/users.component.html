@@ -145,7 +145,11 @@
                             Solde
                         </th>
                         <td *matCellDef="let element; dataSource: dataSource" mat-cell class="natural-align-right">
-                            <app-money [showCurrency]="false" [showSignal]="true" [amount]="element.account?.balance" />
+                            <app-money
+                                [showCurrency]="false"
+                                [showSignal]="true"
+                                [amount]="$safeNavigationMigration(element.account?.balance)"
+                            />
                         </td>
                     </ng-container>
 
@@ -179,9 +183,9 @@
             }
             @if (dataSource.data?.length) {
                 <mat-paginator
-                    [length]="dataSource.data?.length"
-                    [pageSize]="dataSource.data?.pageSize"
-                    [pageIndex]="dataSource.data?.pageIndex"
+                    [length]="$safeNavigationMigration(dataSource.data?.length)"
+                    [pageSize]="$safeNavigationMigration(dataSource.data?.pageSize)"
+                    [pageIndex]="$safeNavigationMigration(dataSource.data?.pageIndex)"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
                 />

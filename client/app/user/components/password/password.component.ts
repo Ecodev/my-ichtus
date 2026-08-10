@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe, NaturalIconDirective} from '@ecodev/natural';
-import {Component, Input, type OnInit} from '@angular/core';
+import {Component, Input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AbstractControl,
     FormControl,
@@ -52,6 +52,7 @@ class ConfirmPasswordStateMatcher implements ErrorStateMatcher {
     ],
     templateUrl: './password.component.html',
     styleUrl: './password.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class PasswordComponent implements OnInit {
     @Input({required: true}) public form!: FormGroup;

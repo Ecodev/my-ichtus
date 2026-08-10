@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {
     type BookableQuery,
     type BookablesQuery,
@@ -40,9 +40,7 @@ import {
     terminateBooking,
 } from '../../../navigations/booking-for-vanilla.service';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookingService extends NaturalAbstractModelService<
     BookingQuery['booking'],
     BookingQueryVariables,

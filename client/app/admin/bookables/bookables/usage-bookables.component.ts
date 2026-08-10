@@ -1,4 +1,4 @@
-import {Component, inject, Input, type OnInit, output} from '@angular/core';
+import {Component, inject, Input, type OnInit, output, ChangeDetectionStrategy} from '@angular/core';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {UsageBookableService} from '../services/usage-bookable.service';
 import {
@@ -79,6 +79,7 @@ import {admin_approved, bookables, storage} from '../../../shared/natural-search
     ],
     templateUrl: './bookables.component.html',
     styleUrl: './bookables.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class UsageBookablesComponent extends ParentComponent<UsageBookableService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);

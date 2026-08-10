@@ -68,7 +68,7 @@
                         <td *matFooterCellDef mat-footer-cell>
                             @if (!relativeToAccount && dataSource.data?.totalBalance > 0) {
                                 <app-money
-                                    [amount]="dataSource.data?.totalBalance"
+                                    [amount]="$safeNavigationMigration(dataSource.data?.totalBalance)"
                                     [showCurrency]="false"
                                     [showSignal]="false"
                                 />
@@ -214,9 +214,9 @@
             }
             @if (dataSource.data?.length) {
                 <mat-paginator
-                    [length]="dataSource.data?.length"
-                    [pageSize]="dataSource.data?.pageSize"
-                    [pageIndex]="dataSource.data?.pageIndex"
+                    [length]="$safeNavigationMigration(dataSource.data?.length)"
+                    [pageSize]="$safeNavigationMigration(dataSource.data?.pageSize)"
+                    [pageIndex]="$safeNavigationMigration(dataSource.data?.pageIndex)"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
                 />

@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {bookableQuery, bookablesQuery, createBookable, deleteBookables, updateBookable} from './bookable.queries';
 import {
     type BookableFilterGroupCondition,
@@ -49,9 +49,7 @@ function creditAccountRequiredValidator(formGroup: AbstractControl): ValidationE
     return (periodicPrice > 0 || initialPrice > 0) && !creditAccount ? {creditAccountRequired: true} : null;
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookableService extends NaturalAbstractModelService<
     BookableQuery['bookable'],
     BookableQueryVariables,

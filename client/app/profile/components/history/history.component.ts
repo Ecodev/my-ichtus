@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, Input, type OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, Input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TransactionLineService} from '../../../admin/transactions/services/transactionLine.service';
 import {NaturalDataSource, TypedMatCellDef} from '@ecodev/natural';
@@ -37,6 +37,7 @@ import {of} from 'rxjs';
     ],
     templateUrl: './history.component.html',
     styleUrl: './history.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class HistoryComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

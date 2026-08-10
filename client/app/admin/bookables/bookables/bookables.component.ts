@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit, output} from '@angular/core';
+import {Component, inject, type OnInit, output, ChangeDetectionStrategy} from '@angular/core';
 import {bookables, equipment} from '../../../shared/natural-search/natural-search-facets';
 import {type BookablesQuery, BookableStatus} from '../../../shared/generated-types';
 import {BookableService} from '../services/bookable.service';
@@ -74,6 +74,7 @@ import {AsyncPipe, CurrencyPipe, DatePipe} from '@angular/common';
     ],
     templateUrl: './bookables.component.html',
     styleUrl: './bookables.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookablesComponent extends ParentComponent<BookableService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);

@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {inject, Injectable, type OnDestroy} from '@angular/core';
+import {inject, Service, type OnDestroy} from '@angular/core';
 import {FormControl, type ValidationErrors, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {
@@ -93,9 +93,7 @@ export function loginValidator(control: FormControl): ValidationErrors | null {
     return null;
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class UserService
     extends NaturalAbstractModelService<
         UserQuery['user'],

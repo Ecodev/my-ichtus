@@ -5,7 +5,7 @@ import {
     NaturalIconDirective,
     NaturalSelectEnumComponent,
 } from '@ecodev/natural';
-import {Component, inject, input, type OnInit, output} from '@angular/core';
+import {Component, inject, input, type OnInit, output, ChangeDetectionStrategy} from '@angular/core';
 import {
     type CreateUser,
     type CurrentUserForProfileQuery,
@@ -60,6 +60,7 @@ const userDeletionRequested = new Map<string, void>();
     ],
     templateUrl: './family-member.component.html',
     styleUrl: './family-member.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FamilyMemberComponent extends NaturalAbstractDetail<FamilyUserService> implements OnInit {
     public readonly viewer = input.required<NonNullable<CurrentUserForProfileQuery['viewer']>>();

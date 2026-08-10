@@ -12,7 +12,7 @@
             @if (form.get('verificationDate')?.value) {
                 <div class="nat-vertical" style="text-align: right">
                     <div class="mat-font-title-sm">Dernière vérification</div>
-                    <div>{{ form.get('verificationDate')?.value | date: 'dd.MM.y' }}</div>
+                    <div>{{ $safeNavigationMigration(form.get('verificationDate')?.value) | date: 'dd.MM.y' }}</div>
                 </div>
             }
             @if (isUpdatePage() && showVerified()) {
@@ -179,7 +179,9 @@
                             [service]="userService"
                             [showIcon]="false"
                             [navigateTo]="
-                                form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                                form.get('owner')?.value?.id
+                                    ? ['/admin/user', $safeNavigationMigration(form.get('owner')?.value.id)]
+                                    : null
                             "
                             (selectionChange)="update()"
                         />
@@ -190,7 +192,10 @@
                                 placeholder="Compte à créditer lors de la réservation"
                                 [config]="accountHierarchicConfig"
                                 [showIcon]="false"
-                                [navigateTo]="['/admin/account', form.get('creditAccount')?.value?.id]"
+                                [navigateTo]="[
+                                    '/admin/account',
+                                    $safeNavigationMigration(form.get('creditAccount')?.value?.id),
+                                ]"
                                 (selectionChange)="update()"
                             />
                         }

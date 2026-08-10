@@ -472,12 +472,10 @@ export function actualizeFinishedBookingListForDay(bookings: MergedBooking[], ta
             entry.classList.add('TableEntriesHover');
             entry.addEventListener('click', function (event) {
                 const parentElement = (event.target as HTMLElement).parentElement!;
-                if (
-                    !(
-                        parentElement.classList.contains('TableEntriesBookableBox') ||
-                        parentElement.parentElement!.classList.contains('TableEntriesBookableBox')
-                    )
-                ) {
+                if (!(
+                    parentElement.classList.contains('TableEntriesBookableBox') ||
+                    parentElement.parentElement!.classList.contains('TableEntriesBookableBox')
+                )) {
                     popBookingInfos(bookings[+this.id]);
                 }
             });

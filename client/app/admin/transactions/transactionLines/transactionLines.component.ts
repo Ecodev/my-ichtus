@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, type OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AvailableColumn,
     type Button,
@@ -81,6 +81,7 @@ import {
     ],
     templateUrl: './transactionLines.component.html',
     styleUrl: './transactionLines.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TransactionLinesComponent extends NaturalAbstractList<TransactionLineService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);

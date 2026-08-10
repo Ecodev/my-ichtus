@@ -1,5 +1,5 @@
 import {ifValid, NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserService} from '../admin/users/services/user.service';
@@ -31,6 +31,7 @@ export const privacyPolicyUrl = 'https://ichtus.ch/contact/politique-de-confiden
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class LoginComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

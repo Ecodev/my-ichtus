@@ -1,4 +1,13 @@
-import {Component, DestroyRef, inject, Input, type OnChanges, type OnInit, type SimpleChanges} from '@angular/core';
+import {
+    Component,
+    DestroyRef,
+    inject,
+    Input,
+    type OnChanges,
+    type OnInit,
+    type SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import {BookingType, type CurrentUserForProfileQuery, type PricedBookingsQuery} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
@@ -66,6 +75,7 @@ import {pricedBookingsQuery} from '../../../admin/bookings/services/booking.quer
     ],
     templateUrl: './services.component.html',
     styleUrl: './services.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServicesComponent implements OnInit, OnChanges {
     protected readonly userService = inject(UserService);

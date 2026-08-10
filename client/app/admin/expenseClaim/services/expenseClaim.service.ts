@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type FormValidators, NaturalAbstractModelService, unsignedMoney} from '@ecodev/natural';
 import {
     createExpenseClaim,
@@ -27,9 +27,7 @@ import {
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class ExpenseClaimService extends NaturalAbstractModelService<
     ExpenseClaimQuery['expenseClaim'],
     ExpenseClaimQueryVariables,

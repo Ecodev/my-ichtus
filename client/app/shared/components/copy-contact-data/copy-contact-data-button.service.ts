@@ -1,4 +1,4 @@
-import {DOCUMENT, inject, Injectable} from '@angular/core';
+import {DOCUMENT, inject, Service} from '@angular/core';
 import {type Button, copyToClipboard, ignoreErrors, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {
     type BookingsWithOwnerContactQuery,
@@ -14,9 +14,7 @@ import {bookingsWithOwnerContactQuery} from '../../../admin/bookings/services/bo
 
 type ContactType = 'bookingsWithOwnerContact' | 'emailAndPhoneUsers';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class CopyContactDataButtonService<
     V extends EmailAndPhoneUsersQueryVariables | BookingsWithOwnerContactQueryVariables,
 > {

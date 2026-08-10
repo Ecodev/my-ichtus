@@ -8,7 +8,7 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {LicenseService} from '../services/license.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {UserService} from '../../users/services/user.service';
@@ -46,6 +46,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
     templateUrl: './license.component.html',
     styleUrl: './license.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class LicenseComponent extends NaturalAbstractDetail<LicenseService> {
     protected readonly userService = inject(UserService);

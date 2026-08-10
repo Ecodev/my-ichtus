@@ -9,7 +9,7 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {UserTagService} from '../services/userTag.service';
 import {UserService} from '../../users/services/user.service';
 import {MatInput} from '@angular/material/input';
@@ -40,6 +40,7 @@ import {MatDivider} from '@angular/material/divider';
     ],
     templateUrl: './userTag.component.html',
     styleUrl: './userTag.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class UserTagComponent extends NaturalAbstractDetail<UserTagService, NaturalSeoResolveData> {
     protected readonly userService = inject(UserService);

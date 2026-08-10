@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     NaturalAbstractList,
     NaturalColumnsPickerComponent,
@@ -52,6 +52,7 @@ import {DatePipe} from '@angular/common';
     ],
     templateUrl: './logs.component.html',
     styleUrl: './logs.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class LogsComponent extends NaturalAbstractList<LogService> implements OnInit {
     public constructor() {

@@ -11,7 +11,7 @@ import {
     type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AccountService} from '../services/account.service';
 import {UserService} from '../../users/services/user.service';
 import {groupAccountHierarchicConfiguration} from '../../../shared/hierarchic-selector/GroupAccountHierarchicConfiguration';
@@ -61,6 +61,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
     templateUrl: './account.component.html',
     styleUrl: './account.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AccountComponent extends NaturalAbstractDetail<AccountService, NaturalSeoResolveData> implements OnInit {
     protected readonly userService = inject(UserService);

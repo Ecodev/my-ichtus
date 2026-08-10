@@ -7,6 +7,7 @@ import {
     Input,
     TemplateRef,
     viewChild,
+    ChangeDetectionStrategy,
 } from '@angular/core';
 import {type Direction} from '../particle-button/particles';
 import {NgTemplateOutlet} from '@angular/common';
@@ -26,6 +27,7 @@ type ParticleSwitchOption = {
     imports: [ParticleEffectDirective, NgTemplateOutlet],
     templateUrl: './particle-switch.component.html',
     styleUrl: './particle-switch.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ParticleSwitchComponent implements AfterViewInit {
     private readonly rootElement = inject<ElementRef<HTMLElement>>(ElementRef);

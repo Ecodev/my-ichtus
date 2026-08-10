@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {bookingsForBookable} from '../../../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {BookingWithOwnerService} from '../services/booking-with-owner.service';
@@ -85,6 +85,7 @@ import {
     ],
     templateUrl: './bookings.component.html',
     styleUrl: './bookings.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookingsWithOwnerComponent extends AbstractBookings<BookingWithOwnerService> {
     protected readonly permissionsService = inject(PermissionsService);

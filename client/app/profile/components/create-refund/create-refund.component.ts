@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe, unsignedMoney} from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
@@ -24,6 +24,7 @@ import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/for
     ],
     templateUrl: './create-refund.component.html',
     styleUrl: './create-refund.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CreateRefundComponent {
     private readonly fb = inject(NonNullableFormBuilder);

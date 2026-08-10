@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {type Observable, of} from 'rxjs';
 import {
@@ -110,9 +110,7 @@ export function terminateBooking(apollo: Apollo, id: string, comment: string): O
         .pipe(tap(() => apollo.client.refetchObservableQueries()));
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookingForVanillaService extends NaturalAbstractModelService<
     BookingQuery['booking'],
     BookingQueryVariables,

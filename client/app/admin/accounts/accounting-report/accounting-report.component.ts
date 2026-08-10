@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe} from '@ecodev/natural';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
@@ -28,6 +28,7 @@ import {MatCheckbox, type MatCheckboxChange} from '@angular/material/checkbox';
     ],
     templateUrl: './accounting-report.component.html',
     styleUrl: './accounting-report.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AccountingReportComponent {
     protected readonly form = new FormGroup({

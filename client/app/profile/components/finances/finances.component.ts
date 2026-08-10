@@ -6,7 +6,15 @@ import {
     NaturalIconDirective,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {Component, inject, Input, type OnChanges, type OnInit, type SimpleChanges} from '@angular/core';
+import {
+    Component,
+    inject,
+    Input,
+    type OnChanges,
+    type OnInit,
+    type SimpleChanges,
+    ChangeDetectionStrategy,
+} from '@angular/core';
 import {
     type CurrentUserForProfileQuery,
     type ExpenseClaimsQuery,
@@ -83,6 +91,7 @@ import {expenseClaimsQuery} from '../../../admin/expenseClaim/services/expenseCl
     ],
     templateUrl: './finances.component.html',
     styleUrl: './finances.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FinancesComponent extends NaturalAbstractList<ExpenseClaimService> implements OnInit, OnChanges {
     private readonly userService = inject(UserService);

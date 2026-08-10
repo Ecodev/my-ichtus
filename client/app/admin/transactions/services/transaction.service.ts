@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {formatIsoDateTime, type FormValidators, type Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
@@ -29,9 +29,7 @@ import {AccountService} from '../../accounts/services/account.service';
 import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class TransactionService extends NaturalAbstractModelService<
     TransactionQuery['transaction'],
     TransactionQueryVariables,

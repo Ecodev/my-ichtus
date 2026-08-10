@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type FormAsyncValidators, type FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {createUserTag, deleteUserTags, updateUserTag, userTagQuery, userTagsQuery} from './userTag.queries';
 import {
@@ -16,9 +16,7 @@ import {
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class UserTagService extends NaturalAbstractModelService<
     UserTagQuery['userTag'],
     UserTagQueryVariables,

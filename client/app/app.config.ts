@@ -22,7 +22,7 @@ import {
     provideIcons,
     provideSeo,
 } from '@ecodev/natural';
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {provideHttpClient, withInterceptors, withXhr} from '@angular/common/http';
 import {
     MAT_PAGINATOR_DEFAULT_OPTIONS,
     type MatPaginatorDefaultOptions,
@@ -39,7 +39,7 @@ import {localConfig, signedQueriesKey} from './shared/generated-config';
 import {DATE_PIPE_DEFAULT_OPTIONS, type DatePipeConfig, registerLocaleData} from '@angular/common';
 import localeFRCH from '@angular/common/locales/fr-CH';
 import localeDECH from '@angular/common/locales/de-CH';
-import {provideRouter, withRouterConfig} from '@angular/router';
+import {provideRouter} from '@angular/router';
 import {MAT_TABS_CONFIG, type MatTabsConfig} from '@angular/material/tabs';
 
 registerLocaleData(localeFRCH);
@@ -147,13 +147,8 @@ export const appConfig: ApplicationConfig = {
         },
         apolloOptionsProvider,
         {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig},
-        provideHttpClient(withInterceptors([activityInterceptor, graphqlQuerySigner(signedQueriesKey)])),
-        provideRouter(
-            routes,
-            withRouterConfig({
-                paramsInheritanceStrategy: 'always',
-            }),
-        ),
+        provideHttpClient(withXhr(), withInterceptors([activityInterceptor, graphqlQuerySigner(signedQueriesKey)])),
+        provideRouter(routes),
         provideAppInitializer(() => {
             const dateAdapter = inject(DateAdapter);
             const intl = inject(TimeagoIntl);

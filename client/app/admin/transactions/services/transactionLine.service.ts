@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type AbstractControl, FormGroup, type ValidationErrors, type ValidatorFn, Validators} from '@angular/forms';
 import {
     formatIsoDateTime,
@@ -42,9 +42,7 @@ function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null 
     return debit || credit ? null : {atLeastOneAccountRequired: true};
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class TransactionLineService extends NaturalAbstractModelService<
     TransactionLineQuery['transactionLine'],
     TransactionLineQueryVariables,

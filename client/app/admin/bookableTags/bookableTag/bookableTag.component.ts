@@ -7,7 +7,7 @@ import {
     type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {BookableTagService} from '../services/bookableTag.service';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
@@ -35,6 +35,7 @@ import {MatDivider} from '@angular/material/divider';
     ],
     templateUrl: './bookableTag.component.html',
     styleUrl: './bookableTag.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookableTagComponent extends NaturalAbstractDetail<BookableTagService, NaturalSeoResolveData> {
     public constructor() {

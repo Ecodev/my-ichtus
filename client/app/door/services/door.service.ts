@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {openDoorMutation} from './door.queries';
@@ -18,9 +18,7 @@ export type DoorConfig = {
     opened: boolean;
 };
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class DoorService {
     private readonly apollo = inject(Apollo);
 

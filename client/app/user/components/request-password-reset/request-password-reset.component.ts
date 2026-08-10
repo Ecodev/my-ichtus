@@ -5,7 +5,7 @@ import {
     NaturalIconDirective,
     validateAllFormControls,
 } from '@ecodev/natural';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -31,6 +31,7 @@ import {MatError, MatFormField, MatLabel, MatPrefix} from '@angular/material/for
     ],
     templateUrl: './request-password-reset.component.html',
     styleUrl: './request-password-reset.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class RequestPasswordResetComponent {
     private readonly alertService = inject(NaturalAlertService);

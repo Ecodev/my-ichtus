@@ -2,7 +2,7 @@
     <h1 class="mat-font-headline-lg text-center nat-margin-standard">Nouvelle sortie</h1>
     <div class="nat-vertical nat-gap nat-md-horizontal">
         <div class="nat-vertical nat-gap-30 nat-sm-horizontal nat-center">
-            <app-card [file]="bookable?.image">
+            <app-card [file]="$safeNavigationMigration(bookable?.image)">
                 <div class="nat-vertical nat-gap-10 nat-center">
                     @if (!bookable?.image) {
                         <div class="card-illustration nat-padding">

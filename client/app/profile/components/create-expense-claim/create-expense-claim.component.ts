@@ -4,7 +4,7 @@ import {
     NaturalFixedButtonComponent,
     type NaturalSeoResolveData,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit, viewChild} from '@angular/core';
+import {Component, inject, type OnInit, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ExpenseClaimService} from '../../../admin/expenseClaim/services/expenseClaim.service';
 import {type CreateExpenseClaim, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../../admin/users/services/user.service';
@@ -37,6 +37,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ],
     templateUrl: './create-expense-claim.component.html',
     styleUrl: './create-expense-claim.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CreateExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>

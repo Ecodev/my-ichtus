@@ -1,12 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 import {type LogsQuery, type LogsQueryVariables} from '../../../shared/generated-types';
 import {logsQuery} from './log.queries';
 import {type Observable, of} from 'rxjs';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class LogService extends NaturalAbstractModelService<
     never,
     never,

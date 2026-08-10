@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ifValid, NaturalAlertService} from '@ecodev/natural';
 import {FormsModule, NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
@@ -13,6 +13,7 @@ import {PasswordComponent} from '../password/password.component';
     imports: [FormsModule, ReactiveFormsModule, PasswordComponent, MatButton],
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ChangePasswordComponent {
     private readonly apollo = inject(Apollo);

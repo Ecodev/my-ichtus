@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatListItem, MatNavList} from '@angular/material/list';
 import {ServicesComponent} from '../../services/services.component';
@@ -28,6 +28,7 @@ import {MatIcon} from '@angular/material/icon';
     ],
     templateUrl: './formation.component.html',
     styleUrl: './formation.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FormationComponent extends ServicesComponent {
     public override loadData(): void {

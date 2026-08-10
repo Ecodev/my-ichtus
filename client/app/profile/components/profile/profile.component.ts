@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {Component, DestroyRef, inject, type OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, NavigationStart, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {
@@ -56,6 +56,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ProfileComponent implements OnInit {
     protected readonly userService = inject(UserService);

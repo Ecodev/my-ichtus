@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, type OnInit} from '@angular/core';
+import {Component, inject, Input, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {BookableMetadataService} from './bookable-metadata.service';
 import {
     NaturalAlertService,
@@ -50,6 +50,7 @@ import {
     ],
     templateUrl: './bookable-metadata.component.html',
     styleUrl: './bookable-metadata.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookableMetadataComponent implements OnInit {
     private readonly bookableMetaService = inject(BookableMetadataService);

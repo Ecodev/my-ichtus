@@ -1,4 +1,4 @@
-import {DOCUMENT, inject, Injectable} from '@angular/core';
+import {DOCUMENT, inject, Service} from '@angular/core';
 import {fromEvent, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {localConfig} from '../generated-config';
@@ -67,9 +67,7 @@ export async function hmacSha256(
     return bufferToHexa(signature);
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class DatatransService {
     private readonly document = inject(DOCUMENT);
 

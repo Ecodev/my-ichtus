@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {MatPaginatorIntl} from '@angular/material/paginator';
 
 /**
@@ -23,9 +23,7 @@ function formatNumber(value: number): string {
     return fixedParts.join('');
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class LocalizedPaginatorIntlService extends MatPaginatorIntl {
     public constructor() {
         super();

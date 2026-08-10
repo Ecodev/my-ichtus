@@ -16,7 +16,7 @@ import {
     NaturalStampComponent,
     NaturalTableButtonComponent,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {BookableService} from '../services/bookable.service';
 import {
     type BookingFilterGroupCondition,
@@ -89,6 +89,7 @@ import {UserService} from '../../users/services/user.service';
     ],
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookableComponent extends NaturalAbstractDetail<BookableService, NaturalSeoResolveData> implements OnInit {
     protected readonly bookableTagService = inject(BookableTagService);

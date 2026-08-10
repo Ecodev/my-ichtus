@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {ignoreErrors, NaturalAbstractModelService, NaturalQueryVariablesManager} from '@ecodev/natural';
 import {from, type Observable, switchMap} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -22,9 +22,7 @@ import {createSearchEntries} from './member/user';
 import {Cahier} from './cahier/methods';
 import {BookingForVanillaService} from './booking-for-vanilla.service';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class UserForVanillaService extends NaturalAbstractModelService<
     UserQuery['user'],
     UserQueryVariables,

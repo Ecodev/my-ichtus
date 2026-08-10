@@ -6,7 +6,7 @@ import {
     NaturalSelectHierarchicComponent,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, ChangeDetectionStrategy} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {type TransactionLineInput, type TransactionLinesQuery} from '../../../shared/generated-types';
@@ -140,6 +140,7 @@ export type EditableTransactionLinesInput =
     ],
     templateUrl: './editable-transaction-lines.component.html',
     styleUrl: './editable-transaction-lines.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class EditableTransactionLinesComponent extends NaturalAbstractEditableList<
     TransactionLineService,

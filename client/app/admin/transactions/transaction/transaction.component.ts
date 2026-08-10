@@ -9,7 +9,7 @@ import {
     type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit, viewChild} from '@angular/core';
+import {Component, inject, type OnInit, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {NavigationEnd, RouterLink} from '@angular/router';
 import {TransactionService} from '../services/transaction.service';
 import {EMPTY, type Observable} from 'rxjs';
@@ -90,6 +90,7 @@ import {type DuplicatedTransactionResolve} from '../transaction';
     ],
     templateUrl: './transaction.component.html',
     styleUrl: './transaction.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class TransactionComponent
     extends NaturalAbstractDetail<

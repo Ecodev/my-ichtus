@@ -6,7 +6,7 @@ import {
     relationsToIds,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {pick} from 'es-toolkit';
 import {RegisterComponent} from './register.component';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -77,6 +77,7 @@ import {MatError, MatFormField, MatLabel, MatPrefix, MatSuffix} from '@angular/m
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class RegisterConfirmComponent extends RegisterComponent implements OnInit {
     private readonly userService = inject(UserService);

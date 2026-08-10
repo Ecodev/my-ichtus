@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationsComponent} from '../../../shared/components/navigations/navigations.component';
 
@@ -7,6 +7,7 @@ import {NavigationsComponent} from '../../../shared/components/navigations/navig
     imports: [NavigationsComponent],
     templateUrl: './booking-history.component.html',
     styleUrl: './booking-history.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookingHistoryComponent {
     protected readonly route = inject(ActivatedRoute);

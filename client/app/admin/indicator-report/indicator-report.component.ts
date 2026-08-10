@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, signal, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DateAdapter} from '@angular/material/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -118,6 +118,7 @@ function linkToTransactionLines(selections: NaturalSearchSelection[]): RouterLin
     ],
     templateUrl: './indicator-report.component.html',
     styleUrl: './indicator-report.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class IndicatorReportComponent {
     protected readonly route = inject(ActivatedRoute);

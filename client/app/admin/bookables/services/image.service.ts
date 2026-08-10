@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {userMetaFragment} from '../../../shared/queries/fragments';
 import {type CreateImage, type CreateImageVariables, type ImageInput} from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
@@ -16,9 +16,7 @@ export const createImageMutation = gql`
     ${userMetaFragment}
 `;
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class ImageService extends NaturalAbstractModelService<
     never,
     never,

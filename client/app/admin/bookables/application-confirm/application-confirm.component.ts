@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -13,6 +13,7 @@ import {MatOption, MatSelect} from '@angular/material/select';
     selector: 'app-application-confirm',
     imports: [MatDialogModule, MatButton, MatFormField, MatLabel, MatOption, ReactiveFormsModule, MatSelect],
     templateUrl: './application-confirm.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 // This dialog is only displayed when the user submits an application for a COURSE
 export class ApplicationConfirmComponent {

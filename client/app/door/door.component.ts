@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {type DoorConfig, DoorService} from './services/door.service';
 import {NaturalAlertService} from '@ecodev/natural';
 import {ActivatedRoute} from '@angular/router';
@@ -12,6 +12,7 @@ import {CardComponent} from '../shared/components/card/card.component';
     imports: [CardComponent, MatButton, MatIcon],
     templateUrl: './door.component.html',
     styleUrl: './door.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class DoorComponent implements OnInit {
     protected readonly doorService = inject(DoorService);

@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe, unsignedMoney} from '@ecodev/natural';
-import {Component, inject, viewChild} from '@angular/core';
+import {Component, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -33,6 +33,7 @@ export type ProvisionData = {
     ],
     templateUrl: './provision.component.html',
     styleUrl: './provision.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ProvisionComponent {
     protected readonly data = inject<ProvisionData>(MAT_DIALOG_DATA);

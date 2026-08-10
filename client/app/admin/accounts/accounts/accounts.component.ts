@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AvailableColumn,
     type Button,
@@ -84,6 +84,7 @@ type AccountingExportDialogResult = {
     ],
     templateUrl: './accounts.component.html',
     styleUrl: './accounts.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AccountsComponent extends NaturalAbstractNavigableList<AccountService> implements OnInit {
     private readonly dialog = inject(MatDialog);

@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     type AvailableColumn,
     NaturalAbstractList,
@@ -57,6 +57,7 @@ import {AsyncPipe} from '@angular/common';
     ],
     templateUrl: './bookableTags.component.html',
     styleUrl: './bookableTags.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookableTagsComponent extends NaturalAbstractList<BookableTagService> implements OnInit {
     protected readonly permissionsService = inject(PermissionsService);

@@ -10,7 +10,7 @@ import {
     type NaturalSeoResolveData,
     NaturalStampComponent,
 } from '@ecodev/natural';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ExpenseClaimService} from '../services/expenseClaim.service';
 import {type CurrentUserForProfileQuery, ExpenseClaimStatus, ExpenseClaimType} from '../../../shared/generated-types';
 import {UserService} from '../../users/services/user.service';
@@ -62,6 +62,7 @@ import {AsyncPipe} from '@angular/common';
     ],
     templateUrl: './expenseClaim.component.html',
     styleUrl: './expenseClaim.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ExpenseClaimComponent
     extends NaturalAbstractDetail<ExpenseClaimService, NaturalSeoResolveData>

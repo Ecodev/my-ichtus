@@ -338,8 +338,8 @@ export const Cahier = {
                 let idsToFinish: string[] = [];
                 let commentsToFinish: string[] = [];
                 let inputsToCreate: BookingInput[] = [];
-                let idsToUpdate: string[] = [];
-                let inputsToUpdate: BookingPartialInput[] = [];
+                let idsToUpdate: string[];
+                let inputsToUpdate: BookingPartialInput[];
 
                 const currentDate = new Date().toISOString();
                 const bookingsInputs = server.bookingService.getServerInputsForBookingCreating(

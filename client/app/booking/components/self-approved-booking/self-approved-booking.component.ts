@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookableService} from '../../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
@@ -29,6 +29,7 @@ import {first} from 'rxjs/operators';
     ],
     templateUrl: './self-approved-booking.component.html',
     styleUrl: './self-approved-booking.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SelfApprovedBookingComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

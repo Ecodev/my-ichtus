@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {MatButton} from '@angular/material/button';
 import {FocusDirective} from '../../../shared/directives/focus.directive';
@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
     imports: [FormsModule, FocusDirective, MatButton, RouterLink],
     templateUrl: './code-input.component.html',
     styleUrl: './code-input.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CodeInputComponent {
     private readonly router = inject(Router);

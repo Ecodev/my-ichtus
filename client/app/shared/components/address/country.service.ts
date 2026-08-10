@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {countriesQuery, countryQuery} from './country.queries';
 import {
     type CountriesQuery,
@@ -8,9 +8,7 @@ import {
 } from '../../generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class CountryService extends NaturalAbstractModelService<
     CountryQuery['country'],
     CountryQueryVariables,

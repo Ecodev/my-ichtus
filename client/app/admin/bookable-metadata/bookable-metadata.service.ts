@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {
     bookableMetadatasQuery,
     createBookableMetadataMutation,
@@ -17,9 +17,7 @@ import {
     type UpdateBookableMetadataVariables,
 } from '../../shared/generated-types';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookableMetadataService extends NaturalAbstractModelService<
     never,
     never,

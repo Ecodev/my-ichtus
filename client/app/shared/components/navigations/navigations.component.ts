@@ -1,4 +1,4 @@
-import {Component, inject, input, type OnInit} from '@angular/core';
+import {Component, inject, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {BookingService} from '../../../admin/bookings/services/booking.service';
 import {
@@ -85,6 +85,7 @@ function bookingsToExtended(bookings: BookingsQuery['bookings']): PaginatedExten
     ],
     templateUrl: './navigations.component.html',
     styleUrl: './navigations.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NavigationsComponent implements OnInit {
     protected readonly userService = inject(UserService);

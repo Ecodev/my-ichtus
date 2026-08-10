@@ -1,11 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {pricedBookingsQuery} from './booking.queries';
 import {type PricedBookingsQuery, type PricedBookingsQueryVariables} from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class PricedBookingService extends NaturalAbstractModelService<
     never,
     never,

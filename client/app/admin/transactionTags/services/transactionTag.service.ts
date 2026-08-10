@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type FormValidators, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     createTransactionTag,
@@ -20,9 +20,7 @@ import {
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class TransactionTagService extends NaturalAbstractModelService<
     TransactionTagQuery['transactionTag'],
     TransactionTagQueryVariables,

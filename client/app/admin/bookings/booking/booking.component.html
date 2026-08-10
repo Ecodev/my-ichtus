@@ -40,7 +40,9 @@
                         [service]="userService"
                         [showIcon]="false"
                         [navigateTo]="
-                            form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                            form.get('owner')?.value?.id
+                                ? ['/admin/user', $safeNavigationMigration(form.get('owner')?.value.id)]
+                                : null
                         "
                         (selectionChange)="update()"
                     />
@@ -53,7 +55,7 @@
                             [showIcon]="false"
                             [navigateTo]="
                                 form.get('participant')?.value?.id
-                                    ? ['/admin/user', form.get('participant')?.value.id]
+                                    ? ['/admin/user', $safeNavigationMigration(form.get('participant')?.value.id)]
                                     : null
                             "
                             (selectionChange)="update()"
@@ -84,7 +86,9 @@
                         [filter]="bookableSelectFilter"
                         [showIcon]="false"
                         [navigateTo]="
-                            form.get('bookable')?.value?.id ? ['/admin/bookable', form.get('bookable')?.value.id] : null
+                            form.get('bookable')?.value?.id
+                                ? ['/admin/bookable', $safeNavigationMigration(form.get('bookable')?.value.id)]
+                                : null
                         "
                         (selectionChange)="update()"
                     />

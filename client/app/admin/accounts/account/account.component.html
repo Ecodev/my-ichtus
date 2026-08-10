@@ -75,7 +75,7 @@
                             placeholder="Compte parent"
                             [config]="accountHierarchicConfig"
                             [showIcon]="false"
-                            [navigateTo]="['../', form.get('parent')?.value?.id]"
+                            [navigateTo]="['../', $safeNavigationMigration(form.get('parent')?.value?.id)]"
                             (selectionChange)="update()"
                         />
 
@@ -95,14 +95,19 @@
                                 [filter]="{groups: [{conditions: [{accounts: {empty: {not: false}}}]}]}"
                                 [showIcon]="false"
                                 [navigateTo]="
-                                    form.get('owner')?.value?.id ? ['/admin/user', form.get('owner')?.value.id] : null
+                                    form.get('owner')?.value?.id
+                                        ? ['/admin/user', $safeNavigationMigration(form.get('owner')?.value.id)]
+                                        : null
                                 "
                                 (selectionChange)="update()"
                             />
                         }
 
                         @if (form.get('owner')?.value) {
-                            <div>IBAN de l'utilisateur: {{ form.get('owner')?.value?.iban | iban }}</div>
+                            <div>
+                                IBAN de l'utilisateur:
+                                {{ $safeNavigationMigration(form.get('owner')?.value?.iban) | iban }}
+                            </div>
                         }
                     </div>
                 </div>

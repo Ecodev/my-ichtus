@@ -6,7 +6,7 @@ import {mockApolloProvider} from '../../../shared/testing/MockApolloProvider';
 import {PermissionsService} from '../../../shared/services/permissions.service';
 import {LOCAL_STORAGE, NaturalMemoryStorage} from '@ecodev/natural';
 import {type Observable} from 'rxjs';
-import {type PermissionsQuery} from 'client/app/shared/generated-types';
+import {type PermissionsQuery} from '../../../shared/generated-types';
 
 describe('UserService', () => {
     let service: UserService;

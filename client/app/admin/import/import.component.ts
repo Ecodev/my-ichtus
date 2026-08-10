@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PermissionsService} from '../../shared/services/permissions.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {type ImportCamt, type ImportCamtVariables} from '../../shared/generated-types';
@@ -20,6 +20,7 @@ import {AsyncPipe} from '@angular/common';
     imports: [MatButton, NaturalFileSelectDirective, MatIcon, NaturalIconDirective, AsyncPipe],
     templateUrl: './import.component.html',
     styleUrl: './import.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ImportComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);

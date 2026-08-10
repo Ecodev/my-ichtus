@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {UserService} from '../admin/users/services/user.service';
 import {BookingService} from '../admin/bookings/services/booking.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -30,6 +30,7 @@ import {MatDivider} from '@angular/material/divider';
     ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class DashboardComponent {
     protected readonly userService = inject(UserService);

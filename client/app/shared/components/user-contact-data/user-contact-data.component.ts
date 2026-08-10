@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, ChangeDetectionStrategy} from '@angular/core';
 import {type UserContactData} from '../../generated-types';
 import {NonBreakingSpacePipe} from '../../pipes/non-breaking-space.pipe';
 import {MatButton} from '@angular/material/button';
@@ -8,6 +8,7 @@ import {MatButton} from '@angular/material/button';
     imports: [NonBreakingSpacePipe, MatButton],
     templateUrl: './user-contact-data.component.html',
     styleUrl: './user-contact-data.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class UserContactDataComponent {
     public readonly user = input.required<UserContactData | null>();

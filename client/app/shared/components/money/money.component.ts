@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, ChangeDetectionStrategy} from '@angular/core';
 import Big from 'big.js';
 import {CurrencyPipe} from '@angular/common';
 
@@ -7,6 +7,7 @@ import {CurrencyPipe} from '@angular/common';
     imports: [CurrencyPipe],
     templateUrl: './money.component.html',
     styleUrl: './money.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class MoneyComponent {
     /**

@@ -132,7 +132,7 @@ export function getNiceTime(date: Date, separator = ':', addZero = false): strin
     }
 }
 export function getNiceDate(date: Date, substr = false, year = false): string {
-    let r = '';
+    let r: string;
     if (substr) {
         let month = Mois[date.getMonth()] as string;
         if (month.length > 4) month = month.substring(0, 3);
@@ -154,7 +154,7 @@ export function getPreviousDate(date: Date): Date {
 
 export function deltaTime(d1: Date, d2 = new Date(), bold = true): {text: string; time: number} {
     const delta = Math.abs(d2.getTime() - d1.getTime()) / 1000 / 60; // in minutes
-    let t = '';
+    let t: string;
 
     if (delta < 1) t = "à l'instant";
     // [0;1[

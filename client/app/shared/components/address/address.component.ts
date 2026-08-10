@@ -1,5 +1,5 @@
 import {NaturalErrorMessagePipe, NaturalSelectComponent} from '@ecodev/natural';
-import {Component, inject, input, output} from '@angular/core';
+import {Component, inject, input, output, ChangeDetectionStrategy} from '@angular/core';
 import {CountryService} from './country.service';
 import {type FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
@@ -19,6 +19,7 @@ import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
     ],
     templateUrl: './address.component.html',
     styleUrl: './address.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AddressComponent {
     protected readonly countryService = inject(CountryService);

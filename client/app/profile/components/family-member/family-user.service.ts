@@ -1,11 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {UserService} from '../../../admin/users/services/user.service';
 import {Relationship, type UserInput, UserRole} from '../../../shared/generated-types';
 import {type FormValidators} from '@ecodev/natural';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class FamilyUserService extends UserService {
     public override getDefaultForServer(): UserInput {
         return {

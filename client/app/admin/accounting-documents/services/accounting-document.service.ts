@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {createAccountingDocumentMutation, deleteAccountingDocumentMutation} from './accounting-documents.queries';
 import {
     type AccountingDocumentInput,
@@ -9,9 +9,7 @@ import {
 } from '../../../shared/generated-types';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class AccountingDocumentService extends NaturalAbstractModelService<
     never,
     never,

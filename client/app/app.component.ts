@@ -1,4 +1,4 @@
-import {Component, effect, inject, viewChild} from '@angular/core';
+import {Component, effect, inject, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {BootLoaderComponent} from './shared/components/boot-loader/boot-loader.component';
 import {RouterOutlet} from '@angular/router';
 import {NgProgressbar, NgProgressRef} from 'ngx-progressbar';
@@ -9,6 +9,7 @@ import {NetworkActivityService} from '@ecodev/natural';
     imports: [NgProgressbar, RouterOutlet, BootLoaderComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AppComponent {
     private readonly networkActivityService = inject(NetworkActivityService);

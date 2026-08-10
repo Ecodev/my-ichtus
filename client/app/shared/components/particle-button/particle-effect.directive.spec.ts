@@ -1,5 +1,5 @@
 import {type ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, type DebugElement, type InputSignal} from '@angular/core';
+import {Component, type DebugElement, type InputSignal, ChangeDetectionStrategy} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {ParticleEffectDirective} from './particle-effect.directive';
 import {type ConditionalPick} from 'type-fest';
@@ -9,6 +9,7 @@ import {type Direction} from './particles';
 @Component({
     imports: [ParticleEffectDirective],
     template: ` <button appParticleEffect (click)="hidden0 = !hidden0">Send</button> `,
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 class TestParticleEffectButtonComponent {
     public hidden0 = false;

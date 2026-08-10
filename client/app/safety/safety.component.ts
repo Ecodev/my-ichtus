@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {SafetyBookingService} from './safety-booking.service';
 import {bookings} from '../shared/natural-search/natural-search-facets';
 import {PermissionsService} from '../shared/services/permissions.service';
@@ -81,6 +81,7 @@ import {AsyncPipe, DatePipe} from '@angular/common';
         NaturalEllipsisPipe,
     ],
     templateUrl: '../admin/bookings/bookings/bookings.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SafetyComponent extends AbstractBookings<SafetyBookingService> {
     protected readonly permissionsService = inject(PermissionsService);

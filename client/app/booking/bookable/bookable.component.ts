@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BookableService} from '../../admin/bookables/services/bookable.service';
 import {BookingService} from '../../admin/bookings/services/booking.service';
@@ -24,6 +24,7 @@ import {UserContactDataComponent} from '../../shared/components/user-contact-dat
     ],
     templateUrl: './bookable.component.html',
     styleUrl: './bookable.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookableComponent implements OnInit {
     private readonly bookableService = inject(BookableService);

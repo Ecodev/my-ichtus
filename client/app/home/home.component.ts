@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, type OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
     LOCAL_STORAGE,
     NaturalAvatarComponent,
@@ -30,6 +30,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class HomeComponent implements OnInit {
     private readonly router = inject(Router);

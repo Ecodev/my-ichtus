@@ -1,4 +1,4 @@
-import {Component, inject, type OnInit} from '@angular/core';
+import {Component, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {BookingService} from '../services/booking.service';
 import {
     BookableSortingField,
@@ -78,6 +78,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     ],
     templateUrl: './booking.component.html',
     styleUrl: './booking.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BookingComponent extends NaturalAbstractDetail<BookingService, NaturalSeoResolveData> implements OnInit {
     protected readonly bookableService = inject(BookableService);

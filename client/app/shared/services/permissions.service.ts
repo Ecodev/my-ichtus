@@ -1,5 +1,5 @@
 import {Apollo} from 'apollo-angular';
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {ignoreErrors, type Literal} from '@ecodev/natural';
 import {BehaviorSubject, type Observable} from 'rxjs';
 import {concatMap, debounceTime, distinctUntilChanged, map, shareReplay} from 'rxjs/operators';
@@ -14,9 +14,7 @@ type Contexts = {
 /**
  * A service to fetch permissions and use them in templates.
  */
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class PermissionsService {
     /**
      * Observable of CRUD permissions, usually for object creations

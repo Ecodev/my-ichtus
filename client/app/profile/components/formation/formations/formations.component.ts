@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {UsageBookablesComponent} from '../../../../admin/bookables/bookables/usage-bookables.component';
 import {NaturalSearchComponent} from '@ecodev/natural';
 import {MatPaginator} from '@angular/material/paginator';
@@ -21,5 +21,6 @@ import {BookablePriceComponent} from '../../../../shared/components/bookable-pri
     ],
     templateUrl: './formations.component.html',
     styleUrl: './formations.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class FormationsComponent extends UsageBookablesComponent {}

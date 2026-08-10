@@ -19,7 +19,7 @@
                     matInput
                     formControlName="datePrevious"
                     [matDatepicker]="pickerPrevious"
-                    [max]="form.get('date')?.value"
+                    [max]="$safeNavigationMigration(form.get('date')?.value)"
                 />
                 <mat-datepicker-toggle matIconSuffix [for]="pickerPrevious" />
                 <mat-datepicker #pickerPrevious />

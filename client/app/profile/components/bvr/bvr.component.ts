@@ -1,5 +1,5 @@
 import {Apollo, gql} from 'apollo-angular';
-import {Component, DOCUMENT, inject, Input} from '@angular/core';
+import {Component, DOCUMENT, inject, Input, ChangeDetectionStrategy} from '@angular/core';
 import {
     type BankingInfosForExportQuery,
     type BankingInfosQuery,
@@ -37,6 +37,7 @@ const queryForExport = gql`
     imports: [MatProgressSpinner, MatIconButton, MatTooltip, MatIcon, NaturalIconDirective, IbanPipe],
     templateUrl: './bvr.component.html',
     styleUrl: './bvr.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class BvrComponent {
     private readonly apollo = inject(Apollo);

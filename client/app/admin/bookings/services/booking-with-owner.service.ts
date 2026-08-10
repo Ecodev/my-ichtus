@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {
     bookingQuery,
     bookingsWithOwnerBalanceQuery,
@@ -21,9 +21,7 @@ import {
 import {NaturalAbstractModelService} from '@ecodev/natural';
 import {type Observable, of} from 'rxjs';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class BookingWithOwnerService extends NaturalAbstractModelService<
     BookingQuery['booking'],
     BookingQueryVariables,

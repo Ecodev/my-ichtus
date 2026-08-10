@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Service} from '@angular/core';
 import {bookableQuery, createBookable, deleteBookables, updateBookable, usageBookablesQuery} from './bookable.queries';
 import {
     type BookableQuery,
@@ -18,9 +18,7 @@ import {BookingService} from '../../bookings/services/booking.service';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 import {type Observable, of} from 'rxjs';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class UsageBookableService extends NaturalAbstractModelService<
     BookableQuery['bookable'],
     BookableQueryVariables,

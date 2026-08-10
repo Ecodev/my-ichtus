@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, type OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {PermissionsService} from '../../../shared/services/permissions.service';
@@ -32,6 +32,7 @@ export type SupportComponentData = {
     ],
     templateUrl: './support.component.html',
     styleUrl: './support.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SupportComponent implements OnInit {
     private readonly configurationService = inject(ConfigurationService);

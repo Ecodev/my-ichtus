@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {type FormAsyncValidators, type FormValidators, NaturalAbstractModelService, unique} from '@ecodev/natural';
 import {createLicense, deleteLicenses, licenseQuery, licensesQuery, updateLicense} from './license.queries';
 import {
@@ -16,9 +16,7 @@ import {
 } from '../../../shared/generated-types';
 import {Validators} from '@angular/forms';
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class LicenseService extends NaturalAbstractModelService<
     LicenseQuery['license'],
     LicenseQueryVariables,

@@ -1,4 +1,4 @@
-import {Component, Input, input, type OnInit} from '@angular/core';
+import {Component, Input, input, type OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {type FileModel, NaturalFileComponent} from '@ecodev/natural';
 import {MatCard} from '@angular/material/card';
 
@@ -7,6 +7,7 @@ import {MatCard} from '@angular/material/card';
     imports: [MatCard, NaturalFileComponent],
     templateUrl: './card.component.html',
     styleUrl: './card.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CardComponent implements OnInit {
     public readonly illustrationHeight = input(200);

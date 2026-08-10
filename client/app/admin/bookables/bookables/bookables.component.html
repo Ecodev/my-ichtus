@@ -108,7 +108,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <td *matFooterCellDef mat-footer-cell class="natural-align-right">
                             @if (dataSource.data?.totalPurchasePrice > 0) {
                                 <span>
-                                    {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
+                                    {{
+                                        $safeNavigationMigration(dataSource.data?.totalPurchasePrice)
+                                            | currency: 'CHF' : 'symbol' : '1.0-0'
+                                    }}
                                 </span>
                             }
                         </td>
@@ -131,7 +134,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <td *matFooterCellDef mat-footer-cell class="natural-align-right">
                             @if (dataSource.data?.totalInitialPrice > 0) {
                                 <span>
-                                    {{ dataSource.data?.totalInitialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
+                                    {{
+                                        $safeNavigationMigration(dataSource.data?.totalInitialPrice)
+                                            | currency: 'CHF' : 'symbol' : '1.0-0'
+                                    }}
                                 </span>
                             }
                         </td>
@@ -154,7 +160,10 @@ Warning this template is used by two components BookablesComponent and UsageBook
                         <td *matFooterCellDef mat-footer-cell class="natural-align-right">
                             @if (dataSource.data?.totalPeriodicPrice > 0) {
                                 <span>
-                                    {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
+                                    {{
+                                        $safeNavigationMigration(dataSource.data?.totalPeriodicPrice)
+                                            | currency: 'CHF' : 'symbol' : '1.0-0'
+                                    }}
                                 </span>
                             }
                         </td>
@@ -208,7 +217,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                                 <div class="nat-horizontal">
                                     <natural-avatar
                                         [initials]="b.owner.name"
-                                        [gravatar]="element.owner?.email"
+                                        [gravatar]="$safeNavigationMigration(element.owner?.email)"
                                         [size]="36"
                                     />
                                     <a matButton [routerLink]="['/admin/user', b.owner.id]">
@@ -296,9 +305,9 @@ Warning this template is used by two components BookablesComponent and UsageBook
             }
             @if (dataSource.data?.length) {
                 <mat-paginator
-                    [length]="dataSource.data?.length"
-                    [pageSize]="dataSource.data?.pageSize"
-                    [pageIndex]="dataSource.data?.pageIndex"
+                    [length]="$safeNavigationMigration(dataSource.data?.length)"
+                    [pageSize]="$safeNavigationMigration(dataSource.data?.pageSize)"
+                    [pageIndex]="$safeNavigationMigration(dataSource.data?.pageIndex)"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
                 />

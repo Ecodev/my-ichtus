@@ -1,5 +1,5 @@
 import {gql} from 'apollo-angular';
-import {Injectable} from '@angular/core';
+import {Service} from '@angular/core';
 import {bookableMetaFragment} from '../admin/bookables/services/bookable.queries';
 import {NaturalAbstractModelService} from '@ecodev/natural';
 import {type SafetyBookingsQuery, type SafetyBookingsQueryVariables} from '../shared/generated-types';
@@ -39,9 +39,7 @@ const safetyBookings = gql`
     ${bookableMetaFragment}
 `;
 
-@Injectable({
-    providedIn: 'root',
-})
+@Service()
 export class SafetyBookingService extends NaturalAbstractModelService<
     never,
     never,
