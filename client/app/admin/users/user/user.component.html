@@ -344,7 +344,7 @@
                             placeholder="Compte"
                             [service]="accountService"
                             [showIcon]="false"
-                            [navigateTo]="['/admin/account', $safeNavigationMigration(form.get('account')?.value?.id)]"
+                            [navigateTo]="['/admin/account', form.get('account')?.value?.id]"
                         />
                         <mat-form-field class="nat-expand-50">
                             <mat-label>IBAN</mat-label>

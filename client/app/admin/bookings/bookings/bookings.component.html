@@ -49,7 +49,7 @@
                                 <div class="nat-horizontal nat-align">
                                     <natural-avatar
                                         [initials]="element.owner.name"
-                                        [gravatar]="$safeNavigationMigration(element.owner?.email)"
+                                        [gravatar]="element.owner?.email"
                                         [size]="36"
                                     />
                                     <natural-table-button
@@ -70,7 +70,7 @@
                                 <div class="nat-horizontal nat-align">
                                     <natural-avatar
                                         [initials]="element.participant.name"
-                                        [gravatar]="$safeNavigationMigration(element.participant?.email)"
+                                        [gravatar]="element.participant?.email"
                                         [size]="36"
                                     />
                                     <natural-table-button
@@ -91,7 +91,7 @@
                                 <div class="nat-horizontal nat-align">
                                     <natural-avatar
                                         [initials]="element.owner.name"
-                                        [gravatar]="$safeNavigationMigration(element.owner?.email)"
+                                        [gravatar]="element.owner?.email"
                                         [size]="36"
                                     />
                                     <span [style.padding-left.px]="16">{{ element.owner.name }}</span>
@@ -197,7 +197,7 @@
                             <app-money
                                 [showCurrency]="false"
                                 [showSignal]="true"
-                                [amount]="$safeNavigationMigration(element.owner.account?.balance)"
+                                [amount]="element.owner.account?.balance"
                             />
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
@@ -244,9 +244,9 @@
             }
             @if (dataSource.data?.length) {
                 <mat-paginator
-                    [length]="$safeNavigationMigration(dataSource.data?.length)"
-                    [pageSize]="$safeNavigationMigration(dataSource.data?.pageSize)"
-                    [pageIndex]="$safeNavigationMigration(dataSource.data?.pageIndex)"
+                    [length]="dataSource.data?.length"
+                    [pageSize]="dataSource.data?.pageSize"
+                    [pageIndex]="dataSource.data?.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
                 />
