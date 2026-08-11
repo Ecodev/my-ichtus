@@ -49,17 +49,18 @@ export abstract class ParentComponent<T extends UsageBookableService | BookableS
     extends NaturalAbstractList<T>
     implements OnInit
 {
+    private readonly apollo = inject(Apollo);
+    private readonly dialog = inject(MatDialog);
+    private readonly snackbar = inject(MatSnackBar);
+    private readonly bookingService = inject(BookingService);
+
     protected readonly hasUsage: boolean = false;
     protected pendingApplications: PricedBookingsQuery['bookings']['items'] = [];
     protected readonly creating = new Map<ExtractTallOne<T>['id'], true>();
-    private readonly apollo = inject(Apollo);
     protected readonly availabilityStatus = availabilityStatus;
     protected readonly availabilityText = availabilityText;
     protected readonly usageStatus = usageStatusFunc;
     protected readonly usageText = usageText;
-    private readonly dialog = inject(MatDialog);
-    private readonly snackbar = inject(MatSnackBar);
-    private readonly bookingService = inject(BookingService);
 
     /**
      * The user who will be the owner of the booking when we create it via the `createApplication` button
