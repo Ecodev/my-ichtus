@@ -22,7 +22,7 @@ import {
     provideIcons,
     provideSeo,
 } from '@ecodev/natural';
-import {provideHttpClient, withInterceptors, withXhr} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {
     MAT_PAGINATOR_DEFAULT_OPTIONS,
     type MatPaginatorDefaultOptions,
@@ -147,7 +147,7 @@ export const appConfig: ApplicationConfig = {
         },
         apolloOptionsProvider,
         {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: matTooltipCustomConfig},
-        provideHttpClient(withXhr(), withInterceptors([activityInterceptor, graphqlQuerySigner(signedQueriesKey)])),
+        provideHttpClient(withInterceptors([activityInterceptor, graphqlQuerySigner(signedQueriesKey)])),
         provideRouter(routes),
         provideAppInitializer(() => {
             const dateAdapter = inject(DateAdapter);
