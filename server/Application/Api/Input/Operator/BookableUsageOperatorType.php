@@ -59,11 +59,6 @@ class BookableUsageOperatorType extends AbstractOperator
             return $bookingAlias . '.owner IS NOT NULL AND ' . $bookingAlias . '.endDate IS NULL';
         }
 
-        // Bookables currently rented by an unknown user ?
-        if (empty($ids)) {
-            return $bookingAlias . '.owner IS NULL';
-        }
-
         $queryBuilder->setParameter($param, $ids);
 
         $not = $args['not'] ? ' NOT' : '';
