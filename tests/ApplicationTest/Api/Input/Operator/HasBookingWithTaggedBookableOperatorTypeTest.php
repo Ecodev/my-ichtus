@@ -61,7 +61,7 @@ class HasBookingWithTaggedBookableOperatorTypeTest extends OperatorType
             ],
         ];
 
-        $actual = _types()->createFilteredQueryBuilder(User::class, $filter, [])->getQuery()->getResult();
+        $actual = _types()->createFilteredQueryBuilder(User::class, $filter, [['field' => 'id', 'order' => 'asc']])->getQuery()->getResult();
 
         self::assertCount($expected, $actual);
     }
