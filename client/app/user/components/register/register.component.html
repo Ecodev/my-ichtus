@@ -17,9 +17,7 @@
                     <mat-label>Nom d'utilisateur</mat-label>
                     <input matInput formControlName="login" />
                     <mat-icon matIconPrefix naturalIcon="person" />
-                    @if (form.get('login')?.hasError('invalid')) {
-                        <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
-                    } @else if (form.get('login')?.hasError('available')) {
+                    @if (form.get('login')?.hasError('available')) {
                         <mat-error>Ce nom d'utilisateur ne peut pas être choisi</mat-error>
                     } @else {
                         <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>

@@ -29,11 +29,7 @@
                 <mat-label>Nom d'utilisateur</mat-label>
                 <input matInput formControlName="login" (change)="update()" />
                 <mat-icon matIconPrefix naturalIcon="person" />
-                @if (form.get('login')?.hasError('invalid')) {
-                    <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
-                } @else {
-                    <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>
-                }
+                <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>
             </mat-form-field>
             <mat-divider class="nat-margin-bottom" />
             <h2>Coordonnées</h2>

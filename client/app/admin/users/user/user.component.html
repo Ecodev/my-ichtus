@@ -72,9 +72,7 @@
                     <mat-form-field>
                         <mat-label>Nom d'utilisateur</mat-label>
                         <input matInput formControlName="login" (change)="update()" />
-                        @if (form.get('login')?.hasError('invalid')) {
-                            <mat-error>{{ form.get('login')?.getError('invalid') }}</mat-error>
-                        } @else if (form.get('login')?.hasError('duplicateValue')) {
+                        @if (form.get('login')?.hasError('duplicateValue')) {
                             <mat-error>Ce nom est déjà attribué à un utilisateur</mat-error>
                         } @else {
                             <mat-error>{{ form.get('login')?.errors | errorMessage }}</mat-error>

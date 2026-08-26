@@ -1,5 +1,6 @@
-import {type AbstractControl, type ValidationErrors} from '@angular/forms';
+import {type AbstractControl} from '@angular/forms';
 import {extractIBAN, isSEPACountry} from 'ibantools';
+import type {ValidationErrorsWithMessage} from '@ecodev/natural';
 
 function isEmptyInputValue(value: any): boolean {
     // we don't check for string here so it also works with arrays
@@ -9,7 +10,7 @@ function isEmptyInputValue(value: any): boolean {
 /**
  * Validate that given string is a valid IBAN for SEPA countries
  */
-export function iban(control: AbstractControl): ValidationErrors | null {
+export function iban(control: AbstractControl): ValidationErrorsWithMessage | null {
     const value = control.value;
     if (isEmptyInputValue(value)) {
         return null; // don't validate empty values to allow optional controls
@@ -24,5 +25,5 @@ export function iban(control: AbstractControl): ValidationErrors | null {
         }
     }
 
-    return {iban: true};
+    return {iban: {message: `IBAN invalide`}};
 }
