@@ -47,7 +47,7 @@ abstract class AbstractExporter
     {
         $folder = bin2hex(random_bytes(16)) . '/';
         $dir = $this->exportDir . $folder;
-        mkdir($dir);
+        mkdir($dir, recursive: true);
 
         $filename = $this->getTitleForFilename() . '.' . $this->getExtension();
         $path = $dir . $filename;
