@@ -33,7 +33,7 @@ abstract class ImportCamt implements FieldInterface
 
                 // Move file to tmp dir
                 $dir = 'data/tmp/camt';
-                @mkdir($dir);
+                @mkdir($dir, recursive: true);
                 $path = $dir . '/' . uniqid() . '.xml';
                 $file->moveTo($path);
 
