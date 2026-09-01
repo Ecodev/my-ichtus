@@ -59,7 +59,7 @@
         "angular-eslint": "^22.1.0",
         "eslint": "^10.8.1",
         "istanbul-lib-instrument": "^6.0.3",
-        "jasmine-core": "~5.10.0",
+        "jasmine-core": "~6.3.0",
         "karma": "~6.4.4",
         "karma-chrome-launcher": "~3.2.0",
         "karma-jasmine": "~5.1.0",
