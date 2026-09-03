@@ -41,12 +41,17 @@ import {TransactionLinesComponent} from '../transactionLines/transactionLines.co
 import {MatButton, MatFabButton, MatMiniFabButton} from '@angular/material/button';
 import {MatDivider} from '@angular/material/divider';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {
+    MatDatepicker,
+    MatDatepickerInput,
+    type MatDatepickerInputEvent,
+    MatDatepickerToggle,
+} from '@angular/material/datepicker';
 import {MatInput} from '@angular/material/input';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MoneyComponent} from '../../../shared/components/money/money.component';
-import {CurrencyPipe} from '@angular/common';
+import {CurrencyPipe, NgTemplateOutlet} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {type DuplicatedTransactionResolve} from '../transaction';
 
@@ -57,6 +62,7 @@ import {type DuplicatedTransactionResolve} from '../transaction';
         ReactiveFormsModule,
         NaturalDetailHeaderComponent,
         CurrencyPipe,
+        NgTemplateOutlet,
         MoneyComponent,
         MatTab,
         MatTabGroup,
@@ -211,6 +217,24 @@ export class TransactionComponent
         this.form.controls.transactionDate.markAsDirty();
 
         this.transactionLines = {mode: 'items', items: duplicatedTransaction.transactionLines};
+    }
+
+    protected dateChange(event: MatDatepickerInputEvent<Date> | null): void {
+        // Only sync date when we create
+        if (this.isUpdatePage()) {
+            return;
+        }
+
+        const date = event?.value;
+        if (!date) {
+            return;
+        }
+
+        this.transactionLinesComponent()?.setLinesDate(date);
+    }
+
+    protected addEmptyLine(): void {
+        this.transactionLinesComponent()?.addLineOn(this.form.get('transactionDate')?.value);
     }
 
     protected save(): void {

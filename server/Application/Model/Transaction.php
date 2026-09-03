@@ -147,12 +147,6 @@ class Transaction extends AbstractModel
         return $this->expenseClaim;
     }
 
-    public function markUpdated(): void
-    {
-        $this->setUpdateDate(new Chronos());
-        $this->setUpdater(User::getCurrent());
-    }
-
     /**
      * Get Datatrans payment reference number.
      */

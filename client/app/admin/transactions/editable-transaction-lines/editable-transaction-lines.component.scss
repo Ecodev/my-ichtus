@@ -4,23 +4,43 @@
     padding: 3px;
 }
 
-.mat-column-balance {
+.head-toolbar {
+    margin-bottom: 10px;
+}
+
+.mat-column-date {
+    width: 154px;
+
     mat-form-field {
-        width: 120px;
+        width: 145px;
     }
 }
 
-.mat-column-credit {
-    max-width: 10em;
+.mat-column-balance {
+    width: 110px;
+
+    mat-form-field {
+        width: 100px;
+    }
 }
 
+.mat-column-remove,
+.mat-column-isReconciled {
+    width: 1em; // Make the column as narrow as possible
+}
+
+.mat-column-credit,
 .mat-column-debit {
-    max-width: 10em;
+    max-width: 14em;
 }
 
 .mat-column-bookable,
 .mat-column-transactionTag {
-    max-width: 10em;
+    max-width: 9em;
+}
+
+.mat-column-remarks {
+    max-width: 9em;
 }
 
 mat-form-field,
@@ -28,6 +48,14 @@ natural-select {
     width: 100%;
 }
 
-.unbalanced-warning {
+/* Smaller text on all form values */
+.mat-mdc-form-field.mat-mdc-form-field,
+:host ::ng-deep natural-select-hierarchic input,
+:host ::ng-deep natural-select input {
+    font-size: 14px !important;
+}
+
+app-warning {
     margin-block: 1em 2em;
+    color: var(--mat-sys-error-container);
 }

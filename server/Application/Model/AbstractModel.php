@@ -6,6 +6,7 @@ namespace Application\Model;
 
 use Application\Acl\Acl;
 use Application\Api\Input\Operator\SearchOperatorType;
+use Application\Api\Input\Sorting\Creator;
 use Application\Api\Input\Sorting\Owner;
 use Cake\Chronos\Chronos;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -24,6 +25,7 @@ use GraphQL\Doctrine\Attribute as API;
 #[ORM\Index(name: 'creation_date', columns: ['creation_date'])]
 #[ORM\Index(name: 'update_date', columns: ['update_date'])]
 #[API\Filter(field: 'custom', operator: SearchOperatorType::class, type: 'string')]
+#[API\Sorting(Creator::class)]
 #[API\Sorting(Owner::class)]
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]

@@ -1,13 +1,30 @@
 @if (form) {
-    <div class="nat-vertical responsive-table nat-gap nat-top nat-left" [formGroup]="form">
+    <div class="nat-horizontal nat-align head-toolbar">
+        <div class="mat-font-headline-lg nat-expand"><ng-content /></div>
+        <natural-columns-picker [availableColumns]="availableColumns" (selectionChange)="columnsForTable = $event" />
+    </div>
+    <div class="nat-vertical responsive-table nat-gap" [formGroup]="form">
         <table mat-table formArrayName="rows" [dataSource]="dataSource">
-            <tr *matHeaderRowDef="columns" mat-header-row></tr>
-            <tr *matRowDef="let row; columns: columns" mat-row></tr>
+            <tr *matHeaderRowDef="columnsForTable" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: columnsForTable" mat-row></tr>
+
+            <ng-container matColumnDef="date">
+                <th *matHeaderCellDef mat-header-cell>Date d'écriture</th>
+                <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
+                    <mat-form-field subscriptSizing="dynamic">
+                        <mat-label>Date d'écriture</mat-label>
+                        <input matInput formControlName="transactionDate" [matDatepicker]="picker" />
+                        <mat-datepicker-toggle matIconSuffix [for]="picker" />
+                        <mat-datepicker #picker />
+                        <mat-error>{{ formArray.at(i).get('transactionDate')?.errors | errorMessage }}</mat-error>
+                    </mat-form-field>
+                </td>
+            </ng-container>
 
             <ng-container matColumnDef="name">
                 <th *matHeaderCellDef mat-header-cell>Libellé</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Libellé</mat-label>
                         <input matInput formControlName="name" />
                         <mat-error>{{ formArray.at(i).get('name')?.errors | errorMessage }}</mat-error>
@@ -18,7 +35,7 @@
             <ng-container matColumnDef="balance">
                 <th *matHeaderCellDef mat-header-cell>Montant</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Montant</mat-label>
                         <input matInput type="number" formControlName="balance" step="0.01" />
                         <mat-error>{{ formArray.at(i).get('balance')?.errors | errorMessage }}</mat-error>
@@ -30,6 +47,7 @@
                 <th *matHeaderCellDef mat-header-cell>Compte débit</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select-hierarchic
+                        subscriptSizing="dynamic"
                         formControlName="debit"
                         placeholder="Compte débit"
                         [config]="accountHierarchicConfig"
@@ -42,6 +60,7 @@
                 <th *matHeaderCellDef mat-header-cell>Compte crédit</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select-hierarchic
+                        subscriptSizing="dynamic"
                         formControlName="credit"
                         placeholder="Compte crédit"
                         [config]="accountHierarchicConfig"
@@ -61,6 +80,7 @@
                 <th *matHeaderCellDef mat-header-cell>Tag</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select
+                        subscriptSizing="dynamic"
                         formControlName="transactionTag"
                         placeholder="Tag"
                         [service]="transactionTagService"
@@ -73,6 +93,7 @@
                 <th *matHeaderCellDef mat-header-cell>Réservable</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <natural-select
+                        subscriptSizing="dynamic"
                         formControlName="bookable"
                         placeholder="Réservable"
                         [service]="bookableService"
@@ -84,7 +105,7 @@
             <ng-container matColumnDef="remarks">
                 <th *matHeaderCellDef mat-header-cell>Remarque</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <mat-form-field>
+                    <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Remarques</mat-label>
                         <textarea
                             matInput
@@ -107,6 +128,12 @@
         </table>
     </div>
 
+    @for (accountError of accountErrors; track accountError) {
+        <app-warning type="warning">
+            <span>{{ accountError }}</span>
+        </app-warning>
+    }
+
     @if (hasNoLine) {
         <app-warning type="warning">
             <span>La transaction doit avoir au moins une ligne</span>
@@ -114,7 +141,7 @@
     }
 
     @if (unbalanced) {
-        <app-warning type="warning" class="unbalanced-warning">
+        <app-warning type="warning">
             <span
                 >Transaction déséquilibrée : débits {{ unbalanced.totalDebit | currency: 'CHF' }}, crédits
                 {{ unbalanced.totalCredit | currency: 'CHF' }}</span

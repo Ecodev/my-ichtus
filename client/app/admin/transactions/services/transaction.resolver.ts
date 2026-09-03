@@ -56,6 +56,7 @@ export function resolveDuplicatedTransaction(
                 results.items.map(source => {
                     return {
                         ...transactionLineService.getDefaultForServer(),
+                        transactionDate: null as unknown as string, // Force user to set date
                         name: source.name,
                         balance: source.balance,
                         debit: source.debit,

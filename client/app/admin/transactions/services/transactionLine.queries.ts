@@ -20,12 +20,17 @@ export const transactionLineMetaFragment = gql`
         }
         remarks
         isReconciled
+        creationDate
+        creator {
+            ...UserMeta
+        }
         updateDate
         updater {
             ...UserMeta
         }
         transaction {
             id
+            transactionDate
             expenseClaim {
                 id
                 accountingDocuments {

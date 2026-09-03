@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Application\Api\Field\Mutation;
 
 use Application\Api\Helper;
+use Application\Api\Input\UpdatableTransactionLineInputType;
 use Application\Model\Transaction;
-use Application\Model\TransactionLine;
 use Application\Repository\TransactionRepository;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
@@ -18,11 +18,11 @@ abstract class UpdateTransaction implements FieldInterface
     {
         yield 'updateTransaction' => fn () => [
             'type' => Type::nonNull(_types()->getOutput(Transaction::class)),
-            'description' => 'Update a transaction, and optionally replace all its transaction lines if given any',
+            'description' => "Update a transaction, sync all it's lines if given",
             'args' => [
                 'id' => Type::nonNull(_types()->getId(Transaction::class)),
                 'input' => Type::nonNull(_types()->getPartialInput(Transaction::class)),
-                'lines' => Type::listOf(Type::nonNull(_types()->getInput(TransactionLine::class))),
+                'lines' => Type::listOf(Type::nonNull(_types()->get(UpdatableTransactionLineInputType::class))),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): Transaction {
                 /** @var Transaction $transaction */
@@ -33,7 +33,6 @@ abstract class UpdateTransaction implements FieldInterface
                 // Check ACL
                 Helper::throwIfDenied($transaction, 'update');
 
-                $transaction->markUpdated();
                 $lines = $args['lines'] ?? null;
 
                 if ($lines !== null) {
@@ -42,10 +41,6 @@ abstract class UpdateTransaction implements FieldInterface
                     $transactionRepository->hydrateLinesAndFlush($transaction, $lines);
                     _em()->refresh($transaction);
                 } else {
-                    // Update the date of each line to match the one of the transaction
-                    foreach ($transaction->getTransactionLines() as $line) {
-                        $line->setTransactionDate($transaction->getTransactionDate());
-                    }
                     _em()->flush();
                 }
 

@@ -28,11 +28,16 @@ test.describe('accounting', () => {
             await expect(page.locator(formControlNameXpath('name', 2))).toHaveValue('Paiement voilier par Raiffeisen');
             await expect(page.locator(formControlNameXpath('name', 3))).toHaveValue('Acquisition voilier NE123456');
             await expect(page.locator(formControlNameXpath('name', 4))).toHaveValue('Paiement voilier par PostFinance');
-            await expect(page.locator(formControlName('transactionDate'))).toHaveValue('');
+            await expect(page.locator(formControlNameXpath('transactionDate', 1))).toHaveValue('');
+            await expect(page.locator(formControlNameXpath('transactionDate', 2))).toHaveValue('');
 
             // Complete form
             const unique = 'e2e-' + Date.now();
-            await page.fill(formControlName('transactionDate'), '2022-01-01');
+            await page.fill(formControlNameXpath('transactionDate', 1), '2022-01-01');
+            await page.locator(formControlNameXpath('transactionDate', 1)).blur();
+
+            // The date of the transaction is copied into each of its lines
+            await expect(page.locator(formControlNameXpath('transactionDate', 2))).toHaveValue('01.01.2022');
             await page.fill(formControlName('name'), unique);
             await page.fill(`app-editable-transaction-lines tr:first-of-type input[formcontrolname="name"]`, unique);
 

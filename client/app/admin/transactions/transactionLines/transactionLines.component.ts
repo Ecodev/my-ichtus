@@ -87,7 +87,10 @@ export class TransactionLinesComponent extends NaturalAbstractList<TransactionLi
     protected readonly permissionsService = inject(PermissionsService);
 
     public override availableColumns: AvailableColumn[] = [
-        {id: 'transactionDate', label: 'Date'},
+        {id: 'transactionTransactionDate', label: 'Date de transaction', checked: false},
+        {id: 'transactionDate', label: "Date d'écriture"},
+        {id: 'creationDate', label: 'Créé le', checked: false},
+        {id: 'creator', label: 'Créé par', checked: false},
         {id: 'updateDate', label: 'Modifié le', checked: false},
         {id: 'updater', label: 'Modifié par', checked: false},
         {id: 'name', label: 'Libellé'},

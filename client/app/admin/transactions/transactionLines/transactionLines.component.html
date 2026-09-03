@@ -1,10 +1,10 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 @if (dataSource) {
     <div class="nat-vertical">
-        <div class="nat-horizontal">
-            <h1 class="nat-expand">
-                {{ routeData?.seo.title }}
-            </h1>
+        <div class="nat-horizontal nat-align">
+            <div class="mat-font-headline-lg nat-expand">
+                <ng-content>{{ routeData?.seo.title }}</ng-content>
+            </div>
             <natural-columns-picker
                 [availableColumns]="availableColumns"
                 [selections]="selectedColumns"
@@ -13,7 +13,7 @@
             />
         </div>
         <div class="nat-vertical">
-            <div class="nat-horizontal nat-margin-vertical overflow">
+            <div class="nat-horizontal search-bar">
                 <natural-search
                     class="nat-expand"
                     [facets]="naturalSearchFacets"
@@ -144,10 +144,44 @@
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
 
+                    <ng-container matColumnDef="transactionTransactionDate">
+                        <th *matHeaderCellDef mat-header-cell class="app-date-column" mat-sort-header>
+                            Date de transaction
+                        </th>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
+                            {{ element.transaction.transactionDate | date }}
+                        </td>
+                        <td *matFooterCellDef mat-footer-cell></td>
+                    </ng-container>
+
                     <ng-container matColumnDef="transactionDate">
-                        <th *matHeaderCellDef mat-header-cell class="app-date-column" mat-sort-header>Date</th>
+                        <th *matHeaderCellDef mat-header-cell class="app-date-column" mat-sort-header>
+                            Date d'écriture
+                        </th>
                         <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             {{ element.transactionDate | date }}
+                        </td>
+                        <td *matFooterCellDef mat-footer-cell></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="creationDate">
+                        <th *matHeaderCellDef mat-header-cell class="app-date-column" mat-sort-header>Créé le</th>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
+                            {{ element.creationDate | date }}
+                        </td>
+                        <td *matFooterCellDef mat-footer-cell></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="creator">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Créé par</th>
+                        <td *matCellDef="let element; dataSource: dataSource" mat-cell>
+                            @if (element.creator) {
+                                <natural-table-button
+                                    matTooltip="Éditer"
+                                    [label]="element.creator.name"
+                                    [navigate]="['/admin/user', element.creator.id]"
+                                />
+                            }
                         </td>
                         <td *matFooterCellDef mat-footer-cell></td>
                     </ng-container>
@@ -161,7 +195,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="updater">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header>Modifié par</th>
+                        <th *matHeaderCellDef mat-header-cell>Modifié par</th>
                         <td *matCellDef="let element; dataSource: dataSource" mat-cell>
                             @if (element.updater) {
                                 <natural-table-button

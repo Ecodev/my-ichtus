@@ -83,7 +83,11 @@ export const createTransaction = gql`
 `;
 
 export const updateTransaction = gql`
-    mutation UpdateTransaction($id: TransactionID!, $input: TransactionPartialInput!, $lines: [TransactionLineInput!]) {
+    mutation UpdateTransaction(
+        $id: TransactionID!
+        $input: TransactionPartialInput!
+        $lines: [UpdatableTransactionLineInput!]
+    ) {
         updateTransaction(id: $id, input: $input, lines: $lines) {
             id
             name

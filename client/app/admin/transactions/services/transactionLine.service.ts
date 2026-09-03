@@ -1,8 +1,9 @@
 import {Service} from '@angular/core';
-import {type AbstractControl, FormGroup, type ValidationErrors, type ValidatorFn, Validators} from '@angular/forms';
+import {type AbstractControl, FormControl, FormGroup, type ValidationErrors, Validators} from '@angular/forms';
 import {
     formatIsoDateTime,
     type FormValidators,
+    type Literal,
     NaturalAbstractModelService,
     NaturalQueryVariablesManager,
     type NaturalSearchSelections,
@@ -27,19 +28,58 @@ import {
     type TransactionLineQueryVariables,
     type TransactionLinesQuery,
     type TransactionLinesQueryVariables,
+    type UpdatableTransactionLineInput,
 } from '../../../shared/generated-types';
 import {type Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-function atLeastOneAccount(formGroup: AbstractControl): ValidationErrors | null {
-    if (!formGroup || !(formGroup instanceof FormGroup)) {
+function addError(control: AbstractControl, key: string, value: string | null): void {
+    const errors = control.errors ?? {};
+    if (value) {
+        errors[key] = value;
+    } else {
+        delete errors[key];
+    }
+
+    control.setErrors(Object.keys(errors).length ? errors : null);
+}
+
+/**
+ * This is an unusual validator that works on two fields, debit and credit, at the same time.
+ *
+ * It must be declared on both fields, so we can show error messages properly
+ * on both fields. And a single run will add errors to both fields at once,
+ * so that when one field changes we can remove the error of the other field
+ */
+function atLeastOneAccount(debitOrCredit: AbstractControl): ValidationErrors | null {
+    const formGroup = debitOrCredit.parent;
+    if (!(debitOrCredit instanceof FormControl) || !(formGroup instanceof FormGroup)) {
         return null;
     }
 
-    const debit = formGroup.controls.debit.value;
-    const credit = formGroup.controls.credit.value;
+    const debit = formGroup.controls.debit;
+    const credit = formGroup.controls.credit;
 
-    return debit || credit ? null : {atLeastOneAccountRequired: true};
+    let message: string | null = null;
+    if (debit.pristine && credit.pristine) {
+        message = null;
+    } else if (!debit.value && !credit.value) {
+        message = 'Au moins un compte est requis';
+    } else if (debit.value?.id == credit.value?.id) {
+        message = 'Les comptes doivent être différents';
+    }
+
+    const key = 'atLeastOneAccount';
+    addError(debit, key, message);
+    addError(credit, key, message);
+
+    // The rule is about the pair, so both accounts must show as wrong and not only the one touched
+    if (message) {
+        debit.markAsTouched({emitEvent: false});
+        credit.markAsTouched({emitEvent: false});
+    }
+
+    return message ? {[key]: message} : null;
 }
 
 @Service()
@@ -51,7 +91,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
     never,
     {input: TransactionLineInput},
     never,
-    never,
+    {id: string; input: UpdatableTransactionLineInput},
     never,
     never
 > {
@@ -107,6 +147,18 @@ export class TransactionLineService extends NaturalAbstractModelService<
         ];
     }
 
+    /**
+     * Get input never returns the ID, but here we need it for lines that already exist and must be preserved.
+     */
+    public override getInput(
+        object: Literal,
+        forCreation: boolean,
+    ): TransactionLineInput | UpdatableTransactionLineInput {
+        const input = super.getInput(object, forCreation);
+
+        return object.id ? {...input, id: object.id} : input;
+    }
+
     public override getDefaultForServer(): TransactionLineInput {
         return {
             name: '',
@@ -152,14 +204,10 @@ export class TransactionLineService extends NaturalAbstractModelService<
         return {
             name: [Validators.required, Validators.maxLength(100)],
             balance: [Validators.required, Validators.min(0)],
+            transactionDate: [Validators.required],
+            credit: [atLeastOneAccount],
+            debit: [atLeastOneAccount],
         };
-    }
-
-    /**
-     * TODO : force debit or credit account as required
-     */
-    public override getFormGroupValidators(): ValidatorFn[] {
-        return [atLeastOneAccount];
     }
 
     public getForAccount(account: MinimalAccount): Observable<TransactionLinesQuery['transactionLines']> {

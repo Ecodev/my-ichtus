@@ -20,6 +20,7 @@ class TypesFactory
             Enum\SexType::class,
             Enum\MessageTypeType::class,
             Input\ConfirmRegistrationInputType::class,
+            Input\UpdatableTransactionLineInputType::class,
             \Ecodev\Felix\Api\Input\PaginationInputType::class,
             MutationType::class,
             Output\AllPermissionsType::class,

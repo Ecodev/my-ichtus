@@ -22,9 +22,14 @@
                     </mat-form-field>
 
                     <div class="nat-expand-50 nat-vertical">
-                        <mat-form-field>
+                        <mat-form-field style="max-width: 12em">
                             <mat-label>Date</mat-label>
-                            <input matInput formControlName="transactionDate" [matDatepicker]="picker2" />
+                            <input
+                                matInput
+                                formControlName="transactionDate"
+                                [matDatepicker]="picker2"
+                                (dateChange)="dateChange($event)"
+                            />
                             <mat-datepicker-toggle matIconSuffix [for]="picker2" />
                             <mat-datepicker #picker2 />
                             <mat-error>{{ form.get('transactionDate')?.errors | errorMessage }}</mat-error>
@@ -125,25 +130,27 @@
             }
 
             <!-- TODO : add selectors for ExpenseClaim -->
-            <mat-divider class="nat-margin-vertical" />
-            <div class="nat-horizontal nat-gap-10 nat-align nat-margin-bottom">
-                <h2>Écritures</h2>
-                @if (userService.canUpdateTransaction(viewer)) {
-                    <div class="nat-horizontal nat-gap-10">
-                        @if (!(updateTransactionLines || !isUpdatePage())) {
-                            <button matButton="outlined" (click)="updateTransactionLines = true">Éditer</button>
-                        }
-                        @if (updateTransactionLines && isUpdatePage()) {
-                            <button matButton="outlined" (click)="updateTransactionLines = false">Annuler</button>
-                        }
-                        @if (updateTransactionLines) {
-                            <button matButton="filled" (click)="transactionLinesComponent()?.addEmpty()">
-                                Ajouter une écriture
-                            </button>
-                        }
-                    </div>
-                }
-            </div>
+            <mat-divider class="nat-margin-bottom" />
+            <ng-template #linesHeader>
+                <div class="nat-horizontal nat-gap-10 nat-align">
+                    <h2 class="nat-no-margin-bottom">Écritures</h2>
+                    @if (userService.canUpdateTransaction(viewer)) {
+                        <div class="nat-horizontal nat-gap-10">
+                            @if (!(updateTransactionLines || !isUpdatePage())) {
+                                <button matButton="outlined" (click)="updateTransactionLines = true">
+                                    Modifier les écritures
+                                </button>
+                            }
+                            @if (updateTransactionLines && isUpdatePage()) {
+                                <button matButton="outlined" (click)="updateTransactionLines = false">Annuler</button>
+                            }
+                            @if (updateTransactionLines) {
+                                <button matButton="filled" (click)="addEmptyLine()">Ajouter une écriture</button>
+                            }
+                        </div>
+                    }
+                </div>
+            </ng-template>
 
             @if (!updateTransactionLines && isUpdatePage()) {
                 <div>
@@ -162,10 +169,14 @@
                             'tag',
                         ]"
                         [hideFab]="true"
-                    />
+                    >
+                        <ng-container *ngTemplateOutlet="linesHeader" />
+                    </app-transaction-lines>
                 </div>
             } @else {
-                <app-editable-transaction-lines [input]="transactionLines" />
+                <app-editable-transaction-lines [input]="transactionLines">
+                    <ng-container *ngTemplateOutlet="linesHeader" />
+                </app-editable-transaction-lines>
             }
 
             <div>

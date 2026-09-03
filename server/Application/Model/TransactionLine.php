@@ -7,6 +7,7 @@ namespace Application\Model;
 use Application\Api\Input\Operator\AccountOperatorType;
 use Application\Api\Input\Operator\TransactionExportOperatorType;
 use Application\Api\Input\Operator\TransactionWithDocumentOperatorType;
+use Application\Api\Input\Sorting\TransactionTransactionDate;
 use Application\Repository\TransactionLineRepository;
 use Application\Traits\HasRemarks;
 use Cake\Chronos\Chronos;
@@ -22,6 +23,7 @@ use Money\Money;
 #[API\Filter(field: 'custom', operator: TransactionWithDocumentOperatorType::class, type: 'boolean')]
 #[API\Filter(field: 'custom', operator: TransactionExportOperatorType::class, type: 'boolean')]
 #[API\Filter(field: 'custom', operator: AccountOperatorType::class, type: 'id')]
+#[API\Sorting(TransactionTransactionDate::class)]
 #[ORM\Entity(TransactionLineRepository::class)]
 class TransactionLine extends AbstractModel
 {
@@ -99,16 +101,6 @@ class TransactionLine extends AbstractModel
         assert($this->transaction !== null);
 
         return $this->transaction;
-    }
-
-    public function getCreationDate(): ?Chronos
-    {
-        return $this->transaction ? $this->transaction->getCreationDate() : parent::getCreationDate();
-    }
-
-    public function getCreator(): ?User
-    {
-        return $this->transaction ? $this->transaction->getCreator() : parent::getCreator();
     }
 
     /**

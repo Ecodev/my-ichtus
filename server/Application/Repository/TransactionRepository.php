@@ -13,6 +13,7 @@ use Application\Model\User;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Ecodev\Felix\Utility;
+use GraphQL\Doctrine\Definition\EntityID;
 use LogicException;
 
 /**
@@ -47,41 +48,87 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
               WHERE account.owner_id = ' . $id;
     }
 
+    /**
+     * Apply the given lines to the transaction, and flush everything. A line sent with its id is
+     * updated, so it keeps what the form does not carry, such as the origin of a bank import. A
+     * line sent without id is created, and an existing line that is not sent back is deleted.
+     */
     public function hydrateLinesAndFlush(Transaction $transaction, array $lines): void
     {
         if (!$lines) {
             throw new Exception('A Transaction must have at least one TransactionLine');
         }
 
-        // Destroy all previously existing TransactionLine
-        foreach ($transaction->getTransactionLines() as $line) {
-            $this->getEntityManager()->remove($line);
+        /** @var array<int, TransactionLine> $existingLines */
+        $existingLines = [];
+        foreach ($transaction->getTransactionLines() as $existingLine) {
+            $existingLines[(int) $existingLine->getId()] = $existingLine;
         }
-        $transaction->getTransactionLines()->clear();
 
-        $accounts = [];
+        $submittedIds = array_flip($this->getSubmittedIds($lines, $existingLines));
+        $deletedLines = array_diff_key($existingLines, $submittedIds);
+
         foreach ($lines as $line) {
-            $transactionLine = new TransactionLine();
-            Helper::hydrate($transactionLine, $line);
+            $id = $this->toId($line['id'] ?? null);
+            unset($line['id']);
+
+            if ($id) {
+                $transactionLine = $existingLines[$id];
+                Helper::hydrate($transactionLine, $line);
+            } else {
+                // No id means a line the user just added to the list, or a line copied from a
+                // duplicated transaction. Either way it is born here.
+                $transactionLine = new TransactionLine();
+                Helper::hydrate($transactionLine, $line);
+                $transactionLine->setTransaction($transaction);
+                $this->getEntityManager()->persist($transactionLine);
+            }
+
             if (!$transactionLine->getCredit() && !$transactionLine->getDebit()) {
                 throw new Exception('Cannot create a TransactionLine without any account');
             }
-            $accounts[] = $transactionLine->getCredit();
-            $accounts[] = $transactionLine->getDebit();
+        }
 
-            $transactionLine->setTransaction($transaction);
-            $transactionLine->setTransactionDate($transaction->getTransactionDate());
-            $this->getEntityManager()->persist($transactionLine);
+        foreach ($deletedLines as $deletedLine) {
+            $this->getEntityManager()->remove($deletedLine);
+            $transaction->getTransactionLines()->removeElement($deletedLine);
         }
 
         $this->getEntityManager()->persist($transaction);
-        $this->flushWithFastTransactionLineTriggers();
 
-        // Be sure to refresh the new account balance that were computed by DB triggers
-        $accounts = array_filter(Utility::unique($accounts));
-        foreach ($accounts as $account) {
+        // The flush recomputes the balances in DB, but the Account objects still hold the ones they
+        // were loaded with, so they must be re-read for the response to show the new balances
+        foreach (Utility::unique($this->flushWithFastTransactionLineTriggers()) as $account) {
             $this->getEntityManager()->refresh($account);
         }
+    }
+
+    /**
+     * Return the ids that were sent, and refuse any that is not a line of this transaction. The
+     * check looks in the lines we already have, never in the database, so an id can only ever
+     * designate a line of the transaction being updated.
+     *
+     * @param array<int, TransactionLine> $existingLines
+     *
+     * @return list<int>
+     */
+    private function getSubmittedIds(array $lines, array $existingLines): array
+    {
+        $submittedIds = array_map($this->toId(...), array_filter(array_column($lines, 'id')));
+
+        if (array_diff($submittedIds, array_keys($existingLines))) {
+            throw new Exception('A TransactionLine can only be updated by the Transaction it belongs to');
+        }
+
+        return array_values($submittedIds);
+    }
+
+    /**
+     * The id comes as an `EntityID` from the API, and as a plain id when called from PHP.
+     */
+    private function toId(mixed $id): int
+    {
+        return (int) ($id instanceof EntityID ? $id->getId() : $id);
     }
 
     /**
@@ -90,11 +137,17 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
      * It does the exact same thing as `_em()->flush();`, except it will disable transaction line
      * triggers temporarily and execute the de-duplicated stocked procedures at the very end. So we
      * avoid re-computing the same thing over and over.
+     *
+     * @return list<Account> the accounts touched by the recalculation
      */
-    public function flushWithFastTransactionLineTriggers(): void
+    public function flushWithFastTransactionLineTriggers(): array
     {
+        /** @var list<int> $transactions */
         $transactions = [];
+        /** @var list<Account> $accounts */
         $accounts = [];
+        /** @var list<int> $accountIdsOfDeletedTransactions */
+        $accountIdsOfDeletedTransactions = [];
 
         $unitOfWork = $this->getEntityManager()->getUnitOfWork();
         $unitOfWork->computeChangeSets();
@@ -108,9 +161,17 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
             if ($object instanceof TransactionLine) {
                 $this->gatherTransactionLine($transactions, $accounts, $object);
             } elseif ($object instanceof Transaction) {
-                $this->gatherDeletedTransaction($accounts, $object);
+                $this->gatherDeletedTransaction($accountIdsOfDeletedTransactions, $object);
             } else {
                 $this->throwNotAllowed($object);
+            }
+        }
+
+        // The update trigger disabled below would also fix the account a line is leaving. Doctrine
+        // only knows it before the flush, so read it now.
+        foreach ($updated as $object) {
+            if ($object instanceof TransactionLine) {
+                $this->gatherPreviousAccounts($accounts, $unitOfWork->getEntityChangeSet($object));
             }
         }
 
@@ -127,22 +188,63 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         }
 
         // Keep everything in a single string to save very precious time in a single DB round trip
-        $sql = $this->getSqlToComputeBalance($transactions, $accounts)
+        $sql = $this->getSqlToComputeBalance($transactions, $this->toAccountIds($accounts, $accountIdsOfDeletedTransactions))
             . 'SET @disable_triggers_for_mass_transaction_line = NULL;';
 
         // Compute balance for all objects that may have been affected
         $this->getEntityManager()->getConnection()->executeStatement($sql);
+
+        return $accounts;
     }
 
     /**
      * @param list<int> $transactions
-     * @param list<int> $accounts
+     * @param list<Account> $accounts
      */
     private function gatherTransactionLine(array &$transactions, array &$accounts, TransactionLine $object): void
     {
-        $transactions[] = $object->getTransaction()->getId();
-        $accounts[] = $object->getDebit()?->getId();
-        $accounts[] = $object->getCredit()?->getId();
+        $transactionId = $object->getTransaction()->getId();
+        assert($transactionId !== null);
+        $transactions[] = $transactionId;
+
+        foreach ([$object->getDebit(), $object->getCredit()] as $account) {
+            if ($account) {
+                $accounts[] = $account;
+            }
+        }
+    }
+
+    /**
+     * @param list<Account> $accounts
+     * @param array<string, mixed> $changeSet
+     */
+    private function gatherPreviousAccounts(array &$accounts, array $changeSet): void
+    {
+        foreach (['debit', 'credit'] as $field) {
+            $change = $changeSet[$field] ?? null;
+            $previous = is_array($change) ? ($change[0] ?? null) : null;
+            if ($previous instanceof Account) {
+                $accounts[] = $previous;
+            }
+        }
+    }
+
+    /**
+     * @param list<Account> $accounts
+     * @param list<int> $accountIds the ids already known without their object
+     *
+     * @return list<int>
+     */
+    private function toAccountIds(array $accounts, array $accountIds): array
+    {
+        foreach ($accounts as $account) {
+            $accountId = $account->getId();
+            assert($accountId !== null);
+
+            $accountIds[] = $accountId;
+        }
+
+        return $accountIds;
     }
 
     /**

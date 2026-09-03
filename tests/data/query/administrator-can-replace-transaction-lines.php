@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     [
-        'query' => 'mutation ($inputTransaction: TransactionPartialInput!, $lines: [TransactionLineInput!]) {
+        'query' => 'mutation ($inputTransaction: TransactionPartialInput!, $lines: [UpdatableTransactionLineInput!]) {
             updateTransaction(id: 8000, input: $inputTransaction, lines: $lines) {
                 name
                 balance

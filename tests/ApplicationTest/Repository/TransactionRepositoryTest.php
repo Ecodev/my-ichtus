@@ -11,6 +11,8 @@ use Application\Model\User;
 use Application\Repository\TransactionRepository;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
+use Ecodev\Felix\Api\Exception;
+use GraphQL\Doctrine\Definition\EntityID;
 use Money\Money;
 
 class TransactionRepositoryTest extends AbstractRepository
@@ -125,6 +127,76 @@ class TransactionRepositoryTest extends AbstractRepository
         $this->repository->hydrateLinesAndFlush($transaction, $lines);
     }
 
+    public function testHydrateLinesAndFlushKeepsImportedIdOfUpdatedLine(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        $transaction = $this->getTransaction(8005);
+        $clientLines = $this->getClientLines($transaction);
+
+        // Change the line that came from a bank statement import
+        $clientLines[14006] = array_replace($clientLines[14006], ['remarks' => 'Paiement confirmé']);
+
+        $this->repository->hydrateLinesAndFlush($transaction, $clientLines);
+
+        // Read the database, because the line object would still carry its imported id even if the
+        // line had been deleted and recreated behind its back
+        $connection = $this->getEntityManager()->getConnection();
+        $importedId = $connection->fetchOne('SELECT imported_id FROM transaction_line WHERE id = 14006');
+        $remarks = $connection->fetchOne('SELECT remarks FROM transaction_line WHERE id = 14006');
+
+        self::assertSame('imported-voilier-postfinance', $importedId, 'the imported id must survive the update');
+        self::assertSame('Paiement confirmé', $remarks);
+    }
+
+    public function testHydrateLinesAndFlushRefusesALineOfAnotherTransaction(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        $transaction = $this->getTransaction(8005);
+        $clientLines = $this->getClientLines($transaction);
+
+        // Line 14000 belongs to transaction 8000, so it cannot be stolen by transaction 8005
+        $stolenLine = $this->getClientLines($this->getTransaction(8000))[14000];
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('A TransactionLine can only be updated by the Transaction it belongs to');
+        $this->repository->hydrateLinesAndFlush($transaction, [...$clientLines, $stolenLine]);
+    }
+
+    private function getTransaction(int $id): Transaction
+    {
+        /** @var Transaction $transaction */
+        $transaction = _em()->find(Transaction::class, $id);
+
+        return $transaction;
+    }
+
+    /**
+     * All the lines of the transaction, exactly as they are recorded, each with its id and keyed by
+     * it. This is what the form sends back when nothing was touched.
+     */
+    private function getClientLines(Transaction $transaction): array
+    {
+        $lines = [];
+        foreach ($transaction->getTransactionLines() as $line) {
+            $lines[(int) $line->getId()] = [
+                'id' => new EntityID(_em(), TransactionLine::class, (string) $line->getId()),
+                'name' => $line->getName(),
+                'remarks' => $line->getRemarks(),
+                'balance' => $line->getBalance(),
+                'credit' => $line->getCredit(),
+                'debit' => $line->getDebit(),
+                'bookable' => $line->getBookable(),
+                'isReconciled' => $line->isReconciled(),
+                'transactionDate' => $line->getTransactionDate(),
+                'transactionTag' => $line->getTransactionTag(),
+            ];
+        }
+
+        return $lines;
+    }
+
     public function testTriggers(): void
     {
         $account1 = 10096;
@@ -207,5 +279,16 @@ class TransactionRepositoryTest extends AbstractRepository
 
         $this->assertAccountBalance($account1, 19990, 'balance should be increased after update with normal flush and normal triggers');
         $this->assertAccountBalance($account2, 10, 'balance should be decreased after update with normal flush and normal triggers');
+
+        // UPDATE, moving the line to another account
+        $account3 = 10027;
+        $this->assertAccountBalance($account3, 0, 'initial balance');
+
+        $transactionLine->setDebit($this->getEntityManager()->getReference(Account::class, $account3));
+        $this->repository->flushWithFastTransactionLineTriggers();
+
+        $this->assertAccountBalance($account1, 20000, 'the account that was left must be recomputed too');
+        $this->assertAccountBalance($account3, 10, 'the account that was joined must be recomputed');
+        $this->assertAccountBalance($account2, 10, 'the credit side must not have moved');
     }
 }

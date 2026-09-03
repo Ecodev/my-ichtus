@@ -37,18 +37,6 @@ parameters:
 			path: server/Application/Handler/DatatransHandler.php
 
 		-
-			message: '#^Parameter &\$accounts by\-ref type of method Application\\Repository\\TransactionRepository\:\:gatherTransactionLine\(\) expects list\<int\>, non\-empty\-list\<int\|null\> given\.$#'
-			identifier: parameterByRef.type
-			count: 2
-			path: server/Application/Repository/TransactionRepository.php
-
-		-
-			message: '#^Parameter &\$transactions by\-ref type of method Application\\Repository\\TransactionRepository\:\:gatherTransactionLine\(\) expects list\<int\>, non\-empty\-list\<int\|null\> given\.$#'
-			identifier: parameterByRef.type
-			count: 1
-			path: server/Application/Repository/TransactionRepository.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1

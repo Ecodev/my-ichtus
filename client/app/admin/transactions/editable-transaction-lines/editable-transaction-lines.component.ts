@@ -1,5 +1,8 @@
 import {
+    type AvailableColumn,
+    formatIsoDateTime,
     NaturalAbstractEditableList,
+    NaturalColumnsPickerComponent,
     NaturalErrorMessagePipe,
     NaturalIconDirective,
     NaturalSelectComponent,
@@ -18,7 +21,8 @@ import {MatIconButton} from '@angular/material/button';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatInput} from '@angular/material/input';
-import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {
     MatCell,
     MatColumnDef,
@@ -30,7 +34,14 @@ import {
     MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import {type AbstractControl, FormArray, FormsModule, ReactiveFormsModule, type ValidationErrors} from '@angular/forms';
+import {
+    type AbstractControl,
+    FormArray,
+    type FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    type ValidationErrors,
+} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {WarningComponent} from '../../../shared/warning.component';
 import {CurrencyPipe} from '@angular/common';
@@ -91,6 +102,37 @@ function transactionLinesBalanceValidator(control: AbstractControl): ValidationE
 }
 
 /**
+ * Gather the account errors of every line, to show them once under the table instead of reserving
+ * room on every row for a message that hardly ever appears. Angular validates children first, so
+ * there is nothing to check again here, only to collect and to name.
+ */
+function accountErrorsValidator(control: AbstractControl): ValidationErrors | null {
+    if (!(control instanceof FormArray)) {
+        return null;
+    }
+
+    const linesByMessage = new Map<string, string[]>();
+    control.controls.forEach((row, index) => {
+        const message = row.get('debit')?.errors?.atLeastOneAccount ?? row.get('credit')?.errors?.atLeastOneAccount;
+        if (!message) {
+            return;
+        }
+
+        // A line the user just added has no label yet, and that is precisely the one likely to be wrong
+        const label = row.get('name')?.value || `Ligne ${index + 1}`;
+        linesByMessage.set(message, [...(linesByMessage.get(message) ?? []), label]);
+    });
+
+    if (!linesByMessage.size) {
+        return null;
+    }
+
+    const messages = [...linesByMessage].map(([message, labels]) => `${labels.join(', ')}: ${message}`);
+
+    return {accounts: messages};
+}
+
+/**
  * Mirrors the server-side check that a transaction always has at least one line
  */
 function atLeastOneLineValidator(control: AbstractControl): ValidationErrors | null {
@@ -126,6 +168,10 @@ export type EditableTransactionLinesInput =
         MatFormField,
         MatLabel,
         MatError,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatSuffix,
         NaturalErrorMessagePipe,
         MatInput,
         NaturalSelectHierarchicComponent,
@@ -135,6 +181,7 @@ export type EditableTransactionLinesInput =
         MatIconButton,
         MatIcon,
         NaturalIconDirective,
+        NaturalColumnsPickerComponent,
         WarningComponent,
         CurrencyPipe,
     ],
@@ -157,17 +204,39 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     private readonly input$ = new Subject<EditableTransactionLinesInput>();
 
     protected accountHierarchicConfig = accountHierarchicConfiguration();
-    protected columns = [
-        'name',
-        'balance',
-        'debit',
-        'credit',
-        'bookable',
-        'transactionTag',
-        'remarks',
-        'isReconciled',
-        'remove',
+    protected columnsForTable: string[] = [];
+
+    protected readonly availableColumns: AvailableColumn[] = [
+        {id: 'date', label: "Date d'écriture"},
+        {id: 'name', label: 'Libellé'},
+        {id: 'balance', label: 'Montant'},
+        {id: 'isReconciled', label: 'Pointé'},
+        {id: 'debit', label: 'Compte débit'},
+        {id: 'credit', label: 'Compte crédit'},
+        {id: 'bookable', label: 'Réservable'},
+        {id: 'transactionTag', label: 'Tag'},
+        {id: 'remarks', label: 'Remarques'},
+        {id: 'remove', label: 'Supprimer'},
     ];
+
+    /**
+     * Replace the transactionDate of each line by a new one. Writing in the controls rather than
+     * handing back a whole new list keeps whatever the user was filling in.
+     */
+    public setLinesDate(newDate: Date): void {
+        const date = formatIsoDateTime(newDate);
+        for (const line of this.formArray.controls) {
+            line.get('transactionDate')?.setValue(date);
+        }
+    }
+
+    /**
+     * Add a line, dated like the transaction it joins.
+     */
+    public addLineOn(transactionDate: string): void {
+        this.addEmpty();
+        this.formArray.controls.at(-1)?.get('transactionDate')?.setValue(transactionDate);
+    }
 
     /**
      * Non-null when total debits and total credits of the transaction don't match,
@@ -184,10 +253,21 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
         return !!this.formArray.errors?.noLine;
     }
 
+    /**
+     * The account errors of every line, named and grouped, see accountErrorsValidator()
+     */
+    protected get accountErrors(): string[] {
+        return (this.formArray.errors?.accounts as string[] | undefined) ?? [];
+    }
+
     public constructor() {
         super(inject(TransactionLineService));
 
-        this.formArray.addValidators([transactionLinesBalanceValidator, atLeastOneLineValidator]);
+        this.formArray.addValidators([
+            transactionLinesBalanceValidator,
+            atLeastOneLineValidator,
+            accountErrorsValidator,
+        ]);
         this.formArray.updateValueAndValidity();
 
         this.input$
@@ -212,5 +292,20 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
                 map(items => this.setItems(items)),
             )
             .subscribe();
+    }
+
+    public override validateForm(): void {
+        super.validateForm();
+
+        // Update validity of all debit account
+        //
+        // I honestly don't understand why this is needed, because `super.validateForm()`,
+        // calling `markAsDirty()` on all controls, should be enough. But it seems that
+        // because the field is a NaturalSelectHierarchic, then the dirty flag somehow
+        // does not trigger the validator at all. So short of being able to fix this properly,
+        // I specifically call the validator on one of the two fields, which is enough (!)
+        (this.form.controls.rows as FormArray<FormGroup>).controls.forEach(c => {
+            c.controls.debit.updateValueAndValidity();
+        });
     }
 }
