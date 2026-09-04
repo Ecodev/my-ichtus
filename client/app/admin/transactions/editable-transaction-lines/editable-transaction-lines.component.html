@@ -133,24 +133,26 @@
         </table>
     </div>
 
-    @for (accountError of accountErrors; track accountError) {
-        <app-warning type="warning">
-            <span>{{ accountError }}</span>
-        </app-warning>
-    }
+    @if (linesLoaded()) {
+        @for (accountError of accountErrors; track accountError) {
+            <app-warning type="warning">
+                <span>{{ accountError }}</span>
+            </app-warning>
+        }
 
-    @if (hasNoLine) {
-        <app-warning type="warning">
-            <span>La transaction doit avoir au moins une ligne</span>
-        </app-warning>
-    }
+        @if (hasNoLine) {
+            <app-warning type="warning">
+                <span>La transaction doit avoir au moins une ligne</span>
+            </app-warning>
+        }
 
-    @if (unbalanced) {
-        <app-warning type="warning">
-            <span
-                >Transaction déséquilibrée : débits {{ unbalanced.totalDebit | currency: 'CHF' }}, crédits
-                {{ unbalanced.totalCredit | currency: 'CHF' }}</span
-            >
-        </app-warning>
+        @if (unbalanced) {
+            <app-warning type="warning">
+                <span
+                    >Transaction déséquilibrée : débits {{ unbalanced.totalDebit | currency: 'CHF' }}, crédits
+                    {{ unbalanced.totalCredit | currency: 'CHF' }}</span
+                >
+            </app-warning>
+        }
     }
 }

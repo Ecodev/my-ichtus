@@ -236,7 +236,8 @@ export class TransactionComponent
     }
 
     protected addEmptyLine(): void {
-        this.transactionLinesComponent()?.addLineOn(this.form.get('transactionDate')?.value);
+        const transactionDate = this.form.get('transactionDate')?.value as Date | string | null | undefined;
+        this.transactionLinesComponent()?.addLineOn(transactionDate ?? null);
     }
 
     protected save(): void {

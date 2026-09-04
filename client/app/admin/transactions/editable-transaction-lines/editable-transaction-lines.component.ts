@@ -1,6 +1,6 @@
 import {
     type AvailableColumn,
-    formatIsoDateTime,
+    formatIsoDate,
     NaturalAbstractEditableList,
     NaturalColumnsPickerComponent,
     NaturalErrorMessagePipe,
@@ -9,7 +9,7 @@ import {
     NaturalSelectHierarchicComponent,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {Component, inject, Input, input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, Input, input, signal, ChangeDetectionStrategy} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {type TransactionLineInput, type TransactionLinesQuery} from '../../../shared/generated-types';
@@ -207,6 +207,7 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     public readonly lastClosingDate = input<string | null>(null);
 
     private readonly input$ = new Subject<EditableTransactionLinesInput>();
+    protected readonly linesLoaded = signal(false);
 
     protected accountHierarchicConfig = accountHierarchicConfiguration();
     protected columnsForTable: string[] = [];
@@ -229,7 +230,7 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
      * handing back a whole new list keeps whatever the user was filling in.
      */
     public setLinesDate(newDate: Date): void {
-        const date = formatIsoDateTime(newDate);
+        const date = formatIsoDate(newDate);
         for (const line of this.formArray.controls) {
             line.get('transactionDate')?.setValue(date);
         }
@@ -238,9 +239,10 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     /**
      * Add a line, dated like the transaction it joins.
      */
-    public addLineOn(transactionDate: string): void {
+    public addLineOn(transactionDate: Date | string | null): void {
         this.addEmpty();
-        this.formArray.controls.at(-1)?.get('transactionDate')?.setValue(transactionDate);
+        const date = transactionDate instanceof Date ? formatIsoDate(transactionDate) : transactionDate;
+        this.formArray.controls.at(-1)?.get('transactionDate')?.setValue(date);
     }
 
     /**
@@ -294,7 +296,10 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
                             return of([{} as TransactionLineInput]);
                     }
                 }),
-                map(items => this.setItems(items)),
+                map(items => {
+                    this.setItems(items);
+                    this.linesLoaded.set(true);
+                }),
             )
             .subscribe();
     }

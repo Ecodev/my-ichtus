@@ -1,7 +1,7 @@
 import {Service} from '@angular/core';
 import {type AbstractControl, FormControl, FormGroup, type ValidationErrors, Validators} from '@angular/forms';
 import {
-    formatIsoDateTime,
+    formatIsoDate,
     type FormValidators,
     type Literal,
     NaturalAbstractModelService,
@@ -161,7 +161,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
             debit: null,
             bookable: null,
             isReconciled: false,
-            transactionDate: formatIsoDateTime(new Date()),
+            transactionDate: formatIsoDate(new Date()),
             transactionTag: null,
         };
     }

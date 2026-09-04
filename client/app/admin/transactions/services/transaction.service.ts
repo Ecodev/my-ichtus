@@ -1,6 +1,6 @@
 import {inject, Service} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {formatIsoDateTime, type FormValidators, type Literal, NaturalAbstractModelService} from '@ecodev/natural';
+import {formatIsoDate, type FormValidators, type Literal, NaturalAbstractModelService} from '@ecodev/natural';
 import {
     type AccountsQuery,
     type CreateTransaction,
@@ -69,7 +69,7 @@ export class TransactionService extends NaturalAbstractModelService<
                     debit: account,
                     credit: bankAccount,
                     balance: amount,
-                    transactionDate: formatIsoDateTime(new Date()),
+                    transactionDate: formatIsoDate(new Date()),
                 };
 
                 return Object.assign(emptyLine, line);
@@ -87,7 +87,7 @@ export class TransactionService extends NaturalAbstractModelService<
                     debit: bankAccount,
                     credit: account,
                     balance: amount,
-                    transactionDate: formatIsoDateTime(new Date()),
+                    transactionDate: formatIsoDate(new Date()),
                 };
 
                 return Object.assign(emptyLine, line);
@@ -105,7 +105,7 @@ export class TransactionService extends NaturalAbstractModelService<
                     debit: null,
                     credit: bankAccount,
                     balance: amount,
-                    transactionDate: formatIsoDateTime(new Date()),
+                    transactionDate: formatIsoDate(new Date()),
                 };
 
                 return Object.assign(emptyLine, line);
@@ -124,7 +124,7 @@ export class TransactionService extends NaturalAbstractModelService<
             name: '',
             remarks: '',
             internalRemarks: '',
-            transactionDate: formatIsoDateTime(new Date()),
+            transactionDate: formatIsoDate(new Date()),
             expenseClaim: null,
         };
     }
