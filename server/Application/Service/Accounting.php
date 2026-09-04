@@ -171,10 +171,14 @@ class Accounting
     private function generateClosingEntries(array $allAccountsToClose, Transaction $closingTransaction, Account $closingAccount, ChronosDate $endDate): void
     {
         $closingEntries = [];
+
+        // Balance of every account at the closing date, in a single query
+        $balancesAtEndDate = $this->accountRepository->getAccountsVariations(null, $endDate);
+
         foreach ($allAccountsToClose as $accountType => $accountsToClose) {
             foreach ($accountsToClose as $account) {
-                /** @var Money $balance */
-                $balance = $account->getBalanceAtDate($endDate);
+                // An account without any entry at the closing date is not returned at all
+                $balance = Money::CHF($balancesAtEndDate[$account->getId()] ?? 0);
                 if ($balance->isZero()) {
                     continue;
                 }
@@ -246,7 +250,8 @@ class Accounting
         // Report output
         /** @var AccountRepository $accountRepository */
         $accountRepository = _em()->getRepository(Account::class);
-        $reportAccounts = $accountRepository->getAccountsForReport($config['accounting'], ChronosDate::today());
+        // Null so that Gertrude reads the same cached balances as the raw totals it is compared to
+        $reportAccounts = $accountRepository->getAccountsForReport($config['accounting'], null);
         $reportAssets = $this->sumReportAccounts($reportAccounts, AccountType::Asset->value);
         $reportLiabilities = $this->sumReportAccounts($reportAccounts, AccountType::Liability->value);
         $reportRevenue = $this->sumReportAccounts($reportAccounts, AccountType::Revenue->value);

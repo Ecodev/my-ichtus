@@ -20,6 +20,9 @@ class IndicatorDefinitionAddend extends AbstractModel
     #[ORM\ManyToOne(targetEntity: Account::class)]
     private Account $account;
 
+    /**
+     * Percentage of the account balance taken into account in the formula.
+     */
     #[ORM\Column(type: 'integer', options: ['default' => 100])]
     private int $multiplier = 100;
 

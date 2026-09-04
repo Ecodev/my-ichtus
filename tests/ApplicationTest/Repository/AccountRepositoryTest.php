@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace ApplicationTest\Repository;
 
 use Application\Enum\AccountType;
+use Application\Enum\BalanceGrouping;
 use Application\Model\Account;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
+use ApplicationTest\Assert;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
@@ -105,21 +107,21 @@ class AccountRepositoryTest extends AbstractRepository
         $totalExpense = $this->repository->totalBalanceByType(AccountType::Expense);
         $totalEquity = $this->repository->totalBalanceByType(AccountType::Equity);
 
-        self::assertTrue(Money::CHF(3518750)->equals($totalAssets));
-        self::assertTrue(Money::CHF(3506000)->equals($totalLiabilities));
-        self::assertTrue(Money::CHF(24000)->equals($totalRevenue));
-        self::assertTrue(Money::CHF(11250)->equals($totalExpense));
-        self::assertTrue(Money::CHF(0)->equals($totalEquity));
+        Assert::assertMoney(Money::CHF(3518750), $totalAssets);
+        Assert::assertMoney(Money::CHF(3506000), $totalLiabilities);
+        Assert::assertMoney(Money::CHF(24000), $totalRevenue);
+        Assert::assertMoney(Money::CHF(11250), $totalExpense);
+        Assert::assertMoney(Money::CHF(0), $totalEquity);
 
         $groupAccount = $this->repository->getOneById(10001); // 2. Passifs
         self::assertSame(AccountType::Group, $groupAccount->getType(), 'is a group');
         $groupBalance = $groupAccount->getBalance();
         self::assertNotNull($groupBalance);
-        self::assertTrue(Money::CHF(3506000)->equals($groupBalance), 'balance for group account should have been computed via DB triggers');
+        Assert::assertMoney(Money::CHF(3506000), $groupBalance, 'balance for group account should have been computed via DB triggers');
 
         $otherAccount = $this->repository->getOneById(10025); // 10201. PostFinance
         self::assertNotSame(AccountType::Group, $otherAccount->getType(), 'not a group');
-        self::assertTrue(Money::CHF(818750)->equals($otherAccount->getLeafBalance()), 'balance for non-group should have been computed via DB triggers');
+        Assert::assertMoney(Money::CHF(818750), $otherAccount->getLeafBalance(), 'balance for non-group should have been computed via DB triggers');
     }
 
     // ex-future = transaction that past from future to past.
@@ -218,7 +220,7 @@ class AccountRepositoryTest extends AbstractRepository
         $this->getEntityManager()->clear();
         $restoredTotalBalance = $this->repository->getOneById(10011)->getBalance();
         self::assertNotNull($restoredTotalBalance, 'model should expose the total again when the mix is gone');
-        self::assertTrue(Money::CHF(5000)->equals($restoredTotalBalance), 'model should expose the restored total');
+        Assert::assertMoney(Money::CHF(5000), $restoredTotalBalance, 'model should expose the restored total');
     }
 
     public function testGroupTotalBalanceStillComputedWhenMixingRevenueAndExpense(): void
@@ -261,9 +263,9 @@ class AccountRepositoryTest extends AbstractRepository
     /**
      * Three ways to know a balance must agree: `account.balance` cached by
      * `update_account_balance` in triggers.sql, `AccountRepository::getAccountsForReport()` and
-     * `Account::getBalanceAtDate()`, the last two summing transaction lines with their own query
-     * when asked for a past date. This is our only check that cached balances, leaves and groups
-     * alike, match the accounting entries they are derived from.
+     * `AccountRepository::getAccountsVariations()`, the last two summing transaction lines with
+     * their own query when asked for a past date. This is our only check that cached balances,
+     * leaves and groups alike, match the accounting entries they are derived from.
      */
     public function testBalanceMatchesAccountingEntries(): void
     {
@@ -306,14 +308,168 @@ class AccountRepositoryTest extends AbstractRepository
             self::assertSame((int) $balance, $reported[(int) $id] ?? 0, 'cached balance of account #' . $id . ' must match its accounting entries');
         }
 
-        // `Account::getBalanceAtDate()` sums the same entries with yet another query, and has no
+        // `getAccountsVariations()` sums the same entries with yet another query, and has no
         // reason to skip members accounts
         $balances = $connection->fetchAllKeyValue('SELECT id, balance FROM account');
 
+        $variations = $this->repository->getAccountsVariations(null, $date);
         foreach ($balances as $id => $balance) {
-            $account = $this->repository->getOneById((int) $id);
-            self::assertTrue(Money::CHF((int) $balance)->equals($account->getBalanceAtDate($date)), 'balance at date of account #' . $id . ' must match its cached balance');
+            // A group with no account under it totals nothing, so it is not returned at all
+            self::assertSame((int) $balance, $variations[(int) $id] ?? 0, 'balance at date of account #' . $id . ' must match its cached balance');
         }
+    }
+
+    public function testGetAccountsVariationsWithoutStartDateGivesBalanceAtDate(): void
+    {
+        // Past balance of an asset account
+        // 10201: PostFinance
+        $postFinance = 10025;
+        self::assertSame(800000, $this->repository->getAccountsVariations(null, new ChronosDate('2019-03-01'))[$postFinance]);
+        self::assertSame(818750, $this->repository->getAccountsVariations(null, new ChronosDate('2019-05-01'))[$postFinance]);
+
+        // Past balance of a group account
+        // 6: Autres charges exploitation
+        $otherExpenses = 10005;
+        self::assertSame(0, $this->repository->getAccountsVariations(null, new ChronosDate('2019-03-01'))[$otherExpenses]);
+        self::assertSame(1250, $this->repository->getAccountsVariations(null, new ChronosDate('2019-03-12'))[$otherExpenses]);
+    }
+
+    public function testGetAccountsVariationsHonoursADateInTheFuture(): void
+    {
+        // The fixture dates the only entry of this account ten years from now
+        $exceptionalDepreciation = 10102;
+
+        $now = $this->repository->getAccountsVariations(null, null);
+        self::assertSame(0, $now[$exceptionalDepreciation], 'without an end date the period stops now, leaving out the entry dated in the future');
+
+        $afterTheFutureEntry = ChronosDate::today()->addYears(11);
+        $later = $this->repository->getAccountsVariations(null, $afterTheFutureEntry);
+        self::assertSame(5000, $later[$exceptionalDepreciation], 'an end date in the future includes every entry dated up to it');
+    }
+
+    public function testGetAccountsVariationsRefusesAPeriodStartingAfterItEnds(): void
+    {
+        $this->expectExceptionMessage('Period cannot start after it ends');
+
+        // Without an end date the period runs up to now, so it cannot start tomorrow
+        $this->repository->getAccountsVariations(ChronosDate::tomorrow(), null);
+    }
+
+    public function testGetAccountsVariationsRefusesAnInvertedPeriod(): void
+    {
+        $this->expectExceptionMessage('Period cannot start after it ends');
+
+        $this->repository->getAccountsVariations(new ChronosDate('2019-03-20'), new ChronosDate('2019-01-03'));
+    }
+
+    public function testGetAccountsBalancesRefusesAPreviousDateThatIsNotStrictlyOlder(): void
+    {
+        $this->expectExceptionMessage('Previous date must be strictly older than date');
+
+        $date = ChronosDate::yesterday();
+        $this->repository->getAccountsBalances($date, $date);
+    }
+
+    public function testGetAccountsBalancesTotalsTheDescendantsOfTheRequestedGroup(): void
+    {
+        // 6500. Charges d'administration: 65001 Photocopies has 1'250, its eight other children have nothing
+        $administration = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10021]);
+
+        self::assertCount(1, $administration, 'children of the group are totalled, but not returned themselves');
+        self::assertSame('expense', $administration[0]['type']);
+        self::assertSame(1250, $administration[0]['balance']);
+    }
+
+    public function testGetAccountsBalancesReturnsChildrenWithoutTheirGroup(): void
+    {
+        $administration = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10085, 10086]);
+        $byAccount = array_column($administration, null, 'id');
+
+        self::assertCount(2, $administration, 'their group 6500. Charges d\'administration was not asked for');
+        self::assertSame(1250, $byAccount[10085]['balance'], '65001 Photocopies');
+        self::assertSame(0, $byAccount[10086]['balance'], '65002 Envois timbres has no accounting entry at all, and is still returned');
+    }
+
+    public function testGetAccountsBalancesSplitsAGroupPerTypeOfItsDescendants(): void
+    {
+        // Move 6600 Publicité, an expense of 10'000, under 3. Produits, which has 24'000 of revenue
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('account', ['parent_id' => 10002], ['id' => 10022]);
+
+        $revenues = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10002]);
+        $byType = array_column($revenues, null, 'type');
+
+        self::assertCount(2, $revenues, 'the group is returned once per type of its descendants');
+        self::assertSame(24000, $byType['revenue']['balance']);
+        self::assertSame(10000, $byType['expense']['balance']);
+    }
+
+    public function testGetAccountsBalancesTotalsRevenueAndExpenseTogetherInASingleRow(): void
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('account', ['parent_id' => 10002], ['id' => 10022]);
+
+        $revenues = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10002], BalanceGrouping::PerAccount);
+
+        self::assertCount(1, $revenues, '3. Produits is not split anymore');
+        self::assertSame('revenue', $revenues[0]['type'], 'totalling revenue and expense gives a revenue, since a negative revenue is an expense');
+        self::assertSame(34000, $revenues[0]['balance'], 'revenue and expense are the only types that can be totalled together');
+    }
+
+    public function testGetAccountsBalancesHasNoBalanceWhenAGroupMixesIncompatibleTypes(): void
+    {
+        // Move 1020. Banque > Raiffeisen (courant) under 2030. Acomptes de clients, a group of liabilities
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('account', ['parent_id' => 10011], ['id' => 10026]);
+
+        $deposits = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10011], BalanceGrouping::PerAccount);
+
+        self::assertNull($deposits[0]['balance'], 'an asset totalled with liabilities means nothing');
+        self::assertNull($deposits[0]['type']);
+    }
+
+    public function testGetAccountsBalancesIgnoresAccountsWithoutAnyBalanceToDetectAMix(): void
+    {
+        // Move 4400 Prestations / travaux de tiers, which has no accounting entry at all, under a group of liabilities
+        $connection = $this->getEntityManager()->getConnection();
+        $connection->update('account', ['parent_id' => 10105], ['id' => 10015]);
+
+        $ownFunds = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10105], BalanceGrouping::PerAccount);
+
+        self::assertSame(3500000, $ownFunds[0]['balance'], 'an expense at zero cannot distort the total of a group of liabilities');
+        self::assertSame('liability', $ownFunds[0]['type'], 'and it is not the type of the group either');
+    }
+
+    public function testGetAccountsBalancesReadsTheCacheWithoutADateAndSumsEntriesForAGivenDate(): void
+    {
+        // 100. Liquidités totals 10101 PostFinance CNI and 10202 Raiffeisen (courant)
+        $now = $this->repository->getAccountsBalances(null, null, [10009]);
+        $yesterday = $this->repository->getAccountsBalances(ChronosDate::yesterday(), null, [10009]);
+
+        self::assertSame(2518750, $now[0]['balance'], 'without a date the cached balance of each child is read');
+        self::assertSame(2518750, $yesterday[0]['balance'], 'a date sums the accounting entries instead');
+    }
+
+    public function testGetAccountsBalancesTotalsAtThePreviousDateToo(): void
+    {
+        $liquidities = $this->repository->getAccountsBalances(ChronosDate::yesterday(), new ChronosDate('2019-03-01'), [10009]);
+
+        self::assertSame(2518750, $liquidities[0]['balance']);
+        self::assertSame(2500000, $liquidities[0]['previousBalance']);
+    }
+
+    public function testGroupTotalBalanceIgnoresAccountsWithoutAnyBalanceToDetectAMix(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        // 4400 Prestations / travaux de tiers has no accounting entry at all, so moving it into a
+        // group of liabilities must not deprive that group of its total
+        $emptyExpense = $this->repository->getOneById(10015);
+        $emptyExpense->setParent($this->repository->getOneById(10105)); // 28. Fonds propres
+        $this->getEntityManager()->flush();
+
+        $this->assertAccountBalance(10105, 3500000, 'an expense at zero cannot distort a group of liabilities');
+        $this->assertAccountBalance(10001, 3506000, 'and it does not affect its ancestors either');
     }
 
     public function testGroupAccountCanHaveNullBalance(): void

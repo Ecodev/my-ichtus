@@ -19,7 +19,7 @@ abstract class ExportIndicatorReport implements FieldInterface
             'type' => Type::nonNull(Type::string()),
             'description' => 'Prepare an accounting indicator report and return the URL to download it',
             'args' => [
-                'dateFrom' => Type::nonNull(_types()->get(DateType::class)),
+                'dateFrom' => _types()->get(DateType::class),
                 'dateTo' => _types()->get(DateType::class),
             ],
             'resolve' => function ($root, array $args, SessionInterface $session): string {
@@ -27,7 +27,7 @@ abstract class ExportIndicatorReport implements FieldInterface
 
                 $config = $container->get('config');
                 $exporter = new IndicatorReport($config['hostname']);
-                $report = _em()->getRepository(IndicatorDefinition::class)->getReport($args['dateFrom'], $args['dateTo']);
+                $report = _em()->getRepository(IndicatorDefinition::class)->getReport($args['dateFrom'] ?? null, $args['dateTo'] ?? null);
 
                 return $exporter->export($report);
             },

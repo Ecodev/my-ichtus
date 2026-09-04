@@ -20,17 +20,17 @@ abstract class IndicatorReport implements FieldInterface
             'description' => 'Accounting indicators report',
             'args' => [
                 'dateFrom' => [
-                    'type' => Type::nonNull(_types()->get(DateType::class)),
-                    'description' => 'Start date of the report period',
+                    'type' => _types()->get(DateType::class),
+                    'description' => 'Start of the period. Without it, indicators show the state of their accounts at the end date, including everything that happened before',
                 ],
                 'dateTo' => [
                     'type' => _types()->get(DateType::class),
-                    'description' => 'End date of the report period',
+                    'description' => 'End of the period. Without it, indicators show the state of their accounts as it is right now',
                 ],
             ],
             'resolve' => fn ($root, array $args, SessionInterface $session): array => _em()
                 ->getRepository(IndicatorDefinition::class)
-                ->getReport($args['dateFrom'], $args['dateTo']),
+                ->getReport($args['dateFrom'] ?? null, $args['dateTo'] ?? null),
         ];
     }
 }

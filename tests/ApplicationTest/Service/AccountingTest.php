@@ -11,6 +11,7 @@ use Application\Model\User;
 use Application\Repository\AccountRepository;
 use Application\Repository\TransactionRepository;
 use Application\Service\Accounting;
+use ApplicationTest\Assert;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
@@ -73,7 +74,7 @@ class AccountingTest extends TestCase
         $childAccount = $accountRepository->getOneById(10108); // Conj Oint, owned by user 1007, partner of family owner 1002
         $ownerAccount = $accountRepository->getOneById(10096); // Active Member, owned by family owner 1002
 
-        self::assertTrue(Money::CHF(-5000)->equals($childAccount->getLeafBalance()), 'fixture should give the family member account a debt of 50 CHF');
+        Assert::assertMoney(Money::CHF(-5000), $childAccount->getLeafBalance(), 'fixture should give the family member account a debt of 50 CHF');
         self::assertNotNull($childAccount->getOwner());
 
         $ownerBalanceBefore = $ownerAccount->getLeafBalance();
@@ -88,9 +89,9 @@ class AccountingTest extends TestCase
         _em()->refresh($childAccount);
         _em()->refresh($ownerAccount);
 
-        self::assertTrue(Money::CHF(0)->equals($childAccount->getLeafBalance()), 'the family member account balance should have been fully transferred');
+        Assert::assertMoney(Money::CHF(0), $childAccount->getLeafBalance(), 'the family member account balance should have been fully transferred');
         self::assertNull($childAccount->getOwner(), 'the family member account should be detached once regularized');
-        self::assertTrue($ownerBalanceBefore->subtract(Money::CHF(5000))->equals($ownerAccount->getLeafBalance()), 'the owner balance should be reduced by the negative balance that was absorbed');
+        Assert::assertMoney($ownerBalanceBefore->subtract(Money::CHF(5000)), $ownerAccount->getLeafBalance(), 'the owner balance should be reduced by the negative balance that was absorbed');
 
         /** @var User $childUser */
         $childUser = _em()->getRepository(User::class)->getOneById(1007);
@@ -152,8 +153,9 @@ class AccountingTest extends TestCase
 
         $accounts = $accountRepository->findByType([AccountType::Revenue, AccountType::Expense]);
         $openingDate = $closingDate->addDays(1);
+        $balancesAfterClosing = $accountRepository->getAccountsVariations(null, $openingDate);
         foreach ($accounts as $account) {
-            self::assertTrue(Money::CHF(0)->equals($account->getBalanceAtDate($openingDate)));
+            self::assertSame(0, $balancesAfterClosing[$account->getId()] ?? 0, 'account ' . $account->getCode() . ' must be empty once closed');
         }
 
         $this->expectExceptionMessage('Le bouclement a déjà été fait au 2019-12-31');

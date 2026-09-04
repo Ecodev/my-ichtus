@@ -10,6 +10,7 @@ use Application\Model\Account;
 use Application\Model\Bookable;
 use Application\Model\Booking;
 use Application\Model\User;
+use ApplicationTest\Assert;
 use Money\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -68,7 +69,7 @@ class BookingTest extends TestCase
         $bookable->method('getPeriodicPrice')->willReturn(Money::CHF(500));
 
         $booking->setBookable($bookable);
-        self::assertEquals(Money::CHF(500), $booking->getPeriodicPrice(), 'price should be exactly the bookable price');
+        Assert::assertMoney(Money::CHF(500), $booking->getPeriodicPrice(), 'price should be exactly the bookable price');
     }
 
     public function testGetPeriodicPriceWithSharing(): void
@@ -80,7 +81,7 @@ class BookingTest extends TestCase
         $bookable->method('getPeriodicPrice')->willReturn(Money::CHF(500));
 
         $booking->setBookable($bookable);
-        self::assertEquals(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
+        Assert::assertMoney(Money::CHF(167), $booking->getPeriodicPrice(), 'price should be divided by the number of shared booking');
     }
 
     #[DataProvider('providerSetOwner')]

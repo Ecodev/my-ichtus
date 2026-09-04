@@ -1,17 +1,52 @@
+.mat-column-formula a {
+    text-decoration: none;
+}
+
 .header {
     justify-content: space-between;
 }
 
-.mat-column-formula a {
-    text-decoration: none;
+.dates {
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.dates mat-form-field {
+    width: 13em;
+}
+
+:host ::ng-deep .dates .mat-mdc-form-field-icon-suffix {
+    flex: none;
+    flex-wrap: nowrap;
+}
+
+:host ::ng-deep .dates .mat-mdc-form-field-infix,
+.dates mat-form-field input {
+    min-width: 0;
+}
+
+.move-date-slot {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    padding-top: 8px;
+    width: 40px;
+}
+
+.move-date.to-date-to mat-icon {
+    transform: rotate(90deg);
+}
+
+.move-date.to-date-from mat-icon {
+    transform: scaleX(-1) rotate(90deg);
+}
+
+app-money {
+    font-weight: 500;
 }
 
 .mat-column-value,
 .mat-column-budgetAllowed,
 .mat-column-budgetBalance {
     text-align: right;
-}
-
-app-money {
-    font-weight: 500;
 }

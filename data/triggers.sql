@@ -59,7 +59,9 @@ this_procedure:BEGIN
 
     -- Update balance for all group accounts by summing their children recursively.
     -- If a group mixes incompatible account types anywhere in its descendants, its total
-    -- is meaningless, so it is set to NULL. Only revenue and expense can be mixed together.
+    -- is meaningless, so it is set to NULL. Only revenue and expense can be mixed together, and
+    -- an account whose balance is zero is ignored, because it cannot distort any total.
+    -- `AccountRepository::getAccountsBalances()` applies the same rule at a date, keep both in sync.
     UPDATE account INNER JOIN (
         WITH RECURSIVE parent AS (
             SELECT account.id, account.balance, account.type, account.id AS group_account_id
@@ -74,8 +76,8 @@ this_procedure:BEGIN
         )
         SELECT group_account_id,
                IF(
-                   COUNT(DISTINCT IF(type = 'group', NULL, type)) > 1
-                       AND MAX(type NOT IN ('group', 'revenue', 'expense')),
+                   COUNT(DISTINCT IF(type = 'group' OR balance = 0, NULL, type)) > 1
+                       AND MAX(IF(type = 'group' OR balance = 0, 0, type NOT IN ('revenue', 'expense'))),
                    NULL,
                    SUM(IF(type = 'group', 0, balance))
                ) AS total

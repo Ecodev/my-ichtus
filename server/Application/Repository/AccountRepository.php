@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Application\Repository;
 
 use Application\Enum\AccountType;
+use Application\Enum\BalanceGrouping;
 use Application\Model\Account;
 use Application\Model\User;
 use Cake\Chronos\ChronosDate;
+use Doctrine\DBAL\ArrayParameterType;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Exception;
 use Money\Money;
@@ -29,6 +31,16 @@ use Money\Money;
  *      budget_allowed: int,
  *      budget_balance: int,
  *      parent_id?: int
+ * }
+ * @phpstan-type AccountBalance array{
+ *      id: int,
+ *      code: int,
+ *      name: string,
+ *      parent_id: ?int,
+ *      budget_allowed: ?int,
+ *      type: ?string,
+ *      balance: ?int,
+ *      previousBalance: ?int
  * }
  */
 class AccountRepository extends AbstractHasParentRepository implements LimitedAccessSubQuery
@@ -199,41 +211,202 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
 
     /**
      * Returns all accounts for Excel report with totals and sorting.
+     * Calls all accounts values, then adds a display layout (filter zeros, limit deep etc...).
      *
      * @param mixed $config
      *
      * @return list<AccountForReport>
      */
-    public function getAccountsForReport($config, ChronosDate $date, ?ChronosDate $previousDate = null): array
+    public function getAccountsForReport($config, ?ChronosDate $date, ?ChronosDate $previousDate = null): array
     {
-        // Throw error if date is less than previousDate
-        if ($previousDate !== null && $date->lessThan($previousDate)) {
-            throw new Exception('Date cannot be less than previous date');
+        $query = $this->buildAccountsBalancesQuery($date, $previousDate);
+        $balancesCTE = $query['cte'];
+        $queryParams = $query['params'] + [
+            'maxDepth' => $config['report']['maxAccountDepth'],
+            'showZero' => $config['report']['showAccountsWithZeroBalance'],
+            'customerDepositsAccountCode' => $config['customerDepositsAccountCode'],
+        ];
+
+        $sql = <<<SQL
+
+                WITH RECURSIVE
+                $balancesCTE,
+
+                -- Descending Recursivity
+                -- Prepares a set of data with depth and path for display purposes
+                depth_tree AS (
+                    SELECT id, 1 AS depth, CAST(LPAD(code, 12, '0') AS CHAR(255)) as path
+                    FROM account WHERE parent_id IS NULL
+                    UNION ALL
+                    SELECT child.id, parent.depth + 1, CONCAT(parent.path, '>', LPAD(child.code, 12, '0'))
+                    FROM account child INNER JOIN depth_tree parent ON child.parent_id = parent.id
+                )
+
+                -- Apply display constraints (limit max depth, exclude customers personnal accounts and with or without 0 balance)
+                -- Wrap in subquery because HAVING can't access to computed balances and WHERE can't access to showZero but we need a condition on both at the same time
+                SELECT *, budget_allowed - balance as budget_balance FROM (
+                    SELECT t.id, t.code, IF(CHAR_LENGTH(t.name) > 55, CONCAT(SUBSTRING(t.name, 1, 55), '...'), t.name) as name,
+                           t.parent_id, t.type, t.budget_allowed, dt.depth,
+                           SUM(t.balance) AS balance, SUM(t.previousBalance) AS previousBalance,
+                           MAX(t.alwaysShow) AS alwaysShow
+                    FROM account_tree t
+                        JOIN depth_tree dt ON dt.id = t.id and dt.depth <= :maxDepth + 1
+                    WHERE
+                        NOT EXISTS (SELECT 1 FROM account customer_deposits WHERE customer_deposits.id = t.parent_id AND customer_deposits.code = :customerDepositsAccountCode)
+                    GROUP BY t.id, t.type
+                    ORDER BY dt.path
+                ) sub
+                WHERE :showZero OR balance != 0 OR previousBalance != 0 OR alwaysShow = 1
+            SQL;
+
+        /** @var list<AccountForReport> $result */
+        $result = _em()->getConnection()->executeQuery($sql, $queryParams)->fetchAllAssociative();
+
+        return $result;
+    }
+
+    /**
+     * Balance of each account at a date, and optionally at a previous date, where the balance of a
+     * group is the total of its descendants.
+     *
+     * A date is included and refers to the state at the end of that day, be it in the past or in
+     * the future. A null date is the current state, which excludes entries dated later today.
+     *
+     * @param null|list<int> $accountIds restrict the returned accounts, without restricting what they total
+     *
+     * @return list<AccountBalance>
+     */
+    public function getAccountsBalances(
+        ?ChronosDate $date,
+        ?ChronosDate $previousDate = null,
+        ?array $accountIds = null,
+        BalanceGrouping $grouping = BalanceGrouping::PerType,
+    ): array {
+        $query = $this->buildAccountsBalancesQuery($date, $previousDate);
+
+        $balancesCTE = $query['cte'];
+        $queryParams = $query['params'];
+        $queryTypes = [];
+
+        $accountFilter = '';
+        if ($accountIds !== null) {
+            $accountFilter = 'WHERE t.id IN (:accountIds)';
+            $queryParams['accountIds'] = $accountIds;
+            $queryTypes['accountIds'] = ArrayParameterType::INTEGER;
+        }
+
+        if ($grouping === BalanceGrouping::PerType) {
+            $selects = 't.type, SUM(t.balance) AS balance, SUM(t.previousBalance) AS previousBalance';
+            $groupBy = 't.id, t.type';
+        } else {
+            // A group totalling incompatible types has no meaningful balance, nor type, the same
+            // way `update_account_balance` in triggers.sql sets `account.balance` to NULL for it.
+            // Both must be kept in sync.
+            // Only revenue and expense can be totalled together, and the result is a revenue,
+            // since a negative revenue is an expense. An account that is at zero on both dates is
+            // ignored, because it cannot distort any total.
+            $hasImpact = '(t.balance != 0 OR t.previousBalance != 0)';
+            $impactingType = "IF($hasImpact, t.type, NULL)";
+            $mixesTypes = "COUNT(DISTINCT $impactingType) > 1";
+            $mixesIncompatibleTypes = "$mixesTypes AND MAX(IF($hasImpact, t.type NOT IN ('revenue', 'expense'), 0))";
+            $selects = <<<SQL
+                IF($mixesIncompatibleTypes, NULL, IF($mixesTypes, 'revenue', COALESCE(MIN($impactingType), MIN(t.type)))) AS type,
+                        IF($mixesIncompatibleTypes, NULL, SUM(t.balance)) AS balance,
+                        IF($mixesIncompatibleTypes, NULL, SUM(t.previousBalance)) AS previousBalance
+                SQL;
+            $groupBy = 't.id';
+        }
+
+        $sql = <<<SQL
+
+                WITH RECURSIVE
+                $balancesCTE
+
+                SELECT t.id, t.code, t.name, t.parent_id, t.budget_allowed, $selects
+                FROM account_tree t
+                $accountFilter
+                GROUP BY $groupBy
+            SQL;
+
+        $rows = _em()->getConnection()->executeQuery($sql, $queryParams, $queryTypes)->fetchAllAssociative();
+
+        return array_map(fn (array $row): array => [
+            'id' => (int) $row['id'],
+            'code' => (int) $row['code'],
+            'name' => (string) $row['name'],
+            'parent_id' => $row['parent_id'] === null ? null : (int) $row['parent_id'],
+            'budget_allowed' => $row['budget_allowed'] === null ? null : (int) $row['budget_allowed'],
+            'type' => $row['type'] === null ? null : (string) $row['type'],
+            'balance' => $row['balance'] === null ? null : (int) $row['balance'],
+            'previousBalance' => $row['previousBalance'] === null ? null : (int) $row['previousBalance'],
+        ], $rows);
+    }
+
+    /**
+     * How much the balance of each account moved over a period, both bounds included.
+     *
+     * Without a start date the period begins before the very first entry, without an end date it
+     * runs up to now.
+     *
+     * @param null|list<int> $accountIds restrict the returned accounts, without restricting what they total
+     *
+     * @return array<int, ?int> how much each account moved, by account id, null for a group totalling
+     *                          incompatible types since it has no balance to compare in the first place
+     */
+    public function getAccountsVariations(?ChronosDate $from, ?ChronosDate $to, ?array $accountIds = null): array
+    {
+        // The start date is turned into the day before it, so it can no longer be compared to the
+        // end date afterwards. An absent end date is now, which is what it must be compared to.
+        if ($from !== null && ($to ?? ChronosDate::today())->lessThan($from)) {
+            throw new Exception('Period cannot start after it ends');
+        }
+
+        $balances = $this->getAccountsBalances($to, $from?->subDays(1), $accountIds, BalanceGrouping::PerAccount);
+
+        $variations = [];
+        foreach ($balances as $balance) {
+            $variations[$balance['id']] = $balance['balance'] === null || $balance['previousBalance'] === null
+                ? null
+                : $balance['balance'] - $balance['previousBalance'];
+        }
+
+        return $variations;
+    }
+
+    /**
+     * Build the CTE totalling the accounting entries of every account, and of every descendant of a
+     * group, at a date and optionally at a previous date. The last CTE it declares is `account_tree`,
+     * which holds one row per account and per descendant contributing to it.
+     *
+     * @return array{cte: string, params: array<string, mixed>}
+     */
+    private function buildAccountsBalancesQuery(?ChronosDate $date, ?ChronosDate $previousDate): array
+    {
+        // Comparing an account with itself on the same day totals nothing, so the previous date
+        // must be strictly older than the date
+        if ($date !== null && $previousDate !== null && !$previousDate->lessThan($date)) {
+            throw new Exception('Previous date must be strictly older than date');
         }
 
         // Stores list of query selects and parameters
         $querySelects = [];
         $queryParams = [
             'groupType' => AccountType::Group->value,
-            'maxDepth' => $config['report']['maxAccountDepth'],
-            'showZero' => $config['report']['showAccountsWithZeroBalance'],
-            'customerDepositsAccountCode' => $config['customerDepositsAccountCode'],
         ];
 
-        $today = ChronosDate::today();
-
-        // Decides if we need to compute transaction lines if any date is in the past.
-        $isReferenceDateInThePast = $date->lessThan($today);
-        $isPreviousDateInThePast = $previousDate !== null && $previousDate->lessThan($today);
+        // A date is honoured as it is given, so its balance is summed from the accounting entries.
+        // Only an absent date, which means now, is read from the balance cached on the account.
         $balanceCTE = '';
         $balancesJoin = '';
-        if ($isReferenceDateInThePast || $isPreviousDateInThePast) {
-            $queryParams['mostRecentPastDate'] = max(array_filter([$date, $previousDate]));
+        if ($date !== null || $previousDate !== null) {
+            $dates = array_filter([$date, $previousDate]);
+            assert($dates !== []);
+            $queryParams['mostRecentDate'] = max($dates);
             $debitBalanceSelects = [];
             $creditBalanceSelects = [];
             $balanceColumns = [];
 
-            if ($isReferenceDateInThePast) {
+            if ($date !== null) {
                 $debitBalanceSelects[] = $this->getLineBalanceSelect('reportDate', 'balance', 'debit_account', "'asset', 'expense'");
                 $creditBalanceSelects[] = $this->getLineBalanceSelect('reportDate', 'balance', 'credit_account', "'liability', 'equity', 'revenue'");
                 $balanceColumns[] = 'COALESCE(SUM(balance), 0) AS balance';
@@ -243,7 +416,7 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
                 $balanceColumns[] = '0 AS balance';
             }
 
-            if ($isPreviousDateInThePast) {
+            if ($previousDate !== null) {
                 $debitBalanceSelects[] = $this->getLineBalanceSelect('previousDate', 'previousBalance', 'debit_account', "'asset', 'expense'");
                 $creditBalanceSelects[] = $this->getLineBalanceSelect('previousDate', 'previousBalance', 'credit_account', "'liability', 'equity', 'revenue'");
                 $balanceColumns[] = 'COALESCE(SUM(previousBalance), 0) AS previousBalance';
@@ -262,12 +435,12 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
                     SELECT tl.debit_id AS account_id, $debitSelects
                     FROM transaction_line tl
                     INNER JOIN account debit_account ON debit_account.id = tl.debit_id
-                    WHERE DATE(tl.transaction_date) <= :mostRecentPastDate
+                    WHERE DATE(tl.transaction_date) <= :mostRecentDate
                     UNION ALL
                     SELECT tl.credit_id AS account_id, $creditSelects
                     FROM transaction_line tl
                     INNER JOIN account credit_account ON credit_account.id = tl.credit_id
-                    WHERE DATE(tl.transaction_date) <= :mostRecentPastDate
+                    WHERE DATE(tl.transaction_date) <= :mostRecentDate
                 ),
                 
                 balances AS (
@@ -279,18 +452,16 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
             $balancesJoin = 'LEFT JOIN balances b ON b.account_id = a.id';
         }
 
-        if ($isReferenceDateInThePast) {
-            // If reference date is in the past, determines balance by summing transactions
+        if ($date !== null) {
             $paramName = 'reportDate';
             $querySelects[] = 'COALESCE(b.balance, 0) AS balance';
             $queryParams[$paramName] = $date;
         } else {
-            // If today date, use "cache" account.balance
             $querySelects[] = 'a.balance AS balance';
         }
 
-        // If we have a previous date, sum their transactions
-        if ($isPreviousDateInThePast) {
+        // Without a previous date the period starts before the first entry, so nothing precedes it
+        if ($previousDate !== null) {
             $paramName = 'previousDate';
             $querySelects[] = 'COALESCE(b.previousBalance, 0) AS previousBalance';
             $queryParams[$paramName] = $previousDate;
@@ -299,58 +470,37 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         }
 
         $selects = implode(', ', $querySelects);
-        $sql = <<<SQL
-            
-                WITH RECURSIVE 
-                $balanceCTE
-                
+        $cte = <<<SQL
+            $balanceCTE
+
+                -- Hierarchy starting by children
+                -- Prepares a set of children because they have the data (balance)
                 children AS (
-                    SELECT a.id, a.code, IF(CHAR_LENGTH(a.name) > 55, CONCAT(SUBSTRING(a.name, 1, 55), '...'), a.name) as name, a.type, a.parent_id, parent.code AS parent_code, a.budget_allowed, CAST(a.code AS CHAR(255)) AS path, $selects
-                    FROM account a 
+                    SELECT a.id, a.code, a.name, a.type, a.parent_id, a.budget_allowed, $selects
+                    FROM account a
                     $balancesJoin
-                    LEFT JOIN account parent ON parent.id = a.parent_id
                     WHERE a.type != :groupType
                     GROUP BY a.id
                 ),
-                
-               account_tree AS (
-                    SELECT 
-                        id, code, name, parent_id, parent_code, type, budget_allowed, balance, previousBalance, path, 0 as alwaysShow 
+
+                -- Ascending recursivity
+                -- Start with children and complete the set with parents.
+                -- Parents are appened to the set for each child with the child balance for further group/sum and the child type to duplicate the parent in case of children type mix.
+                account_tree AS (
+                    SELECT
+                        id, code, name, parent_id, type, budget_allowed, balance, previousBalance, 0 as alwaysShow
                     FROM children
                     UNION ALL
-                    SELECT 
-                        parent.id, parent.code, parent.name, parent.parent_id, grand_parent.code AS parent_code, child.type, parent.budget_allowed, 
-                        child.balance, child.previousBalance, CONCAT(parent.code, '/', child.path), 
+                    SELECT
+                        parent.id, parent.code, parent.name, parent.parent_id, child.type, parent.budget_allowed,
+                        child.balance, child.previousBalance,
                         CASE WHEN child.balance > 0 THEN 1 ELSE 0 END AS alwaysShow
                     FROM account parent
-                    LEFT JOIN account grand_parent ON grand_parent.id = parent.parent_id
                     INNER JOIN account_tree child ON child.parent_id = parent.id
-                ),
-                            
-                depth_tree AS (
-                    SELECT id, 1 AS depth, CAST(LPAD(code, 12, '0') AS CHAR(255)) as path
-                    FROM account WHERE parent_id IS NULL
-                    UNION ALL
-                    SELECT child.id, parent.depth + 1, CONCAT(parent.path, '>', LPAD(child.code, 12, '0'))
-                    FROM account child INNER JOIN depth_tree parent ON child.parent_id = parent.id
-                )   
-
-                SELECT *, budget_allowed - balance as budget_balance FROM (
-                    SELECT t.id, t.code, t.name, t.parent_id, t.type, t.budget_allowed, dt.depth,
-                           SUM(t.balance) AS balance, SUM(t.previousBalance) AS previousBalance, MAX(t.alwaysShow) AS alwaysShow
-                    FROM account_tree t
-                        JOIN depth_tree dt ON dt.id = t.id and dt.depth <= :maxDepth + 1
-                    WHERE  t.parent_code != :customerDepositsAccountCode OR t.parent_id IS NULL
-                    GROUP BY t.id, t.type
-                    ORDER BY dt.path
-                ) sub
-                WHERE :showZero OR balance != 0 OR previousBalance != 0 OR alwaysShow = 1
+                )
             SQL;
 
-        /** @var list<AccountForReport> $result */
-        $result = _em()->getConnection()->executeQuery($sql, $queryParams)->fetchAllAssociative();
-
-        return $result;
+        return ['cte' => $cte, 'params' => $queryParams];
     }
 
     /**

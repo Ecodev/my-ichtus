@@ -6,9 +6,10 @@ namespace Application\Repository;
 
 use Application\Model\Account;
 use Application\Model\IndicatorDefinition;
+use Application\Model\IndicatorDefinitionAddend;
+use Application\Model\IndicatorDefinitionSubtrahend;
 use Application\Model\User;
 use Cake\Chronos\ChronosDate;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Exception;
 use Money\Money;
 
@@ -17,7 +18,7 @@ use Money\Money;
  *
  * @phpstan-type IndicatorTerm int|array{0: int, 1?: int}
  * @phpstan-type Indicators list<array{sorting: int, name: string, addends: list<IndicatorTerm>, subtrahends: list<IndicatorTerm>}>
- * @phpstan-type ReportValue array{indicatorDefinition: IndicatorDefinition, value: Money, budgetAllowed: Money, budgetBalance: Money}
+ * @phpstan-type ReportValue array{indicatorDefinition: IndicatorDefinition, value: ?Money, budgetAllowed: Money, budgetBalance: ?Money}
  */
 class IndicatorDefinitionRepository extends AbstractRepository
 {
@@ -40,90 +41,146 @@ class IndicatorDefinitionRepository extends AbstractRepository
     }
 
     /**
+     * Value of every indicator, between two dates.
+     *
+     * Both bounds are included. Without `$dateFrom`, the value of an indicator is the state of its
+     * accounts at `$dateTo`, including everything that happened before. With it, it is what happened
+     * in between. Without `$dateTo`, the period runs up to now.
+     *
      * @return list<ReportValue>
      */
-    public function getReport(ChronosDate $dateFrom, ?ChronosDate $dateTo): array
+    public function getReport(?ChronosDate $dateFrom, ?ChronosDate $dateTo): array
     {
-        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
-        $rsm->addRootEntityFromClassMetadata(IndicatorDefinition::class, 'indicator_definition');
-
-        $qb = _em()->getConnection()->createQueryBuilder()
-            ->from('indicator_definition')
-            ->addSelect($rsm->generateSelectClause())
-            ->addOrderBy('indicator_definition.sorting', 'ASC');
-
-        $aclFilter = $this->getAclFilter()->addFilterConstraint($this->getEntityManager()->getClassMetadata(IndicatorDefinition::class), 'indicator_definition');
-        if ($aclFilter) {
-            $qb->andWhere($aclFilter);
-        }
-
-        $query = $this->getEntityManager()->createNativeQuery($qb->getSQL(), $rsm);
-        $definitions = $query->getResult();
+        $definitions = $this->getDefinitions();
+        $variations = $this->getVariations($definitions, $dateFrom, $dateTo);
 
         $result = [];
         foreach ($definitions as $definition) {
-            $value = $this->computeFormulaValue($definition, $dateFrom, $dateTo);
+            $value = $this->computeFormulaValue($definition, $variations);
             $budgetAllowed = $this->computeFormulaBudgetAllowed($definition);
             $result[] = [
                 'indicatorDefinition' => $definition,
                 'value' => $value,
                 'budgetAllowed' => $budgetAllowed,
-                'budgetBalance' => $budgetAllowed->subtract($value),
+                'budgetBalance' => $value === null ? null : $budgetAllowed->subtract($value),
             ];
         }
 
         return $result;
     }
 
-    public function computeFormulaValue(IndicatorDefinition $definition, ChronosDate $dateFrom, ?ChronosDate $dateTo): Money
+    /**
+     * @return list<IndicatorDefinition>
+     */
+    private function getDefinitions(): array
     {
-        $valueStart = $this->computeFormulaValueAtDate($definition, $dateFrom);
-        $valueEnd = $this->computeFormulaValueAtDate($definition, $dateTo ?? ChronosDate::today());
-
-        return $valueEnd->subtract($valueStart);
+        return $this->createQueryBuilder('indicatorDefinition')
+            ->addSelect('addend', 'addendAccount', 'subtrahend', 'subtrahendAccount')
+            ->leftJoin('indicatorDefinition.addends', 'addend')
+            ->leftJoin('addend.account', 'addendAccount')
+            ->leftJoin('indicatorDefinition.subtrahends', 'subtrahend')
+            ->leftJoin('subtrahend.account', 'subtrahendAccount')
+            ->addOrderBy('indicatorDefinition.sorting', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
-    private function computeFormulaValueAtDate(IndicatorDefinition $definition, ChronosDate $date): Money
+    /**
+     * How much every account used by the given indicators moved over the period, in a single query.
+     *
+     * @param list<IndicatorDefinition> $definitions
+     *
+     * @return array<int, ?int>
+     */
+    private function getVariations(array $definitions, ?ChronosDate $dateFrom, ?ChronosDate $dateTo): array
+    {
+        $accountIds = [];
+        foreach ($definitions as $definition) {
+            foreach ($this->getTerms($definition) as $term) {
+                $accountIds[] = $term->getAccount()->getId();
+            }
+        }
+
+        $accountIds = array_values(array_unique(array_filter($accountIds)));
+        if (!$accountIds) {
+            return [];
+        }
+
+        /** @var AccountRepository $accountRepository */
+        $accountRepository = _em()->getRepository(Account::class);
+
+        return $accountRepository->getAccountsVariations($dateFrom, $dateTo, $accountIds);
+    }
+
+    /**
+     * The addends and subtrahends of an indicator, in that order.
+     *
+     * @return list<IndicatorDefinitionAddend|IndicatorDefinitionSubtrahend>
+     */
+    private function getTerms(IndicatorDefinition $definition): array
+    {
+        return [...$definition->getAddends(), ...$definition->getSubtrahends()];
+    }
+
+    /**
+     * Null as soon as one account of the formula has no meaningful balance, because it is a group
+     * mixing incompatible account types.
+     *
+     * @param array<int, ?int> $variations
+     */
+    private function computeFormulaValue(IndicatorDefinition $definition, array $variations): ?Money
     {
         $total = Money::CHF(0);
+
         foreach ($definition->getAddends() as $addend) {
-            $balance = $addend->getAccount()->getBalanceAtDate($date);
-            $ponderatedBalance = $this->applyMultiplier($balance, $addend->getMultiplier());
-            $total = $total->add($ponderatedBalance);
+            $value = $this->computeTermValue($addend, $variations);
+            if ($value === null) {
+                return null;
+            }
+
+            $total = $total->add($value);
         }
 
         foreach ($definition->getSubtrahends() as $subtrahend) {
-            $balance = $subtrahend->getAccount()->getBalanceAtDate($date);
-            $ponderatedBalance = $this->applyMultiplier($balance, $subtrahend->getMultiplier());
-            $total = $total->subtract($ponderatedBalance);
+            $value = $this->computeTermValue($subtrahend, $variations);
+            if ($value === null) {
+                return null;
+            }
+
+            $total = $total->subtract($value);
         }
 
         return $total;
     }
 
-    public function computeFormulaBudgetAllowed(IndicatorDefinition $definition): Money
+    /**
+     * @param array<int, ?int> $variations
+     */
+    private function computeTermValue(IndicatorDefinitionAddend|IndicatorDefinitionSubtrahend $term, array $variations): ?Money
     {
-        $total = Money::CHF(0);
-        foreach ($definition->getAddends() as $addend) {
-            $budget = $addend->getAccount()->getBudgetAllowed();
-            if ($budget !== null) {
-                $total = $total->add($budget);
-            }
+        $id = $term->getAccount()->getId();
+        assert($id !== null);
+
+        // A group without any leaf account has nothing to total, so it is absent from the variations
+        $variation = array_key_exists($id, $variations) ? $variations[$id] : 0;
+        if ($variation === null) {
+            return null;
         }
 
-        foreach ($definition->getSubtrahends() as $subtrahend) {
-            $budget = $subtrahend->getAccount()->getBudgetAllowed();
+        return Money::CHF($variation)->multiply($term->getMultiplier())->divide(100);
+    }
+
+    private function computeFormulaBudgetAllowed(IndicatorDefinition $definition): Money
+    {
+        $total = Money::CHF(0);
+        foreach ($this->getTerms($definition) as $term) {
+            $budget = $term->getAccount()->getBudgetAllowed();
             if ($budget !== null) {
                 $total = $total->add($budget);
             }
         }
 
         return $total;
-    }
-
-    private function applyMultiplier(Money $value, int $multiplier): Money
-    {
-        return $value->multiply($multiplier)->divide(100);
     }
 
     public function insertIndicators(): void

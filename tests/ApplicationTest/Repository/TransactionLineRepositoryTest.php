@@ -8,6 +8,7 @@ use Application\Model\Account;
 use Application\Model\TransactionLine;
 use Application\Repository\AccountRepository;
 use Application\Repository\TransactionLineRepository;
+use ApplicationTest\Assert;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
 use Cake\Chronos\ChronosDate;
@@ -154,13 +155,13 @@ class TransactionLineRepositoryTest extends AbstractRepository
 
         $totalDebit = $this->repository->totalBalance($poste, null);
         $totalCredit = $this->repository->totalBalance(null, $poste);
-        self::assertTrue(Money::CHF(1520000)->equals($totalDebit));
-        self::assertTrue(Money::CHF(701250)->equals($totalCredit));
+        Assert::assertMoney(Money::CHF(1520000), $totalDebit);
+        Assert::assertMoney(Money::CHF(701250), $totalCredit);
 
         $totalDebitFromDate = $this->repository->totalBalance($poste, null, new ChronosDate('2019-02-01'));
         $totalDebitUntilDate = $this->repository->totalBalance($poste, null, null, new ChronosDate('2019-01-01'));
-        self::assertTrue(Money::CHF(20000)->equals($totalDebitFromDate));
-        self::assertTrue(Money::CHF(1500000)->equals($totalDebitUntilDate));
+        Assert::assertMoney(Money::CHF(20000), $totalDebitFromDate);
+        Assert::assertMoney(Money::CHF(1500000), $totalDebitUntilDate);
     }
 
     #[DataProvider('providerImportedExists')]

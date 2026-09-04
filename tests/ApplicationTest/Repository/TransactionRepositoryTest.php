@@ -9,6 +9,7 @@ use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
 use Application\Repository\TransactionRepository;
+use ApplicationTest\Assert;
 use ApplicationTest\Traits\LimitedAccessSubQuery;
 use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Exception;
@@ -69,13 +70,13 @@ class TransactionRepositoryTest extends AbstractRepository
 
         $this->repository->hydrateLinesAndFlush($transaction, $lines);
 
-        self::assertTrue(Money::CHF(500)->equals($credit->getLeafBalance()), 'credit account balance must have been refreshed from DB');
-        self::assertTrue(Money::CHF(819250)->equals($debit->getLeafBalance()), 'debit account balance must have been refreshed from DB');
+        Assert::assertMoney(Money::CHF(500), $credit->getLeafBalance(), 'credit account balance must have been refreshed from DB');
+        Assert::assertMoney(Money::CHF(819250), $debit->getLeafBalance(), 'debit account balance must have been refreshed from DB');
         self::assertFalse($transaction->getTransactionLines()->contains($line), 'original line must have been deleted');
         self::assertCount(1, $transaction->getTransactionLines(), 'one line');
 
         $line = $transaction->getTransactionLines()->first();
-        self::assertTrue(Money::CHF(500)->equals($line->getBalance()));
+        Assert::assertMoney(Money::CHF(500), $line->getBalance());
         self::assertSame($credit, $line->getCredit());
         self::assertSame($debit, $line->getDebit());
     }

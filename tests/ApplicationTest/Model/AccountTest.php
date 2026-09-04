@@ -7,10 +7,7 @@ namespace ApplicationTest\Model;
 use Application\Enum\AccountType;
 use Application\Model\Account;
 use Application\Model\User;
-use Application\Repository\AccountRepository;
-use Cake\Chronos\ChronosDate;
 use Ecodev\Felix\Api\Exception;
-use Money\Money;
 use PHPUnit\Framework\TestCase;
 
 class AccountTest extends TestCase
@@ -112,31 +109,5 @@ class AccountTest extends TestCase
         $this->expectException(Exception::class);
         $invalidIban = 'CH123456789012345678';
         $account->setIban($invalidIban);
-    }
-
-    public function testBalanceAtDate(): void
-    {
-        /** @var AccountRepository $accountRepository */
-        $accountRepository = _em()->getRepository(Account::class);
-
-        // Past balance from an asset account
-        // 10201: PostFinance
-        $bank = $accountRepository->getOneById(10025);
-
-        $balance = $bank->getBalanceAtDate(new ChronosDate('2019-03-01'));
-        self::assertTrue(Money::CHF(800000)->equals($balance));
-
-        $balance = $bank->getBalanceAtDate(new ChronosDate('2019-05-01'));
-        self::assertTrue(Money::CHF(818750)->equals($balance));
-
-        // Past balance from a group account
-        // 6: Autres charges exploitation
-        $otherExpenses = $accountRepository->getOneById(10005);
-
-        $balance = $otherExpenses->getBalanceAtDate(new ChronosDate('2019-03-01'));
-        self::assertTrue(Money::CHF(0)->equals($balance));
-
-        $balance = $otherExpenses->getBalanceAtDate(new ChronosDate('2019-03-12'));
-        self::assertTrue(Money::CHF(1250)->equals($balance));
     }
 }

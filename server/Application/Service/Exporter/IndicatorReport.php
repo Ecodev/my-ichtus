@@ -63,9 +63,9 @@ class IndicatorReport extends AbstractExporter
 
         $this->writeRow([
             $indicatorDefinition->getName(),
-            Format::money($value),
+            $value === null ? null : Format::money($value),
             Format::money($budgetAllowed),
-            Format::money($budgetBalance),
+            $budgetBalance === null ? null : Format::money($budgetBalance),
             $this->formatFormula($indicatorDefinition),
         ]);
     }

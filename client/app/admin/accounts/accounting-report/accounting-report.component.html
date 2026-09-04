@@ -19,10 +19,11 @@
                     matInput
                     formControlName="datePrevious"
                     [matDatepicker]="pickerPrevious"
-                    [max]="form.get('date')?.value"
+                    [max]="getDatePreviousMax()"
                 />
                 <mat-datepicker-toggle matIconSuffix [for]="pickerPrevious" />
                 <mat-datepicker #pickerPrevious />
+                <mat-error>{{ form.controls.datePrevious.errors | errorMessage }}</mat-error>
             </mat-form-field>
         }
     </div>

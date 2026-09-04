@@ -6,7 +6,7 @@
 </div>
 
 <div class="nat-vertical nat-left nat-sm-horizontal nat-sm-align header nat-margin-top">
-    <div class="nat-horizontal nat-wrap nat-gap-horizontal-10">
+    <div class="nat-horizontal dates">
         <mat-form-field>
             <mat-label>Du</mat-label>
             <input
@@ -14,12 +14,31 @@
                 [formControl]="form.controls.dateFrom"
                 [max]="form.controls.dateTo.value || today"
                 [matDatepicker]="pickerFrom"
-                (dateChange)="getReport()"
             />
+            @if (form.controls.dateFrom.value) {
+                <a matIconButton matIconSuffix matTooltip="Effacer" (click)="clearDateFrom()">
+                    <mat-icon naturalIcon="close" />
+                </a>
+            }
             <mat-datepicker-toggle matIconSuffix [for]="pickerFrom" />
             <mat-datepicker #pickerFrom />
             <mat-error>{{ form.controls.dateFrom.errors | errorMessage }}</mat-error>
         </mat-form-field>
+
+        <div class="move-date-slot">
+            @if (getMoveDateDirection(); as direction) {
+                <a
+                    matIconButton
+                    matTooltip="Déplacer la date"
+                    class="move-date"
+                    [class.to-date-from]="direction === 'toDateFrom'"
+                    [class.to-date-to]="direction === 'toDateTo'"
+                    (click)="moveDate()"
+                >
+                    <mat-icon naturalIcon="move_up" />
+                </a>
+            }
+        </div>
 
         <mat-form-field>
             <mat-label>Au</mat-label>
@@ -27,10 +46,13 @@
                 matInput
                 [formControl]="form.controls.dateTo"
                 [min]="form.controls.dateFrom.value"
-                [max]="today"
                 [matDatepicker]="pickerTo"
-                (dateChange)="getReport()"
             />
+            @if (form.controls.dateTo.value) {
+                <a matIconButton matIconSuffix matTooltip="Effacer" (click)="clearDateTo()">
+                    <mat-icon naturalIcon="close" />
+                </a>
+            }
             <mat-datepicker-toggle matIconSuffix [for]="pickerTo" />
             <mat-datepicker #pickerTo />
             <mat-error>{{ form.controls.dateTo.errors | errorMessage }}</mat-error>
@@ -80,12 +102,12 @@
                     <div class="nat-horizontal nat-gap-5 nat-wrap">
                         @for (addend of element.indicatorDefinition.addends; track addend.account.id) {
                             <a matButton [routerLink]="getAccountLink(addend.account.id)"
-                                >+ {{ addend.account.name }} {{ formatMultiplier(addend.multiplier) }}</a
+                                >+ {{ addend.account.name }}{{ formatMultiplier(addend.multiplier) }}</a
                             >
                         }
                         @for (subtrahend of element.indicatorDefinition.subtrahends; track subtrahend.account.id) {
                             <a matButton [routerLink]="getAccountLink(subtrahend.account.id)"
-                                >- {{ subtrahend.account.name }} {{ formatMultiplier(subtrahend.multiplier) }}</a
+                                >- {{ subtrahend.account.name }}{{ formatMultiplier(subtrahend.multiplier) }}</a
                             >
                         }
                     </div>
