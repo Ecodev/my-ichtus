@@ -16,11 +16,15 @@ module.exports = function (config) {
             suppressAll: true, // removes the duplicated traces
         },
         reporters: ['progress', 'kjhtml'],
-        browsers: ['Chrome'],
+        browsers: ['ChromeCustom'],
         customLaunchers: {
+            ChromeCustom: {
+                base: 'Chrome',
+                flags: ['--use-mock-keychain'],
+            },
             ChromeHeadlessCustom: {
                 base: 'ChromeHeadless',
-                flags: ['--no-sandbox'],
+                flags: ['--no-sandbox', '--use-mock-keychain'],
             },
         },
         failOnSkippedTests: true,
