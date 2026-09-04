@@ -20,6 +20,7 @@ use Money\Money;
 /**
  * An accounting journal entry (simple or compound).
  */
+#[ORM\Index(name: 'closing', columns: ['is_closing', 'transaction_date'])]
 #[ORM\Entity(TransactionRepository::class)]
 class Transaction extends AbstractModel
 {
