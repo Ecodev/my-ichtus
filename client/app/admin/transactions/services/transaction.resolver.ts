@@ -2,10 +2,13 @@ import {inject} from '@angular/core';
 import {type ActivatedRouteSnapshot} from '@angular/router';
 import {forkJoin, last, map, type Observable, of} from 'rxjs';
 import {type DuplicatedTransactionResolve} from '../transaction';
-import {ErrorService} from '@ecodev/natural';
+import {ErrorService, ignoreErrors} from '@ecodev/natural';
 import {TransactionService} from './transaction.service';
 import {NaturalQueryVariablesManager} from '@ecodev/natural';
 import {TransactionLineService} from './transactionLine.service';
+import {Apollo} from 'apollo-angular';
+import {type LastClosingDateQuery, type LastClosingDateQueryVariables} from '../../../shared/generated-types';
+import {lastClosingDateQuery} from './transaction.queries';
 
 /**
  * Resolve transaction data for router
@@ -69,6 +72,26 @@ export function resolveDuplicatedTransaction(
             ),
         ),
     });
+
+    return errorService.redirectIfError(observable);
+}
+
+/**
+ * Resolve the last accounting closing date, if any
+ */
+export function resolveLastClosingDate(): Observable<LastClosingDateQuery['lastClosingDate']> {
+    const apollo = inject(Apollo);
+    const errorService = inject(ErrorService);
+
+    const observable = apollo
+        .query<LastClosingDateQuery, LastClosingDateQueryVariables>({
+            query: lastClosingDateQuery,
+            fetchPolicy: 'network-only',
+        })
+        .pipe(
+            ignoreErrors(),
+            map(result => result.data.lastClosingDate),
+        );
 
     return errorService.redirectIfError(observable);
 }

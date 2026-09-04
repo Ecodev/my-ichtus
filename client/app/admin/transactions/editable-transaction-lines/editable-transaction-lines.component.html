@@ -13,7 +13,12 @@
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
                     <mat-form-field subscriptSizing="dynamic">
                         <mat-label>Date d'écriture</mat-label>
-                        <input matInput formControlName="transactionDate" [matDatepicker]="picker" />
+                        <input
+                            matInput
+                            formControlName="transactionDate"
+                            [matDatepicker]="picker"
+                            [min]="lastClosingDate()"
+                        />
                         <mat-datepicker-toggle matIconSuffix [for]="picker" />
                         <mat-datepicker #picker />
                         <mat-error>{{ formArray.at(i).get('transactionDate')?.errors | errorMessage }}</mat-error>

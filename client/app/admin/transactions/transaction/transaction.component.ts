@@ -19,6 +19,7 @@ import {
     type CurrentUserForProfileQuery,
     type ExpenseClaimQuery,
     ExpenseClaimType,
+    type LastClosingDateQuery,
     type TransactionLineInput,
     type UpdateTransaction,
 } from '../../../shared/generated-types';
@@ -102,6 +103,7 @@ export class TransactionComponent
     extends NaturalAbstractDetail<
         TransactionService,
         NaturalSeoResolveData & {
+            lastClosingDate: LastClosingDateQuery['lastClosingDate'];
             duplicatedTransaction?: DuplicatedTransactionResolve | null;
             expenseClaim?: ExpenseClaimQuery['expenseClaim'] | null;
         }

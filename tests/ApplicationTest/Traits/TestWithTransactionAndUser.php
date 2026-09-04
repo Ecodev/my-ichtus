@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace ApplicationTest\Traits;
 
 use Application\Model\Account;
+use Application\Model\Transaction;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
+use Application\Repository\TransactionRepository;
 use Ecodev\Felix\Testing\Traits\TestWithTransaction;
 
 /**
@@ -38,6 +40,10 @@ trait TestWithTransactionAndUser
         /** @var AccountRepository $accountRepository */
         $accountRepository = $this->getEntityManager()->getRepository(Account::class);
         $accountRepository->clearCache();
+
+        /** @var TransactionRepository $transactionRepository */
+        $transactionRepository = $this->getEntityManager()->getRepository(Transaction::class);
+        $transactionRepository->clearCache();
 
         $this->traitTearDownWithTransaction();
     }

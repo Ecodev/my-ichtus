@@ -172,6 +172,14 @@ class TransactionRepositoryTest extends AbstractRepository
         return $transaction;
     }
 
+    private function getLine(int $id): TransactionLine
+    {
+        /** @var TransactionLine $line */
+        $line = _em()->find(TransactionLine::class, $id);
+
+        return $line;
+    }
+
     /**
      * All the lines of the transaction, exactly as they are recorded, each with its id and keyed by
      * it. This is what the form sends back when nothing was touched.
@@ -290,5 +298,43 @@ class TransactionRepositoryTest extends AbstractRepository
         $this->assertAccountBalance($account1, 20000, 'the account that was left must be recomputed too');
         $this->assertAccountBalance($account3, 10, 'the account that was joined must be recomputed');
         $this->assertAccountBalance($account2, 10, 'the credit side must not have moved');
+    }
+
+    public function testGetLastClosingDate(): void
+    {
+        self::assertSame('2019-02-04', $this->repository->getLastClosingDate()?->toDateString());
+    }
+
+    public function testIsClosedWhenOneOfTheLinesIsBeforeTheLastClosing(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        // Transaction 8000 is dated after the closing of 2019-02-04, so it is open on its own
+        $transactionAfterClosing = $this->getTransaction(8000);
+        self::assertFalse($this->repository->isClosed($transactionAfterClosing));
+
+        // But the accounting period is delimited by the dates of the lines, and this one reaches
+        // back into the closed period
+        $this->getLine(14000)->setTransactionDate(new Chronos('2019-01-15'));
+        self::assertTrue($this->repository->isClosed($transactionAfterClosing));
+    }
+
+    public function testIsClosed(): void
+    {
+        $this->setCurrentUser('administrator');
+
+        $beforeClosing = $this->getTransaction(8007);
+        $closing = $this->getTransaction(8005);
+        $afterClosing = $this->getTransaction(8000);
+
+        self::assertTrue($this->repository->isClosed($beforeClosing));
+        self::assertFalse($this->repository->isClosed($closing), 'the closing transaction itself can still be deleted');
+        self::assertFalse($this->repository->isClosed($afterClosing));
+
+        $beforeClosing->setTransactionDate(new Chronos('2019-06-01'));
+        self::assertTrue($this->repository->isClosed($beforeClosing), 'moving an old transaction after the closing must not unlock it');
+
+        $afterClosing->setTransactionDate(new Chronos('2019-01-02'));
+        self::assertTrue($this->repository->isClosed($afterClosing), 'moving a recent transaction before the closing must be refused');
     }
 }

@@ -10,6 +10,8 @@ use Application\Model\ExpenseClaim;
 use Application\Model\Transaction;
 use Application\Model\TransactionLine;
 use Application\Model\User;
+use Cake\Chronos\ChronosDate;
+use DateTimeInterface;
 use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Ecodev\Felix\Utility;
@@ -21,6 +23,19 @@ use LogicException;
  */
 class TransactionRepository extends AbstractRepository implements LimitedAccessSubQuery
 {
+    /**
+     * The last accounting closing date, or false while it was not fetched yet.
+     */
+    private ChronosDate|false|null $lastClosingDate = false;
+
+    /**
+     * Clear all caches.
+     */
+    public function clearCache(): void
+    {
+        $this->lastClosingDate = false;
+    }
+
     /**
      * Returns pure SQL to get ID of all objects that are accessible to given user.
      *
@@ -67,6 +82,7 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
 
         $submittedIds = array_flip($this->getSubmittedIds($lines, $existingLines));
         $deletedLines = array_diff_key($existingLines, $submittedIds);
+        $lastClosingDate = $this->getLastClosingDate();
 
         foreach ($lines as $line) {
             $id = $this->toId($line['id'] ?? null);
@@ -86,6 +102,13 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
 
             if (!$transactionLine->getCredit() && !$transactionLine->getDebit()) {
                 throw new Exception('Cannot create a TransactionLine without any account');
+            }
+
+            // Only the submitted date can reach into a closed period: a line already stored there
+            // would have made the whole transaction read-only
+            $submittedDate = $line['transactionDate'] ?? null;
+            if ($lastClosingDate && $submittedDate && $lastClosingDate->greaterThan(new ChronosDate($submittedDate))) {
+                throw new Exception('Cannot date a TransactionLine before the last accounting closing');
             }
         }
 
@@ -297,5 +320,68 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         }
 
         return $sql;
+    }
+
+    public function getLastClosingDate(): ?ChronosDate
+    {
+        if ($this->lastClosingDate === false) {
+            $this->lastClosingDate = $this->fetchLastClosingDate();
+        }
+
+        return $this->lastClosingDate;
+    }
+
+    private function fetchLastClosingDate(): ?ChronosDate
+    {
+        $date = $this->getEntityManager()->getConnection()->fetchOne(
+            'SELECT transaction_date FROM transaction WHERE is_closing ORDER BY transaction_date DESC LIMIT 1',
+        );
+
+        if (!$date) {
+            return null;
+        }
+
+        return new ChronosDate($date);
+    }
+
+    /**
+     * A transaction is closed as soon as one of its dates, the stored one or the submitted one,
+     * is before the last accounting closing. Otherwise a closed transaction could escape the
+     * closing simply by moving its date after last closing date.
+     */
+    public function isClosed(Transaction $transaction): bool
+    {
+        $lastClosingDate = $this->getLastClosingDate();
+        if (!$lastClosingDate) {
+            return false;
+        }
+
+        $oldestDate = new ChronosDate($transaction->getTransactionDate());
+        $oldestDate = $this->keepOldest($oldestDate, $this->getStoredDate($transaction));
+
+        // The accounting period is delimited by the dates of the lines, not by the date of the
+        // transaction grouping them, so a single line is enough to reach into a closed period
+        foreach ($transaction->getTransactionLines() as $line) {
+            $oldestDate = $this->keepOldest($oldestDate, new ChronosDate($line->getTransactionDate()));
+            $oldestDate = $this->keepOldest($oldestDate, $this->getStoredDate($line));
+        }
+
+        return $lastClosingDate->greaterThan($oldestDate);
+    }
+
+    /**
+     * The date the entity was loaded with, absent while creating it because it was never stored yet.
+     */
+    private function getStoredDate(Transaction|TransactionLine $entity): ?ChronosDate
+    {
+        $storedDate = $this->getEntityManager()->getUnitOfWork()->getOriginalEntityData($entity)['transactionDate'] ?? null;
+        assert($storedDate === null || $storedDate instanceof DateTimeInterface);
+
+        return $storedDate ? new ChronosDate($storedDate) : null;
+    }
+
+    private function keepOldest(ChronosDate $oldest, ?ChronosDate $candidate): ChronosDate
+    {
+        return $candidate && $candidate->lessThan($oldest) ? $candidate : $oldest;
     }
 }

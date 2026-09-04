@@ -1,5 +1,5 @@
 import {gql} from '@apollo/client';
-import {permissionsFragment, userMetaFragment} from '../../../shared/queries/fragments';
+import {userMetaFragment} from '../../../shared/queries/fragments';
 import {minimalAccountFragment} from '../../accounts/services/account.queries';
 
 export const transactionLineMetaFragment = gql`
@@ -40,6 +40,9 @@ export const transactionLineMetaFragment = gql`
             accountingDocuments {
                 id
             }
+            permissions {
+                update
+            }
         }
         transactionDate
         transactionTag {
@@ -69,29 +72,6 @@ export const transactionLinesQuery = gql`
         }
     }
     ${transactionLineMetaFragment}
-`;
-
-export const transactionLineQuery = gql`
-    query TransactionLineQuery($id: TransactionLineID!) {
-        transactionLine(id: $id) {
-            id
-            ...TransactionLineMeta
-            creationDate
-            creator {
-                ...UserMeta
-            }
-            updateDate
-            updater {
-                ...UserMeta
-            }
-            permissions {
-                ...PermissionsRUD
-            }
-        }
-    }
-    ${transactionLineMetaFragment}
-    ${userMetaFragment}
-    ${permissionsFragment}
 `;
 
 export const exportTransactionLines = gql`

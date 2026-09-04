@@ -7,6 +7,7 @@ namespace Application\Api;
 use Application\Api\Field\Query\BankingInfos;
 use Application\Api\Field\Query\Configuration;
 use Application\Api\Field\Query\IndicatorReport;
+use Application\Api\Field\Query\LastClosingDate;
 use Application\Api\Field\Query\NextAccountCode;
 use Application\Api\Field\Query\Permissions;
 use Application\Api\Field\Query\UserByToken;
@@ -48,6 +49,7 @@ class QueryType extends ObjectType
             Configuration::build(),
             UserRolesAvailable::build(),
             IndicatorReport::build(),
+            LastClosingDate::build(),
 
             // Standard fields
             Standard::buildQuery(Bookable::class),

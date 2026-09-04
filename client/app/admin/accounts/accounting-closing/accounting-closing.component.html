@@ -1,19 +1,18 @@
 <h2 mat-dialog-title>Bouclement comptable</h2>
 <mat-dialog-content>
-    <div class="nat-vertical">
-        <mat-hint>
-            <p>
-                Le bouclement va générer les écritures soldant tous les comptes de charges et profits, calculer le
-                résultat de l'exercice et le transférer au compte "bénéfice/perte reporté".
-            </p>
-            <p>
-                Cette opération est à faire une seule fois par année, généralement en début d'année pour le 31.12 de
-                l'année précédente, lorsque que toutes les écritures (y compris transitoires) ont été saisies.
-            </p>
-        </mat-hint>
+    <div class="nat-vertical nat-margin-standard">
+        <p>
+            Le bouclement va générer les écritures soldant tous les comptes de charges et profits, calculer le résultat
+            de l'exercice et le transférer au compte "bénéfice/perte reporté".
+        </p>
+        <p>Le bouclement va également figer toutes les écritures antérieures au bouclement.</p>
+        <p>
+            Cette opération est à faire une seule fois par année, généralement en début d'année pour le 31.12 de l'année
+            précédente, lorsque que toutes les écritures (y compris transitoires) ont été saisies.
+        </p>
         <mat-form-field class="nat-horizontal nat-margin-vertical">
             <mat-label>Date du bouclement</mat-label>
-            <input matInput [formControl]="form" [max]="today" [matDatepicker]="picker" />
+            <input matInput [formControl]="form" [min]="lastClosingDate()" [max]="today" [matDatepicker]="picker" />
             <mat-datepicker-toggle matIconSuffix [for]="picker" />
             <mat-datepicker #picker />
             <mat-error>{{ form.errors | errorMessage }}</mat-error>

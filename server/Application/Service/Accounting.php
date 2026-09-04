@@ -110,7 +110,14 @@ class Accounting
             throw new ExceptionWithoutMailLogging('Le bouclement a déjà été fait au ' . $endDate);
         }
 
+        // A closing transaction is dated the day after the period it closes
+        $lastClosingDate = $this->transactionRepository->getLastClosingDate();
+        if ($lastClosingDate && $endDate->lessThan($lastClosingDate)) {
+            throw new ExceptionWithoutMailLogging('Un bouclement existe déjà pour la période se terminant le ' . $lastClosingDate->subDays(1)->format('d.m.Y'));
+        }
+
         $closingTransaction = new Transaction();
+        $closingTransaction->setIsClosing(true);
         $closingTransaction->setTransactionDate($endDateTime);
         $closingTransaction->setInternalRemarks('Écriture générée automatiquement');
         $closingTransaction->setName($closingTransactioName);
@@ -124,6 +131,7 @@ class Accounting
                     $output[] = 'Résultat équilibré, ni bénéfice, ni déficit: rien à reporter';
                 }
                 _em()->flush();
+                $this->transactionRepository->clearCache();
 
                 return $closingTransaction;
             }
@@ -155,6 +163,7 @@ class Accounting
         }
 
         _em()->flush();
+        $this->transactionRepository->clearCache();
 
         return $closingTransaction;
     }

@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ecodev\Felix\Model\Traits\HasInternalRemarks;
 use Ecodev\Felix\Model\Traits\HasName;
+use GraphQL\Doctrine\Attribute as API;
 use Money\Money;
 
 /**
@@ -29,6 +30,12 @@ class Transaction extends AbstractModel
 
     #[ORM\Column(type: 'datetime')]
     private Chronos $transactionDate;
+
+    /**
+     * A closing transaction will make all previous transactions read-only.
+     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isClosing = false;
 
     /**
      * @var Collection<int, TransactionLine>
@@ -161,5 +168,16 @@ class Transaction extends AbstractModel
     public function getDatatransRef(): string
     {
         return $this->datatransRef;
+    }
+
+    public function isClosing(): bool
+    {
+        return $this->isClosing;
+    }
+
+    #[API\Exclude]
+    public function setIsClosing(bool $isClosing): void
+    {
+        $this->isClosing = $isClosing;
     }
 }

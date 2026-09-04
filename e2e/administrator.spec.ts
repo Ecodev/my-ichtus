@@ -25,9 +25,9 @@ test.describe('accounting', () => {
             await page.click(`[mattooltip='Dupliquer ...']`);
             await expect(page.locator('natural-detail-header')).toHaveText(/Nouvelle transaction/);
             await expect(page.locator(formControlNameXpath('name', 1))).toHaveValue("Achat d'un nouveau voilier");
-            await expect(page.locator(formControlNameXpath('name', 2))).toHaveValue('Paiement voilier par Raiffeisen');
-            await expect(page.locator(formControlNameXpath('name', 3))).toHaveValue('Acquisition voilier NE123456');
-            await expect(page.locator(formControlNameXpath('name', 4))).toHaveValue('Paiement voilier par PostFinance');
+            await expect(page.locator(formControlNameXpath('name', 2))).toHaveValue('Acquisition voilier NE123456');
+            await expect(page.locator(formControlNameXpath('name', 3))).toHaveValue('Paiement voilier par PostFinance');
+            await expect(page.locator(formControlNameXpath('name', 4))).toHaveValue('Paiement voilier par Raiffeisen');
             await expect(page.locator(formControlNameXpath('transactionDate', 1))).toHaveValue('');
             await expect(page.locator(formControlNameXpath('transactionDate', 2))).toHaveValue('');
 

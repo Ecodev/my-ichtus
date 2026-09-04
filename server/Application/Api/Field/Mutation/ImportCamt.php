@@ -7,6 +7,7 @@ namespace Application\Api\Field\Mutation;
 use Application\Api\Helper;
 use Application\Model\Transaction;
 use Application\Service\Importer;
+use Cake\Chronos\Chronos;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Upload\UploadType;
@@ -26,6 +27,7 @@ abstract class ImportCamt implements FieldInterface
             'resolve' => function ($root, array $args, SessionInterface $session): array {
                 // Check ACL
                 $fakeTransaction = new Transaction();
+                $fakeTransaction->setTransactionDate(Chronos::tomorrow());
                 Helper::throwIfDenied($fakeTransaction, 'create');
 
                 /** @var UploadedFileInterface $file */

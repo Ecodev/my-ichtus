@@ -14,6 +14,7 @@ use Application\Acl\Assertion\ExpenseClaimStatusIsNew;
 use Application\Acl\Assertion\IsApplicationBookingByTag;
 use Application\Acl\Assertion\IsFamily;
 use Application\Acl\Assertion\StatusIsNew;
+use Application\Acl\Assertion\TransactionIsNotClosed;
 use Application\Acl\Assertion\UserIsActive;
 use Application\Model\Account;
 use Application\Model\AccountingDocument;
@@ -113,7 +114,8 @@ class Acl extends \Ecodev\Felix\Acl\Acl
         $this->allow(User::ROLE_ADMINISTRATOR, [$account, $indicatorDefinition], ['create', 'update']);
         $this->allow(User::ROLE_ADMINISTRATOR, [$account], ['delete'], new AccountHasNoTransaction());
         $this->allow(User::ROLE_ADMINISTRATOR, [$license, $user, $userTag, $bookableTag], ['delete']);
-        $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transaction, $transactionTag, $accountingDocument, $expenseClaim, $indicatorDefinition], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$bookable, $transactionTag, $accountingDocument, $expenseClaim, $indicatorDefinition], ['create', 'update', 'delete']);
+        $this->allow(User::ROLE_ADMINISTRATOR, [$transaction], ['create', 'update', 'delete'], new TransactionIsNotClosed());
         $this->allow(User::ROLE_ADMINISTRATOR, [$configuration], ['create']);
     }
 }

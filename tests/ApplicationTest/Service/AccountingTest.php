@@ -6,8 +6,10 @@ namespace ApplicationTest\Service;
 
 use Application\Enum\AccountType;
 use Application\Model\Account;
+use Application\Model\Transaction;
 use Application\Model\User;
 use Application\Repository\AccountRepository;
+use Application\Repository\TransactionRepository;
 use Application\Service\Accounting;
 use ApplicationTest\Traits\TestWithTransactionAndUser;
 use Cake\Chronos\Chronos;
@@ -127,6 +129,10 @@ class AccountingTest extends TestCase
     {
         /** @var AccountRepository $accountRepository */
         $accountRepository = _em()->getRepository(Account::class);
+
+        /** @var TransactionRepository $transactionRepository */
+        $transactionRepository = _em()->getRepository(Transaction::class);
+
         $closingDate = ChronosDate::create(2019, 12, 31);
 
         $expectedLog = [
@@ -141,6 +147,8 @@ class AccountingTest extends TestCase
         $actualDate = $closingTransaction->getTransactionDate();
         $expectedDateTime = new Chronos('2020-01-01 00:00:00');
         self::assertTrue($actualDate->equals($expectedDateTime), 'Closing transaction was not created on ' . $closingDate);
+        self::assertTrue($closingTransaction->isClosing());
+        self::assertSame($expectedDateTime->toDateString(), $transactionRepository->getLastClosingDate()?->toDateString());
 
         $accounts = $accountRepository->findByType([AccountType::Revenue, AccountType::Expense]);
         $openingDate = $closingDate->addDays(1);
@@ -150,5 +158,14 @@ class AccountingTest extends TestCase
 
         $this->expectExceptionMessage('Le bouclement a déjà été fait au 2019-12-31');
         $this->accounting->close($closingDate, $output);
+    }
+
+    public function testCloseRefusesADateInsideTheAlreadyClosedPeriod(): void
+    {
+        $output = [];
+        $this->accounting->close(ChronosDate::create(2019, 12, 31), $output);
+
+        $this->expectExceptionMessage('Un bouclement existe déjà pour la période se terminant le 31.12.2019');
+        $this->accounting->close(ChronosDate::create(2019, 6, 30), $output);
     }
 }

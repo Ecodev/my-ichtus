@@ -19,6 +19,11 @@ parameters:
         - '~^Call to an undefined method Laminas\\Permissions\\Acl\\Resource\\ResourceInterface::getInstance\(\)\.$~'
         - '~^Parameter \#1 \$type of static method GraphQL\\Type\\Definition\\Type\:\:nonNull\(\) expects~'
 
+        # A type coming from the registry is only known as NamedType, never as OutputType
+        -
+            identifier: generator.valueType
+            path: server/Application/Api/Field/Query/LastClosingDate.php
+
         # Tolerate a permissive model, but strict DB
         - '~^Property Application\\Model\\.*\:\:\$.* type mapping mismatch\: property can contain Application\\Model\\.*\|null but database expects Application\\Model\\.*\.$~'
 

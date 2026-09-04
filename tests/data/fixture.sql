@@ -258,17 +258,17 @@ REPLACE INTO expense_claim (id, creation_date, owner_id, reviewer_id, amount, st
 (7004, '2019-01-06', 1010, NULL, 2100, 'new', 'remplacement des clés', '', 'expenseClaim', ''),
 (7005, '2019-04-01', 1002, 1001, 7200, 'new', 'Achat wishbone', 'Pour remplacer celui cassé par un membre du NFT, à payer directement au fournisseur', 'invoice', 'NFT');
 
-REPLACE INTO transaction (id, creator_id, owner_id, transaction_date, name, remarks, expense_claim_id) VALUES
-(8000, 1002, 1002, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),
-(8001, NULL, NULL, '2019-03-10', 'Photocopies pour comité', '', NULL),
-(8002, 1002, 1002, '2019-03-12', 'Cotisation 2019', '', NULL),
-(8003, NULL, NULL, '2019-01-15', 'Remboursement flyers pour cours nautique', 'Facture Cighelio du 10.01.2019', 7001),
-(8004, NULL, NULL, '2019-02-05', 'Location casier 1012', '', NULL),
-(8005, 1000, 1000, '2019-02-04', 'Achat d''un nouveau voilier', 'Paiement partiel par banque et poste', NULL),
-(8006, 1002, 1002, '2019-04-05', 'Versement en ligne', '', NULL),
-(8007, 1000, 1000, '2019-01-01', 'Solde à nouveau', 'Ouverture des comptes en début d\'exercice', NULL),
-(8008, 1000, 1007, '2019-05-01', 'Frais attribués par erreur au compte du conjoint', '', NULL),
-(8009, 1002, 1002, DATE_ADD(NOW(), INTERVAL 10 YEAR), 'Amortissement exceptionnel', '', NULL); -- Grant future to test trigger exclusion
+REPLACE INTO transaction (id, creator_id, owner_id, is_closing, transaction_date, name, remarks, expense_claim_id) VALUES
+(8000, 1002, 1002, 0, '2019-03-01', 'Inscription cours nautique Active Member', '', NULL),
+(8001, NULL, NULL, 0, '2019-03-10', 'Photocopies pour comité', '', NULL),
+(8002, 1002, 1002, 0, '2019-03-12', 'Cotisation 2019', '', NULL),
+(8003, NULL, NULL, 0, '2019-01-15', 'Remboursement flyers pour cours nautique', 'Facture Cighelio du 10.01.2019', 7001),
+(8004, NULL, NULL, 0, '2019-02-05', 'Location casier 1012', '', NULL),
+(8005, 1000, 1000, 1, '2019-02-04', 'Achat d''un nouveau voilier', 'Paiement partiel par banque et poste', NULL),
+(8006, 1002, 1002, 0, '2019-04-05', 'Versement en ligne', '', NULL),
+(8007, 1000, 1000, 0, '2019-01-01', 'Solde à nouveau', 'Ouverture des comptes en début d\'exercice', NULL),
+(8008, 1000, 1007, 0, '2019-05-01', 'Frais attribués par erreur au compte du conjoint', '', NULL),
+(8009, 1002, 1002, 0, DATE_ADD(NOW(), INTERVAL 10 YEAR), 'Amortissement exceptionnel', '', NULL); -- Grant future to test trigger exclusion
 
 REPLACE INTO transaction_tag (id, name) VALUES
 (15000, 'Régate 2019'),
@@ -284,8 +284,8 @@ REPLACE INTO transaction_line (id, transaction_id, debit_id, credit_id, bookable
 (14002, 8002, 10096, 10035, NULL, NULL, 9000, '2019-03-12', 1, NULL, 'Cotisation 2019', ''),
 (14003, 8003, 10022, 10096, NULL, 15001, 10000, '2019-03-15', 1, NULL, 'Remboursement flyers', ''),
 (14004, 8004, 10096, 10036, 3003, NULL, 5000, '2019-02-05', 1, NULL, 'Loyer casier', ''),
-(14005, 8005, 10034, NULL, 3007, NULL, 1000000, '2019-02-03', 1, NULL, 'Acquisition voilier NE123456', ''),
-(14006, 8005, NULL, 10025, NULL, NULL, 700000, '2019-02-03', 1, 'imported-voilier-postfinance', 'Paiement voilier par PostFinance', ''),
+(14005, 8005, 10034, NULL, 3007, NULL, 1000000, '2019-02-04', 1, NULL, 'Acquisition voilier NE123456', ''),
+(14006, 8005, NULL, 10025, NULL, NULL, 700000, '2019-02-04', 1, 'imported-voilier-postfinance', 'Paiement voilier par PostFinance', ''),
 (14007, 8005, NULL, 10026, NULL, NULL, 300000, '2019-02-04', 0, NULL, 'Paiement voilier par Raiffeisen', ''),
 (14008, 8006, 10025, 10096, NULL, NULL, 20000, '2019-04-05', 0, 'my-unique-imported-id', 'Versement en ligne', ''),
 (14009, 8007, 10025, 10106, NULL, NULL, 1500000, '2019-01-01', 1, NULL, 'Solde à nouveau', 'Ouverture du CCP'),

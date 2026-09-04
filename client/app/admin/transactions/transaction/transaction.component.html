@@ -28,6 +28,7 @@
                                 matInput
                                 formControlName="transactionDate"
                                 [matDatepicker]="picker2"
+                                [min]="data.lastClosingDate"
                                 (dateChange)="dateChange($event)"
                             />
                             <mat-datepicker-toggle matIconSuffix [for]="picker2" />
@@ -134,7 +135,10 @@
             <ng-template #linesHeader>
                 <div class="nat-horizontal nat-gap-10 nat-align">
                     <h2 class="nat-no-margin-bottom">Écritures</h2>
-                    @if (userService.canUpdateTransaction(viewer)) {
+                    @if (
+                        userService.canUpdateTransaction(viewer) &&
+                        (!isUpdatePage() || data.model.permissions.update || data.model.permissions.delete)
+                    ) {
                         <div class="nat-horizontal nat-gap-10">
                             @if (!(updateTransactionLines || !isUpdatePage())) {
                                 <button matButton="outlined" (click)="updateTransactionLines = true">
@@ -174,7 +178,7 @@
                     </app-transaction-lines>
                 </div>
             } @else {
-                <app-editable-transaction-lines [input]="transactionLines">
+                <app-editable-transaction-lines [input]="transactionLines" [lastClosingDate]="data.lastClosingDate">
                     <ng-container *ngTemplateOutlet="linesHeader" />
                 </app-editable-transaction-lines>
             }
@@ -211,9 +215,11 @@
                 </button>
             </eco-fab-speed-dial-trigger>
             <eco-fab-speed-dial-actions>
-                <button matMiniFab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
-                    <mat-icon naturalIcon="save" />
-                </button>
+                @if (data.model.permissions.update) {
+                    <button matMiniFab matTooltip="Enregistrer" matTooltipPosition="left" (click)="save()">
+                        <mat-icon naturalIcon="save" />
+                    </button>
+                }
                 <a
                     matMiniFab
                     matTooltip="Dupliquer ..."
@@ -222,15 +228,17 @@
                 >
                     <mat-icon naturalIcon="content_copy" />
                 </a>
-                <button
-                    matMiniFab
-                    color="error"
-                    matTooltip="Supprimer définitivement"
-                    matTooltipPosition="left"
-                    (click)="delete()"
-                >
-                    <mat-icon naturalIcon="delete_forever" />
-                </button>
+                @if (data.model.permissions.delete) {
+                    <button
+                        matMiniFab
+                        color="error"
+                        matTooltip="Supprimer définitivement"
+                        matTooltipPosition="left"
+                        (click)="delete()"
+                    >
+                        <mat-icon naturalIcon="delete_forever" />
+                    </button>
+                }
             </eco-fab-speed-dial-actions>
         </eco-fab-speed-dial>
     }

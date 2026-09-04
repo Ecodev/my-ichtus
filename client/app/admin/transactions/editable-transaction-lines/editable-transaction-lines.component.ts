@@ -9,7 +9,7 @@ import {
     NaturalSelectHierarchicComponent,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {Component, inject, Input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, Input, input, ChangeDetectionStrategy} from '@angular/core';
 import {TransactionLineService} from '../services/transactionLine.service';
 import {BookableService} from '../../bookables/services/bookable.service';
 import {type TransactionLineInput, type TransactionLinesQuery} from '../../../shared/generated-types';
@@ -200,6 +200,11 @@ export class EditableTransactionLinesComponent extends NaturalAbstractEditableLi
     public set input(value: EditableTransactionLinesInput) {
         this.input$.next(value);
     }
+
+    /**
+     * A line dated before the last accounting closing would change an already closed period
+     */
+    public readonly lastClosingDate = input<string | null>(null);
 
     private readonly input$ = new Subject<EditableTransactionLinesInput>();
 

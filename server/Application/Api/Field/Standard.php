@@ -156,7 +156,9 @@ abstract class Standard
 
                 // When deleting a transaction use specialized flush
                 if ($class === Transaction::class) {
-                    _em()->getRepository(Transaction::class)->flushWithFastTransactionLineTriggers();
+                    $transactionRepository = _em()->getRepository(Transaction::class);
+                    $transactionRepository->flushWithFastTransactionLineTriggers();
+                    $transactionRepository->clearCache();
                 } else {
                     _em()->flush();
                 }

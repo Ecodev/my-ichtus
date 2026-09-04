@@ -8,6 +8,8 @@ use Application\Acl\Acl;
 use Application\Model\AbstractModel;
 use Application\Model\AccountingDocument;
 use Application\Model\ExpenseClaim;
+use Application\Model\Transaction;
+use Cake\Chronos\Chronos;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 
@@ -30,6 +32,8 @@ class CrudPermissionsType extends ObjectType
 
                         if ($instance instanceof AccountingDocument) {
                             $instance->setExpenseClaim(new ExpenseClaim());
+                        } elseif ($instance instanceof Transaction) {
+                            $instance->setTransactionDate(Chronos::tomorrow());
                         }
 
                         $acl = new Acl();

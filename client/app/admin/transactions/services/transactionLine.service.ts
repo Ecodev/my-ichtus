@@ -9,12 +9,7 @@ import {
     type NaturalSearchSelections,
     toNavigationParameters,
 } from '@ecodev/natural';
-import {
-    exportTransactionLines,
-    reconcileTransactionLine,
-    transactionLineQuery,
-    transactionLinesQuery,
-} from './transactionLine.queries';
+import {exportTransactionLines, reconcileTransactionLine, transactionLinesQuery} from './transactionLine.queries';
 import {
     type ExpenseClaimQuery,
     type ExportTransactionLines,
@@ -24,8 +19,6 @@ import {
     type ReconcileTransactionLineVariables,
     type TransactionLineInput,
     type TransactionLineMeta,
-    type TransactionLineQuery,
-    type TransactionLineQueryVariables,
     type TransactionLinesQuery,
     type TransactionLinesQueryVariables,
     type UpdatableTransactionLineInput,
@@ -84,8 +77,8 @@ function atLeastOneAccount(debitOrCredit: AbstractControl): ValidationErrors | n
 
 @Service()
 export class TransactionLineService extends NaturalAbstractModelService<
-    TransactionLineQuery['transactionLine'],
-    TransactionLineQueryVariables,
+    never,
+    never,
     TransactionLinesQuery['transactionLines'],
     TransactionLinesQueryVariables,
     never,
@@ -96,7 +89,7 @@ export class TransactionLineService extends NaturalAbstractModelService<
     never
 > {
     public constructor() {
-        super('transactionLine', transactionLineQuery, transactionLinesQuery, null, null, null);
+        super('transactionLine', null, transactionLinesQuery, null, null, null);
     }
 
     public static getVariablesForExport(): TransactionLinesQueryVariables {

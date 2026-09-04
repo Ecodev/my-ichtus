@@ -106,3 +106,9 @@ export const deleteTransactions = gql`
         deleteTransactions(ids: $ids)
     }
 `;
+
+export const lastClosingDateQuery = gql`
+    query LastClosingDateQuery {
+        lastClosingDate
+    }
+`;

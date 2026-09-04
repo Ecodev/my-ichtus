@@ -1,3 +1,9 @@
 .search-bar {
     margin-block: 10px;
 }
+
+.aligned-with-checkbox {
+    display: inline-block;
+    width: var(--mat-checkbox-state-layer-size, 40px);
+    text-align: center;
+}
