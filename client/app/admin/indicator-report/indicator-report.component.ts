@@ -33,7 +33,7 @@ import {
     toNavigationParameters,
     TypedMatCellDef,
 } from '@ecodev/natural';
-import {gql} from '@apollo/client';
+import {type FetchPolicy, gql} from '@apollo/client';
 import {Apollo} from 'apollo-angular';
 import {EMPTY, startWith} from 'rxjs';
 import {catchError, filter, finalize, switchMap} from 'rxjs/operators';
@@ -244,6 +244,7 @@ export class IndicatorReportComponent {
                     this.apollo
                         .query<IndicatorReportQuery, IndicatorReportQueryVariables>({
                             query: indicatorQuery,
+                            fetchPolicy: this.getFetchPolicy(),
                             variables: this.getVariables(),
                         })
                         // A failed query must not terminate the subscription, or later date changes would be ignored
@@ -254,6 +255,16 @@ export class IndicatorReportComponent {
             .subscribe(result => {
                 this.dataSource = new MatTableDataSource<IndicatorReportRow>(result.data.indicatorReport);
             });
+    }
+
+    /**
+     * A period that ended before today will unlikely change.
+     * Any moment >= now stills continue to update its values by asking the server
+     */
+    private getFetchPolicy(): FetchPolicy {
+        const dateTo = this.form.controls.dateTo.value;
+
+        return dateTo && this.dateAdapter.compareDate(dateTo, this.today) < 0 ? 'cache-first' : 'network-only';
     }
 
     private getVariables(): IndicatorReportQueryVariables {
