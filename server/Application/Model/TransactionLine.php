@@ -20,6 +20,8 @@ use Money\Money;
  * A single line of accounting transaction.
  */
 #[ORM\UniqueConstraint(name: 'unique_import', columns: ['transaction_date', 'imported_id'])]
+#[ORM\Index(name: 'balance_by_debit', columns: ['debit_id', 'transaction_date', 'balance'])]
+#[ORM\Index(name: 'balance_by_credit', columns: ['credit_id', 'transaction_date', 'balance'])]
 #[API\Filter(field: 'custom', operator: TransactionWithDocumentOperatorType::class, type: 'boolean')]
 #[API\Filter(field: 'custom', operator: TransactionExportOperatorType::class, type: 'boolean')]
 #[API\Filter(field: 'custom', operator: AccountOperatorType::class, type: 'id')]

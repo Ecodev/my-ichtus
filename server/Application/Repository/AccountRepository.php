@@ -244,19 +244,24 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
 
                 -- Apply display constraints (limit max depth, exclude customers personnal accounts and with or without 0 balance)
                 -- Wrap in subquery because HAVING can't access to computed balances and WHERE can't access to showZero but we need a condition on both at the same time
-                SELECT *, budget_allowed - balance as budget_balance FROM (
-                    SELECT t.id, t.code, IF(CHAR_LENGTH(t.name) > 55, CONCAT(SUBSTRING(t.name, 1, 55), '...'), t.name) as name,
-                           t.parent_id, t.type, t.budget_allowed, dt.depth,
-                           SUM(t.balance) AS balance, SUM(t.previousBalance) AS previousBalance,
-                           MAX(t.alwaysShow) AS alwaysShow
-                    FROM account_tree t
-                        JOIN depth_tree dt ON dt.id = t.id and dt.depth <= :maxDepth + 1
-                    WHERE
-                        NOT EXISTS (SELECT 1 FROM account customer_deposits WHERE customer_deposits.id = t.parent_id AND customer_deposits.code = :customerDepositsAccountCode)
-                    GROUP BY t.id, t.type
-                    ORDER BY dt.path
+                SELECT id, code, name, parent_id, type, budget_allowed, depth, balance, previousBalance,
+                       alwaysShow, budget_allowed - balance as budget_balance FROM (
+                    SELECT totals.id, totals.code, totals.name, totals.parent_id, totals.type, totals.budget_allowed,
+                           dt.depth, totals.balance, totals.previousBalance, totals.alwaysShow, dt.path
+                    FROM (
+                        SELECT t.id, t.code, IF(CHAR_LENGTH(t.name) > 55, CONCAT(SUBSTRING(t.name, 1, 55), '...'), t.name) as name,
+                               t.parent_id, t.type, t.budget_allowed,
+                               SUM(t.balance) AS balance, SUM(t.previousBalance) AS previousBalance,
+                               MAX(t.alwaysShow) AS alwaysShow
+                        FROM account_tree t
+                        WHERE
+                            NOT EXISTS (SELECT 1 FROM account customer_deposits WHERE customer_deposits.id = t.parent_id AND customer_deposits.code = :customerDepositsAccountCode)
+                        GROUP BY t.id, t.type
+                    ) totals
+                    JOIN depth_tree dt ON dt.id = totals.id and dt.depth <= :maxDepth + 1
                 ) sub
                 WHERE :showZero OR balance != 0 OR previousBalance != 0 OR alwaysShow = 1
+                ORDER BY path
             SQL;
 
         /** @var list<AccountForReport> $result */
@@ -282,18 +287,11 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         ?array $accountIds = null,
         BalanceGrouping $grouping = BalanceGrouping::PerType,
     ): array {
-        $query = $this->buildAccountsBalancesQuery($date, $previousDate);
+        $query = $this->buildAccountsBalancesQuery($date, $previousDate, $accountIds);
 
         $balancesCTE = $query['cte'];
         $queryParams = $query['params'];
-        $queryTypes = [];
-
-        $accountFilter = '';
-        if ($accountIds !== null) {
-            $accountFilter = 'WHERE t.id IN (:accountIds)';
-            $queryParams['accountIds'] = $accountIds;
-            $queryTypes['accountIds'] = ArrayParameterType::INTEGER;
-        }
+        $queryTypes = $query['types'];
 
         if ($grouping === BalanceGrouping::PerType) {
             $selects = 't.type, SUM(t.balance) AS balance, SUM(t.previousBalance) AS previousBalance';
@@ -324,7 +322,6 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
 
                 SELECT t.id, t.code, t.name, t.parent_id, t.budget_allowed, $selects
                 FROM account_tree t
-                $accountFilter
                 GROUP BY $groupBy
             SQL;
 
@@ -378,9 +375,14 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
      * group, at a date and optionally at a previous date. The last CTE it declares is `account_tree`,
      * which holds one row per account and per descendant contributing to it.
      *
-     * @return array{cte: string, params: array<string, mixed>}
+     * Given a list of accounts, the tree is walked down from them instead of up from every account,
+     * and only their descendants contribute.
+     *
+     * @param null|list<int> $accountIds
+     *
+     * @return array{cte: string, params: array<string, mixed>, types: array<string, ArrayParameterType>}
      */
-    private function buildAccountsBalancesQuery(?ChronosDate $date, ?ChronosDate $previousDate): array
+    private function buildAccountsBalancesQuery(?ChronosDate $date, ?ChronosDate $previousDate, ?array $accountIds = null): array
     {
         // Comparing an account with itself on the same day totals nothing, so the previous date
         // must be strictly older than the date
@@ -393,6 +395,25 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         $queryParams = [
             'groupType' => AccountType::Group->value,
         ];
+        $queryTypes = [];
+
+        $requestedTreeCTE = '';
+        if ($accountIds !== null) {
+            $queryParams['accountIds'] = $accountIds;
+            $queryTypes['accountIds'] = ArrayParameterType::INTEGER;
+            $requestedTreeCTE = <<<SQL
+
+                requested_tree AS (
+                    SELECT a.id AS root_id, a.id
+                    FROM account a
+                    WHERE a.id IN (:accountIds)
+                    UNION ALL
+                    SELECT root.root_id, child.id
+                    FROM account child
+                    INNER JOIN requested_tree root ON child.parent_id = root.id
+                ),
+                SQL;
+        }
 
         // A date is honoured as it is given, so its balance is summed from the accounting entries.
         // Only an absent date, which means now, is read from the balance cached on the account.
@@ -402,51 +423,50 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
             $dates = array_filter([$date, $previousDate]);
             assert($dates !== []);
             $queryParams['mostRecentDate'] = max($dates);
-            $debitBalanceSelects = [];
-            $creditBalanceSelects = [];
+            $amountColumns = [];
             $balanceColumns = [];
 
             if ($date !== null) {
-                $debitBalanceSelects[] = $this->getLineBalanceSelect('reportDate', 'balance', 'debit_account', "'asset', 'expense'");
-                $creditBalanceSelects[] = $this->getLineBalanceSelect('reportDate', 'balance', 'credit_account', "'liability', 'equity', 'revenue'");
-                $balanceColumns[] = 'COALESCE(SUM(balance), 0) AS balance';
+                $amountColumns[] = $this->getLineAmountSelect('reportDate', 'amount');
+                $balanceColumns[] = $this->getSignedAmountSelect('amount', 'balance');
             } else {
-                $debitBalanceSelects[] = '0 AS balance';
-                $creditBalanceSelects[] = '0 AS balance';
+                $amountColumns[] = '0 AS amount';
                 $balanceColumns[] = '0 AS balance';
             }
 
             if ($previousDate !== null) {
-                $debitBalanceSelects[] = $this->getLineBalanceSelect('previousDate', 'previousBalance', 'debit_account', "'asset', 'expense'");
-                $creditBalanceSelects[] = $this->getLineBalanceSelect('previousDate', 'previousBalance', 'credit_account', "'liability', 'equity', 'revenue'");
-                $balanceColumns[] = 'COALESCE(SUM(previousBalance), 0) AS previousBalance';
+                $amountColumns[] = $this->getLineAmountSelect('previousDate', 'previousAmount');
+                $balanceColumns[] = $this->getSignedAmountSelect('previousAmount', 'previousBalance');
             } else {
-                $debitBalanceSelects[] = '0 AS previousBalance';
-                $creditBalanceSelects[] = '0 AS previousBalance';
+                $amountColumns[] = '0 AS previousAmount';
                 $balanceColumns[] = '0 AS previousBalance';
             }
 
-            $debitSelects = implode(', ', $debitBalanceSelects);
-            $creditSelects = implode(', ', $creditBalanceSelects);
+            $amountSelects = implode(', ', $amountColumns);
             $balanceSelects = implode(', ', $balanceColumns);
+            $debitSource = $this->getLineAmountsSource($accountIds !== null, 'debit_id');
+            $creditSource = $this->getLineAmountsSource($accountIds !== null, 'credit_id');
+
+            // Entries are totalled per account in each branch, then signed once in `balances`,
+            // because the sign only depends on the account type and on the side of the entry.
+            // `is_debit` tells both sides apart, since an account can appear in both branches.
             $balanceCTE = <<<SQL
-                
+
                 line_amounts AS (
-                    SELECT tl.debit_id AS account_id, $debitSelects
-                    FROM transaction_line tl
-                    INNER JOIN account debit_account ON debit_account.id = tl.debit_id
-                    WHERE DATE(tl.transaction_date) <= :mostRecentDate
+                    SELECT tl.debit_id AS account_id, 1 AS is_debit, $amountSelects
+                    $debitSource
+                    GROUP BY tl.debit_id
                     UNION ALL
-                    SELECT tl.credit_id AS account_id, $creditSelects
-                    FROM transaction_line tl
-                    INNER JOIN account credit_account ON credit_account.id = tl.credit_id
-                    WHERE DATE(tl.transaction_date) <= :mostRecentDate
+                    SELECT tl.credit_id AS account_id, 0 AS is_debit, $amountSelects
+                    $creditSource
+                    GROUP BY tl.credit_id
                 ),
-                
+
                 balances AS (
-                    SELECT account_id, $balanceSelects
-                    FROM line_amounts
-                    GROUP BY account_id
+                    SELECT la.account_id, $balanceSelects
+                    FROM line_amounts la
+                    INNER JOIN account a ON a.id = la.account_id
+                    GROUP BY la.account_id
                 ),
                 SQL;
             $balancesJoin = 'LEFT JOIN balances b ON b.account_id = a.id';
@@ -470,51 +490,98 @@ class AccountRepository extends AbstractHasParentRepository implements LimitedAc
         }
 
         $selects = implode(', ', $querySelects);
+
+        if ($accountIds === null) {
+            $treeCTE = <<<SQL
+                    -- Hierarchy starting by children
+                    -- Prepares a set of children because they have the data (balance)
+                    children AS (
+                        SELECT a.id, a.code, a.name, a.type, a.parent_id, a.budget_allowed, $selects
+                        FROM account a
+                        $balancesJoin
+                        WHERE a.type != :groupType
+                        GROUP BY a.id
+                    ),
+
+                    -- Ascending recursivity
+                    -- Start with children and complete the set with parents.
+                    -- Parents are appened to the set for each child with the child balance for further group/sum and the child type to duplicate the parent in case of children type mix.
+                    account_tree AS (
+                        SELECT
+                            id, code, name, parent_id, type, budget_allowed, balance, previousBalance, 0 as alwaysShow
+                        FROM children
+                        UNION ALL
+                        SELECT
+                            parent.id, parent.code, parent.name, parent.parent_id, child.type, parent.budget_allowed,
+                            child.balance, child.previousBalance,
+                            CASE WHEN child.balance > 0 THEN 1 ELSE 0 END AS alwaysShow
+                        FROM account parent
+                        INNER JOIN account_tree child ON child.parent_id = parent.id
+                    )
+                SQL;
+        } else {
+            // Each requested account is paired with every non-group account below it, itself
+            // included, which is what the ascending recursivity produced for those accounts.
+            $treeCTE = <<<SQL
+                    account_tree AS (
+                        SELECT rt.root_id AS id, root.code, root.name, root.parent_id, a.type, root.budget_allowed, $selects
+                        FROM requested_tree rt
+                        INNER JOIN account root ON root.id = rt.root_id
+                        INNER JOIN account a ON a.id = rt.id
+                        $balancesJoin
+                        WHERE a.type != :groupType
+                    )
+                SQL;
+        }
+
         $cte = <<<SQL
-            $balanceCTE
+            $requestedTreeCTE$balanceCTE
 
-                -- Hierarchy starting by children
-                -- Prepares a set of children because they have the data (balance)
-                children AS (
-                    SELECT a.id, a.code, a.name, a.type, a.parent_id, a.budget_allowed, $selects
-                    FROM account a
-                    $balancesJoin
-                    WHERE a.type != :groupType
-                    GROUP BY a.id
-                ),
-
-                -- Ascending recursivity
-                -- Start with children and complete the set with parents.
-                -- Parents are appened to the set for each child with the child balance for further group/sum and the child type to duplicate the parent in case of children type mix.
-                account_tree AS (
-                    SELECT
-                        id, code, name, parent_id, type, budget_allowed, balance, previousBalance, 0 as alwaysShow
-                    FROM children
-                    UNION ALL
-                    SELECT
-                        parent.id, parent.code, parent.name, parent.parent_id, child.type, parent.budget_allowed,
-                        child.balance, child.previousBalance,
-                        CASE WHEN child.balance > 0 THEN 1 ELSE 0 END AS alwaysShow
-                    FROM account parent
-                    INNER JOIN account_tree child ON child.parent_id = parent.id
-                )
+            $treeCTE
             SQL;
 
-        return ['cte' => $cte, 'params' => $queryParams];
+        return ['cte' => $cte, 'params' => $queryParams, 'types' => $queryTypes];
     }
 
     /**
-     * Returns SQL string for a transaction line balance select.
+     * Returns the SQL source of one branch of `line_amounts`, restricted to the contributing
+     * accounts when only some accounts are requested.
      */
-    private function getLineBalanceSelect(string $dateParamName, string $columnName, string $accountAlias, string $positiveTypes): string
+    private function getLineAmountsSource(bool $restrictToRequestedTree, string $sideColumn): string
+    {
+        if (!$restrictToRequestedTree) {
+            return <<<SQL
+                FROM transaction_line tl
+                    WHERE DATE(tl.transaction_date) <= :mostRecentDate
+                SQL;
+        }
+
+        return <<<SQL
+            FROM (SELECT DISTINCT id FROM requested_tree) contributor
+                    INNER JOIN transaction_line tl ON tl.$sideColumn = contributor.id
+                    WHERE DATE(tl.transaction_date) <= :mostRecentDate
+            SQL;
+    }
+
+    /**
+     * Returns SQL string totalling the unsigned amount of the entries of an account up to a date.
+     */
+    private function getLineAmountSelect(string $dateParamName, string $columnName): string
     {
         return <<<SQL
-            CASE WHEN DATE(tl.transaction_date) <= :$dateParamName THEN
-                CASE
-                    WHEN $accountAlias.type IN ($positiveTypes) THEN tl.balance
-                    ELSE -tl.balance
-                END
-            END AS $columnName
+            COALESCE(SUM(CASE WHEN DATE(tl.transaction_date) <= :$dateParamName THEN tl.balance END), 0) AS $columnName
+            SQL;
+    }
+
+    /**
+     * Returns SQL string applying the sign of the account type to the amounts of both sides.
+     */
+    private function getSignedAmountSelect(string $amountColumn, string $columnName): string
+    {
+        return <<<SQL
+            COALESCE(SUM(IF(la.is_debit,
+                        IF(a.type IN ('asset', 'expense'), la.$amountColumn, -la.$amountColumn),
+                        IF(a.type IN ('liability', 'equity', 'revenue'), la.$amountColumn, -la.$amountColumn))), 0) AS $columnName
             SQL;
     }
 
