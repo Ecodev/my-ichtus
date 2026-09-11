@@ -51,7 +51,7 @@ function createApolloLink(
 
     return errorLink.concat(
         createHttpLink(httpLink, httpBatchLink, {
-            uri: '/graphql?v=' + localConfig.version,
+            uri: window.location.origin + '/graphql?v=' + localConfig.version,
         }),
     );
 }
