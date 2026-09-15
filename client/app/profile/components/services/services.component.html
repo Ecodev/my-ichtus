@@ -1,5 +1,5 @@
 <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-@if (runningServicesDS.data?.length > 0) {
+@if ((runningServicesDS.data?.length ?? 0) > 0) {
     <div>
         <div class="nat-horizontal nat-align nat-margin-bottom">
             <h2 class="nat-expand mat-font-headline-sm">Cotisation / Prestations souscrites</h2>
@@ -71,9 +71,9 @@
                     <td *matCellDef="let booking; dataSource: runningServicesDS" mat-cell class="natural-align-right">
                         @for (b of booking.bookable?.simultaneousBookings; track b) {
                             <div class="nat-horizontal">
-                                <natural-avatar [initials]="b.owner.name" [gravatar]="b.owner.email" [size]="36" />
-                                <a matButton [routerLink]="['/admin/user', b.owner.id]">
-                                    {{ b.owner.name }}
+                                <natural-avatar [initials]="b.owner?.name" [gravatar]="b.owner?.email" [size]="36" />
+                                <a matButton [routerLink]="['/admin/user', b.owner?.id]">
+                                    {{ b.owner?.name }}
                                 </a>
                             </div>
                         }
@@ -152,7 +152,7 @@
                     }
                 </td>
                 <td *matFooterCellDef mat-footer-cell class="natural-align-right">
-                    @if (pendingApplicationsDS.data?.totalPeriodicPrice > 0) {
+                    @if (+(pendingApplicationsDS.data?.totalPeriodicPrice ?? 0) > 0) {
                         <span>
                             {{ pendingApplicationsDS.data?.totalPeriodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                         </span>
@@ -168,7 +168,7 @@
                     }
                 </td>
                 <td *matFooterCellDef mat-footer-cell class="natural-align-right">
-                    @if (pendingApplicationsDS.data?.totalInitialPrice > 0) {
+                    @if (+(pendingApplicationsDS.data?.totalInitialPrice ?? 0) > 0) {
                         <span>
                             {{ pendingApplicationsDS.data?.totalInitialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                         </span>

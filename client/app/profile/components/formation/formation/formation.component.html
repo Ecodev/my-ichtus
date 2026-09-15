@@ -43,7 +43,7 @@
             <div class="running formation-list">
                 <h1 class="mat-font-headline-lg">Inscriptions validées</h1>
                 <div class="nat-vertical formation-items">
-                    @for (element of runningServicesDS.data?.items; track element) {
+                    @for (element of runningServicesDS.data.items; track element) {
                         <ng-template
                             *ngTemplateOutlet="
                                 displayTemplate;
@@ -59,7 +59,7 @@
             <div class="pending formation-list">
                 <h1 class="mat-font-headline-lg">Demandes en attente</h1>
                 <div class="nat-vertical formation-items">
-                    @for (element of pendingApplicationsDS.data?.items; track element) {
+                    @for (element of pendingApplicationsDS.data.items; track element) {
                         <ng-template
                             *ngTemplateOutlet="
                                 displayTemplate;

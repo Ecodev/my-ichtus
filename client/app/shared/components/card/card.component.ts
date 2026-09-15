@@ -11,7 +11,7 @@ import {MatCard} from '@angular/material/card';
 })
 export class CardComponent implements OnInit {
     public readonly illustrationHeight = input(200);
-    @Input() public file: FileModel | null = null;
+    @Input() public file: FileModel | null | undefined = null;
     public readonly illustrationUrl = input('');
 
     public ngOnInit(): void {

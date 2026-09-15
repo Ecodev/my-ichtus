@@ -145,6 +145,7 @@ export const pricedBookingsQuery = gql`
                         owner {
                             id
                             name
+                            email
                         }
                     }
                     bookableTags {

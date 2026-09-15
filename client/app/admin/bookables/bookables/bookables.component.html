@@ -106,7 +106,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cell class="natural-align-right">
-                            @if (dataSource.data?.totalPurchasePrice > 0) {
+                            @if (+(dataSource.data?.totalPurchasePrice ?? 0) > 0) {
                                 <span>
                                     {{ dataSource.data?.totalPurchasePrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
@@ -129,7 +129,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cell class="natural-align-right">
-                            @if (dataSource.data?.totalInitialPrice > 0) {
+                            @if (+(dataSource.data?.totalInitialPrice ?? 0) > 0) {
                                 <span>
                                     {{ dataSource.data?.totalInitialPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
@@ -152,7 +152,7 @@ Warning this template is used by two components BookablesComponent and UsageBook
                             }
                         </td>
                         <td *matFooterCellDef mat-footer-cell class="natural-align-right">
-                            @if (dataSource.data?.totalPeriodicPrice > 0) {
+                            @if (+(dataSource.data?.totalPeriodicPrice ?? 0) > 0) {
                                 <span>
                                     {{ dataSource.data?.totalPeriodicPrice | currency: 'CHF' : 'symbol' : '1.0-0' }}
                                 </span>
@@ -296,9 +296,9 @@ Warning this template is used by two components BookablesComponent and UsageBook
             }
             @if (dataSource.data?.length) {
                 <mat-paginator
-                    [length]="dataSource.data?.length"
-                    [pageSize]="dataSource.data?.pageSize"
-                    [pageIndex]="dataSource.data?.pageIndex"
+                    [length]="dataSource.data.length"
+                    [pageSize]="dataSource.data.pageSize"
+                    [pageIndex]="dataSource.data.pageIndex"
                     [pageSizeOptions]="pageSizeOptions"
                     (page)="pagination($event)"
                 />
