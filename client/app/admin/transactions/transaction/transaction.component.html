@@ -148,7 +148,7 @@
                             @if (updateTransactionLines && isUpdatePage()) {
                                 <button matButton="outlined" (click)="updateTransactionLines = false">Annuler</button>
                             }
-                            @if (updateTransactionLines) {
+                            @if (updateTransactionLines && !isClosing) {
                                 <button matButton="filled" (click)="addEmptyLine()">Ajouter une écriture</button>
                             }
                         </div>

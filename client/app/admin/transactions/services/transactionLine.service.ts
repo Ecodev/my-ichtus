@@ -2,6 +2,7 @@ import {Service} from '@angular/core';
 import {type AbstractControl, FormControl, FormGroup, type ValidationErrors, Validators} from '@angular/forms';
 import {
     formatIsoDate,
+    type FormControls,
     type FormValidators,
     type Literal,
     NaturalAbstractModelService,
@@ -150,6 +151,31 @@ export class TransactionLineService extends NaturalAbstractModelService<
         const input = super.getInput(object, forCreation);
 
         return object.id ? {...input, id: object.id} : input;
+    }
+
+    /**
+     * Which fields the accounting closing that generated the line owns. As an extra form field it
+     * survives the list being rebuilt from its raw values, and `getInput()` leaves it out since it is
+     * not part of `getDefaultForServer()`.
+     */
+    protected override getFormExtraFieldDefaultValues(): Literal {
+        return {
+            lockedFields: [],
+        };
+    }
+
+    /**
+     * A field an accounting closing owns is born disabled, so the answer of the server is what locks
+     * it, and no rebuilding of the list can hand it back.
+     */
+    public override getFormConfig(model: Literal): FormControls {
+        const controls = super.getFormConfig(model);
+
+        for (const field of model.lockedFields ?? []) {
+            controls[field]?.disable();
+        }
+
+        return controls;
     }
 
     public override getDefaultForServer(): TransactionLineInput {

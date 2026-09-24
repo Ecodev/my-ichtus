@@ -29,48 +29,76 @@
             <ng-container matColumnDef="name">
                 <th *matHeaderCellDef mat-header-cell>Libellé</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <mat-form-field subscriptSizing="dynamic">
-                        <mat-label>Libellé</mat-label>
-                        <input matInput formControlName="name" />
-                        <mat-error>{{ formArray.at(i).get('name')?.errors | errorMessage }}</mat-error>
-                    </mat-form-field>
+                    @if (isFieldLocked(element, 'name')) {
+                        <span>{{ element.get('name')?.value }}</span>
+                    } @else {
+                        <mat-form-field subscriptSizing="dynamic">
+                            <mat-label>Libellé</mat-label>
+                            <input matInput formControlName="name" />
+                            <mat-error>{{ formArray.at(i).get('name')?.errors | errorMessage }}</mat-error>
+                        </mat-form-field>
+                    }
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="balance">
                 <th *matHeaderCellDef mat-header-cell>Montant</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <mat-form-field subscriptSizing="dynamic">
-                        <mat-label>Montant</mat-label>
-                        <input matInput type="number" formControlName="balance" step="0.01" />
-                        <mat-error>{{ formArray.at(i).get('balance')?.errors | errorMessage }}</mat-error>
-                    </mat-form-field>
+                    @if (isFieldLocked(element, 'balance')) {
+                        <app-money
+                            [amount]="element.get('balance')?.value"
+                            [showCurrency]="false"
+                            [showSignal]="false"
+                        />
+                    } @else {
+                        <mat-form-field subscriptSizing="dynamic">
+                            <mat-label>Montant</mat-label>
+                            <input matInput type="number" formControlName="balance" step="0.01" />
+                            <mat-error>{{ formArray.at(i).get('balance')?.errors | errorMessage }}</mat-error>
+                        </mat-form-field>
+                    }
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="debit">
                 <th *matHeaderCellDef mat-header-cell>Compte débit</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <natural-select-hierarchic
-                        subscriptSizing="dynamic"
-                        formControlName="debit"
-                        placeholder="Compte débit"
-                        [config]="accountHierarchicConfig"
-                        [showIcon]="false"
-                    />
+                    @if (isFieldLocked(element, 'debit')) {
+                        <app-transaction-amount
+                            displayMode="account"
+                            [transactionLine]="element.getRawValue()"
+                            [relativeToAccount]="element.get('debit')?.value"
+                        />
+                    } @else {
+                        <natural-select-hierarchic
+                            subscriptSizing="dynamic"
+                            formControlName="debit"
+                            placeholder="Compte débit"
+                            [config]="accountHierarchicConfig"
+                            [showIcon]="false"
+                        />
+                    }
                 </td>
             </ng-container>
 
             <ng-container matColumnDef="credit">
                 <th *matHeaderCellDef mat-header-cell>Compte crédit</th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <natural-select-hierarchic
-                        subscriptSizing="dynamic"
-                        formControlName="credit"
-                        placeholder="Compte crédit"
-                        [config]="accountHierarchicConfig"
-                        [showIcon]="false"
-                    />
+                    @if (isFieldLocked(element, 'credit')) {
+                        <app-transaction-amount
+                            displayMode="account"
+                            [transactionLine]="element.getRawValue()"
+                            [relativeToAccount]="element.get('credit')?.value"
+                        />
+                    } @else {
+                        <natural-select-hierarchic
+                            subscriptSizing="dynamic"
+                            formControlName="credit"
+                            placeholder="Compte crédit"
+                            [config]="accountHierarchicConfig"
+                            [showIcon]="false"
+                        />
+                    }
                 </td>
             </ng-container>
 
@@ -125,7 +153,12 @@
             <ng-container matColumnDef="remove">
                 <th *matHeaderCellDef mat-header-cell></th>
                 <td *matCellDef="let element; let i = index; dataSource: dataSource" mat-cell [formGroupName]="i">
-                    <button matIconButton color="error" [disabled]="dataSource.data.length < 2" (click)="removeAt(i)">
+                    <button
+                        matIconButton
+                        color="error"
+                        [disabled]="dataSource.data.length < 2 || !canRemove(element)"
+                        (click)="removeAt(i)"
+                    >
                         <mat-icon naturalIcon="delete" />
                     </button>
                 </td>

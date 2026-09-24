@@ -20,6 +20,7 @@ export const transactionLineMetaFragment = gql`
         }
         remarks
         isReconciled
+        lockedFields
         creationDate
         creator {
             ...UserMeta

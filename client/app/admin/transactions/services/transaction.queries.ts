@@ -52,6 +52,7 @@ export const transactionQuery = gql`
         transaction(id: $id) {
             id
             ...TransactionMeta
+            isClosing
             creationDate
             creator {
                 ...UserMeta

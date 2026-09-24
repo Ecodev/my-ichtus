@@ -17,6 +17,7 @@ use Ecodev\Felix\Repository\LimitedAccessSubQuery;
 use Ecodev\Felix\Utility;
 use GraphQL\Doctrine\Definition\EntityID;
 use LogicException;
+use Money\Money;
 
 /**
  * @extends AbstractRepository<Transaction>
@@ -84,18 +85,27 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
         $deletedLines = array_diff_key($existingLines, $submittedIds);
         $lastClosingDate = $this->getLastClosingDate();
 
+        foreach ($deletedLines as $deletedLine) {
+            // Freezing the values of a generated line would be pointless if the line could be dropped
+            if ($deletedLine->getLockedFields()) {
+                throw new Exception('Cannot delete a generated TransactionLine');
+            }
+        }
+
         foreach ($lines as $line) {
             $id = $this->toId($line['id'] ?? null);
-            unset($line['id']);
-
             if ($id) {
                 $transactionLine = $existingLines[$id];
-                Helper::hydrate($transactionLine, $line);
+                Helper::hydrate($transactionLine, $this->writableFields($line, $transactionLine));
             } else {
                 // No id means a line the user just added to the list, or a line copied from a
                 // duplicated transaction. Either way it is born here.
+                if ($transaction->isClosing() && $transaction->getId()) {
+                    throw new Exception('Cannot add a TransactionLine to an accounting closing');
+                }
+
                 $transactionLine = new TransactionLine();
-                Helper::hydrate($transactionLine, $line);
+                Helper::hydrate($transactionLine, $this->writableFields($line, null));
                 $transactionLine->setTransaction($transaction);
                 $this->getEntityManager()->persist($transactionLine);
             }
@@ -152,6 +162,63 @@ class TransactionRepository extends AbstractRepository implements LimitedAccessS
     private function toId(mixed $id): int
     {
         return (int) ($id instanceof EntityID ? $id->getId() : $id);
+    }
+
+    /**
+     * Keep only the fields we are allowed to write. The id goes out, since it tells which line to
+     * write to and cannot be written itself. On a generated line, the locked fields go out too, but
+     * only an actual attempt to change them is refused, the form sending them back even when it
+     * shows them as read-only. A line being created has nothing locked, hence the missing line.
+     */
+    private function writableFields(array $line, ?TransactionLine $transactionLine): array
+    {
+        unset($line['id']);
+
+        if (!$transactionLine) {
+            return $line;
+        }
+
+        foreach ($transactionLine->getLockedFields() as $field) {
+            if (!array_key_exists($field, $line)) {
+                continue;
+            }
+
+            if ($this->isLockedFieldChanged($transactionLine, $field, $line[$field])) {
+                throw new Exception('Cannot modify ' . $field . ' of a generated TransactionLine.');
+            }
+
+            unset($line[$field]);
+        }
+
+        return $line;
+    }
+
+    /**
+     * Whether the value sent for a locked field really differs from the recorded one. Each field is
+     * compared according to its own nature, so locking a new field in
+     * `TransactionLine::getLockedFields()` means adding its comparison here.
+     */
+    private function isLockedFieldChanged(TransactionLine $transactionLine, string $field, mixed $submitted): bool
+    {
+        if ($field === 'balance') {
+            return !$submitted instanceof Money || !$transactionLine->getBalance()->equals($submitted);
+        }
+
+        if ($field === 'name') {
+            return $transactionLine->getName() !== $submitted;
+        }
+
+        if ($field === 'transactionDate') {
+            return !new ChronosDate($transactionLine->getTransactionDate())->equals(new ChronosDate($submitted));
+        }
+
+        if ($submitted instanceof EntityID) {
+            $submitted = $submitted->getEntity();
+        }
+
+        $current = $field === 'debit' ? $transactionLine->getDebit() : $transactionLine->getCredit();
+
+        return $current !== $submitted;
     }
 
     /**

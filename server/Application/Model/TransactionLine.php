@@ -106,6 +106,24 @@ class TransactionLine extends AbstractModel
     }
 
     /**
+     * Fields that cannot be modified, because this line is one of those an accounting closing
+     * generated and must keep matching it. Every other field stays the accountant's, on every line,
+     * and a line of any other transaction is entirely free.
+     *
+     * A line of an accounting closing also keeps its date, because the date of the closing decides
+     * which transactions are read-only.
+     *
+     * This describes the line itself, not what the current user may do with it, so an empty list is
+     * how the client tells a generated line from a free one.
+     *
+     * @return string[]
+     */
+    public function getLockedFields(): array
+    {
+        return $this->transaction?->isClosing() ? ['balance', 'debit', 'credit', 'name', 'transactionDate'] : [];
+    }
+
+    /**
      * Set debit account.
      */
     public function setDebit(?Account $account): void

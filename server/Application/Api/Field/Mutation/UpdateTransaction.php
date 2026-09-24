@@ -8,6 +8,8 @@ use Application\Api\Helper;
 use Application\Api\Input\UpdatableTransactionLineInputType;
 use Application\Model\Transaction;
 use Application\Repository\TransactionRepository;
+use Cake\Chronos\ChronosDate;
+use Ecodev\Felix\Api\Exception;
 use Ecodev\Felix\Api\Field\FieldInterface;
 use GraphQL\Type\Definition\Type;
 use Mezzio\Session\SessionInterface;
@@ -28,6 +30,12 @@ abstract class UpdateTransaction implements FieldInterface
                 /** @var Transaction $transaction */
                 $transaction = $args['id']->getEntity();
                 $input = $args['input'];
+
+                // The date of a closing decides which transactions are read-only
+                if ($transaction->isClosing() && isset($input['transactionDate']) && !new ChronosDate($transaction->getTransactionDate())->equals(new ChronosDate($input['transactionDate']))) {
+                    throw new Exception('Cannot modify the date of an accounting closing');
+                }
+
                 Helper::hydrate($transaction, $input);
 
                 // Check ACL

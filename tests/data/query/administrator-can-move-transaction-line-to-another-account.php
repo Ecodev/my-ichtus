@@ -8,11 +8,11 @@ use PHPUnit\Framework\Assert;
 return [
     [
         'query' => 'mutation ($inputTransaction: TransactionPartialInput!, $lines: [UpdatableTransactionLineInput!]) {
-            updateTransaction(id: 8005, input: $inputTransaction, lines: $lines) {
+            updateTransaction(id: 8002, input: $inputTransaction, lines: $lines) {
                 balance
                 transactionLines {
                     name
-                    debit {
+                    credit {
                         code
                         balance
                     }
@@ -21,29 +21,24 @@ return [
         }',
         'variables' => [
             'inputTransaction' => [
-                'name' => 'Achat d\'un nouveau voilier (compte corrigé)',
+                'name' => 'Cotisation 2019 (compte corrigé)',
             ],
             'lines' => [
                 [
-                    'id' => 14005,
-                    'name' => 'Acquisition voilier NE123456',
-                    'balance' => '10000.00',
-                    'transactionDate' => '2019-02-04',
-                    'debit' => 10027,
+                    'id' => 14002,
+                    'name' => 'Cotisation 2019',
+                    'balance' => '90.00',
+                    'transactionDate' => '2019-03-12',
+                    'debit' => 10096,
+                    'credit' => 10013,
                 ],
                 [
-                    'id' => 14006,
-                    'name' => 'Paiement voilier par PostFinance',
-                    'balance' => '7000.00',
-                    'transactionDate' => '2019-02-04',
-                    'credit' => 10025,
-                ],
-                [
-                    'id' => 14007,
-                    'name' => 'Paiement voilier par Raiffeisen',
-                    'balance' => '3000.00',
-                    'transactionDate' => '2019-02-04',
-                    'credit' => 10026,
+                    'id' => 14011,
+                    'name' => 'Contribution au fond de réparation interne',
+                    'balance' => '10.00',
+                    'transactionDate' => '2019-03-12',
+                    'debit' => 10096,
+                    'credit' => 10104,
                 ],
             ],
         ],
@@ -51,22 +46,21 @@ return [
     [
         'data' => [
             'updateTransaction' => [
-                'balance' => '10000.00',
+                'balance' => '100.00',
                 'transactionLines' => [
                     [
-                        'name' => 'Acquisition voilier NE123456',
-                        'debit' => [
-                            'code' => 1500,
-                            'balance' => '10000.00',
+                        'name' => 'Cotisation 2019',
+                        'credit' => [
+                            'code' => 3200,
+                            'balance' => '90.00',
                         ],
                     ],
                     [
-                        'name' => 'Paiement voilier par PostFinance',
-                        'debit' => null,
-                    ],
-                    [
-                        'name' => 'Paiement voilier par Raiffeisen',
-                        'debit' => null,
+                        'name' => 'Contribution au fond de réparation interne',
+                        'credit' => [
+                            'code' => 2600,
+                            'balance' => '10.00',
+                        ],
                     ],
                 ],
             ],
@@ -75,14 +69,14 @@ return [
     null,
     function (Connection $connection): void {
         Assert::assertSame([
-            // 150 Immobilisation corporelles meubles, the common parent of both accounts
-            ['id' => 10010, 'balance' => 1000000],
-            // 1500 Machines et appareils, the account that was joined
-            ['id' => 10027, 'balance' => 1000000],
-            // 1510 Mobilier et installations, the parent of the account that was left
-            ['id' => 10028, 'balance' => 0],
-            // 15106 Voilier, the account that was left
-            ['id' => 10034, 'balance' => 0],
-        ], $connection->fetchAllAssociative('SELECT id, balance FROM account WHERE id IN (10010, 10027, 10028, 10034) ORDER BY id'));
+            // 3 Produits, the common parent of both accounts
+            ['id' => 10002, 'balance' => 24000],
+            // 3200 Vente de matériel, the account that was joined
+            ['id' => 10013, 'balance' => 9000],
+            // 3400 Vente de prestation, the parent of the account that was left
+            ['id' => 10014, 'balance' => 15000],
+            // 34000 Cotisations, the account that was left
+            ['id' => 10035, 'balance' => 0],
+        ], $connection->fetchAllAssociative('SELECT id, balance FROM account WHERE id IN (10002, 10013, 10014, 10035) ORDER BY id'));
     },
 ];

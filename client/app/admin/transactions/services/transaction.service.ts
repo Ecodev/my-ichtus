@@ -1,6 +1,12 @@
 import {inject, Service} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {formatIsoDate, type FormValidators, type Literal, NaturalAbstractModelService} from '@ecodev/natural';
+import {
+    formatIsoDate,
+    type FormControls,
+    type FormValidators,
+    type Literal,
+    NaturalAbstractModelService,
+} from '@ecodev/natural';
 import {
     type AccountsQuery,
     type CreateTransaction,
@@ -111,6 +117,20 @@ export class TransactionService extends NaturalAbstractModelService<
                 return Object.assign(emptyLine, line);
             }),
         );
+    }
+
+    /**
+     * The date of an accounting closing decides which transactions are read-only, so the server
+     * refuses to move it.
+     */
+    public override getFormConfig(model: Literal): FormControls {
+        const controls = super.getFormConfig(model);
+
+        if (model.isClosing) {
+            controls.transactionDate?.disable();
+        }
+
+        return controls;
     }
 
     protected override getFormExtraFieldDefaultValues(): Literal {
