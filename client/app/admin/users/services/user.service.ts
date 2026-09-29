@@ -334,7 +334,7 @@ export class UserService
         this.storage.setItem(this.storageKey, viewer.id);
     }
 
-    public loginAvailable(login: string, excludedId: string | null): Observable<boolean> {
+    public loginAvailable(login: string | number, excludedId: string | null): Observable<boolean> {
         const query = gql`
             query UserLoginAvailableQuery($login: String!, $excluded: UserID) {
                 userLoginAvailable(login: $login, excluded: $excluded)
@@ -345,7 +345,7 @@ export class UserService
             .query<UserLoginAvailableQuery, UserLoginAvailableQueryVariables>({
                 query: query,
                 variables: {
-                    login: login,
+                    login: login.toString(),
                     excluded: excludedId,
                 },
                 fetchPolicy: 'network-only',
